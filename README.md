@@ -1,6 +1,6 @@
 #### BASE
 * **What is the Android Architecture?** 
-* insert image
+![image](assets/android-architecture.png)
 
 * **Tell all the Android application components.** 
     - Android application architecture has the following components:
@@ -10,7 +10,7 @@
         - Resource Externalization − strings and graphics
         - Notification − light, sound, icon, notification, dialog box and toast
         - Content Providers − It will share the data between applications
- [Learn more here](https://developer.android.com/guide/components/fundamentals.html#Components)
+<br> [Learn more here](https://developer.android.com/guide/components/fundamentals.html#Components)
 
 * **What is the project structure of an Android Application?** - [Learn from here](https://developer.android.com/studio/projects)
 
