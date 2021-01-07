@@ -12,12 +12,13 @@
         - Content Providers − It will share the data between applications
 <br> [Learn more here](https://developer.android.com/guide/components/fundamentals.html#Components)
 
-* **What is the project structure of an Android Application?** - [Learn from here](https://developer.android.com/studio/projects)
+* **What is the project structure of an Android Application?** 
+- [Learn from here](https://developer.android.com/studio/projects)
 
 * **What is `Context`? How is it used?** 
     - A **Context** is a handle to the system; it provides services like resolving resources, obtaining access to databases and preferences, and so on. An Android app has activities. Context is like a handle to the environment your application is currently running in.
-    **Application Context:** This context is tied to the lifecycle of an application. The application context can be used where you need a context whose lifecycle is separate from the current context or when you are passing a context beyond the scope of an activity.
-    **Activity Context:** This context is available in an activity. This context is tied to the lifecycle of an activity. The activity context should be used when you are passing the context in the scope of an activity or you need the context whose lifecycle is attached to the current context.
+    - **Application Context:** This context is tied to the lifecycle of an application. The application context can be used where you need a context whose lifecycle is separate from the current context or when you are passing a context beyond the scope of an activity.
+    - **Activity Context:** This context is available in an activity. This context is tied to the lifecycle of an activity. The activity context should be used when you are passing the context in the scope of an activity or you need the context whose lifecycle is attached to the current context.
 [Learn more here](https://blog.mindorks.com/understanding-context-in-android-application-330913e32514)
 
 * **What is `AndroidManifest.xml`?** 
@@ -40,22 +41,22 @@
   * ```OnStop()```: Called when you are no longer visible to the user.</br>
   * ```OnDestroy()```: Called when the activity is finishing</br>
   * ```OnRestart()```: Called after your activity has been stopped, prior to it being started again</br>
-insert image
-   [Learn more here](https://www.youtube.com/watch?v=RiFui-i-s-o)
+![image](assets/android-activity_lifecycle.png)
+<br>[Learn more here](https://www.youtube.com/watch?v=RiFui-i-s-o)
 
 
 * **What is the difference between onCreate() and onStart()** 
     - The onCreate() method is called once during the Activity lifecycle, either when the application starts, or when the Activity has been destroyed and then recreated, for example during a configuration change.
     - The onStart() method is called whenever the Activity becomes visible to the user, typically after onCreate() or onRestart().
-[Learn more here](https://www.youtube.com/watch?v=RiFui-i-s-o)
+<br>[Learn more here](https://www.youtube.com/watch?v=RiFui-i-s-o)
 
 * **When only onDestroy is called for an activity without onPause() and onStop()?** 
     - If finish() is called in the OnCreate method of an activity, the system will invoke onDestroy() method directly.
-[Learn more here](https://www.youtube.com/watch?v=QSxcLnZ1-RU)
+<br>[Learn more here](https://www.youtube.com/watch?v=QSxcLnZ1-RU)
 
 * **Why do we need to call setContentView() in onCreate() of Activity class?** 
     - As onCreate() of an Activity is called only once, this is the point where most initialization should go. It is inefficient to set the content in onResume() or onStart() (which are called multiple times) as the setContentView() is a heavy operation.
-[Learn more here](https://www.youtube.com/watch?v=zeYK8JdMOi8)
+<br>[Learn more here](https://www.youtube.com/watch?v=zeYK8JdMOi8)
 
 * **What is onSavedInstanceState() and onRestoreInstanceState() in activity?**
     - **OnRestoreInstanceState()** - When activity is recreated after it was previously destroyed, we can recover the saved state from the Bundle that the system passes to the activity. Both the onCreate() and onRestoreInstanceState() callback methods receive the same Bundle that contains the instance state information. But because the onCreate() method is called whether the system is creating a new instance of your activity or recreating a previous one, you must check whether the state Bundle is null before you attempt to read it. If it is null, then the system is creating a new instance of the activity, instead of restoring a previous one that was destroyed.
@@ -97,7 +98,8 @@ insert image
 #### FRAGMENTS
   
 * <b>Describe fragments:</b></br>
-  * Fragment is a UI entity attached to Activity. Fragments can be reused by attaching in different activities. Activity can have multiple fragments attached to it. Fragment must be attached to an activity and its lifecycle will depend on its host activity. [Learn from here](https://blog.mindorks.com/android-fragments-and-its-lifecycle)</br>
+  * Fragment is a UI entity attached to Activity. Fragments can be reused by attaching in different activities. Activity can have multiple fragments attached to it. Fragment must be attached to an activity and its lifecycle will depend on its host activity. 
+<br>[Learn from here](https://blog.mindorks.com/android-fragments-and-its-lifecycle)</br>
 
  
   * <b>Describe fragment lifecycle</b></br>
@@ -111,10 +113,12 @@ insert image
   * ```onStop()``` : Fragment going to be stopped by calling onStop()
   * ```onDestroyView()``` : Fragment view will destroy after call this method
   * ```onDestroy()``` :called to do final clean up of the fragment’s state but Not guaranteed to be called by the Android platform.</br>  
-  
-  **What is the correlation between activity and fragment life cycle?**<br/>
+![image](assets/fragment_lifecycle.png)
+
+
+* **What is the correlation between activity and fragment life cycle?**<br/>
 -   Here is how Activity's and Fragment's lifecyle are called together:
-- insert image
+![image](assets/activity-fragment-lifecycles.png)
 
 * <b>What is the difference between fragments & activities. Explain the relationship between the two.</b></br>
   * An Activity is an application component that provides a screen, with which users can interact in order to do something whereas a Fragment represents a behavior or a portion of user interface in an Activity (with its own lifecycle and input events, and which can be added or removed at will).
@@ -440,6 +444,9 @@ savedInstanceState.Also it won't affect the performance even if there are large 
     * Background Service: A background service performs an operation that isn’t directly noticed by the user. In Android API level 26 and above, there are restrictions to using background services and it is recommended to use [WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager) in these cases.
     * Bound Service: A service is bound when an application component binds to it by calling bindService(). A bound service offers a client-server interface that allows components to interact with the service, send requests, receive results. A bound service runs only as long as another application component is bound to it.</br> 
 [Learn from here](https://developer.android.com/guide/components/services)
+
+* **What is Service Lifecycle?** 
+![image](assets/service_lifecycle.png)
 
 * **`Service` vs `IntentService`.** 
     - IntentService is a subclass of Service that can perform tasks using worker thread unlike service that blocks main thread.
