@@ -13,18 +13,18 @@
 <br> [Learn more here](https://developer.android.com/guide/components/fundamentals.html#Components)
 
 * **What is the project structure of an Android Application?** 
-- [Learn from here](https://developer.android.com/studio/projects)
+    - [Learn from here](https://developer.android.com/studio/projects)
 
 * **What is `Context`? How is it used?** 
     - A **Context** is a handle to the system; it provides services like resolving resources, obtaining access to databases and preferences, and so on. An Android app has activities. Context is like a handle to the environment your application is currently running in.
     - **Application Context:** This context is tied to the lifecycle of an application. The application context can be used where you need a context whose lifecycle is separate from the current context or when you are passing a context beyond the scope of an activity.
     - **Activity Context:** This context is available in an activity. This context is tied to the lifecycle of an activity. The activity context should be used when you are passing the context in the scope of an activity or you need the context whose lifecycle is attached to the current context.
-[Learn more here](https://blog.mindorks.com/understanding-context-in-android-application-330913e32514)
+<br>[Learn more here](https://blog.mindorks.com/understanding-context-in-android-application-330913e32514)
 
 * **What is `AndroidManifest.xml`?** 
     - **Manifest**: Every application must have an AndroidManifest.xml file (with precisely that name) in its root directory. The manifest presents essential information about the application to the Android system, information the system must have before it can run any of the application's code. It contains information of your package, including components of the application such as activities, services, broadcast receivers, content providers etc.
     - **R.Java:** It is an auto-generated file by aapt (Android Asset Packaging Tool) that contains resource IDs for all the resources of res/ directory. 
-[Learn more here](https://developer.android.com/guide/topics/manifest/manifest-intro)
+<br>[Learn more here](https://developer.android.com/guide/topics/manifest/manifest-intro)
 
 * **What is `Application` class?**
     - The Application class in Android is the base class within an Android app that contains all other components such as activities and services. The Application class, or any subclass of the Application class, is instantiated before any other class when the process for your application/package is created.
@@ -41,7 +41,7 @@
   * ```OnStop()```: Called when you are no longer visible to the user.</br>
   * ```OnDestroy()```: Called when the activity is finishing</br>
   * ```OnRestart()```: Called after your activity has been stopped, prior to it being started again</br>
-![image](assets/android-activity_lifecycle.png)
+![image](assets/activity_lifecycle.png)
 <br>[Learn more here](https://www.youtube.com/watch?v=RiFui-i-s-o)
 
 
@@ -73,13 +73,13 @@
        * For instance, let’s say we have a search screen and the user has entered a query in the Edittext. This results in a list of items being displayed in the RecyclerView. Now if the screen is rotated, the ideal way to prevent resetting of data would be to store the list of search items in the ViewModel and the query text user has entered in the OnSaveInstanceState method of the activity.</br>
 
   
-* <b>Mention two ways to clear the back stack of Activities when a new Activity is called using intent</b></br>
-   * The first approach is to use a FLAG_ACTIVITY_CLEAR_TOP flag. The second way is by using FLAG_ACTIVITY_CLEAR_TASK and FLAG_ACTIVITY_NEW_TASK in conjunction.</br>
-  
-  
 * <b>What’s the difference between FLAG_ACTIVITY_CLEAR_TASK and FLAG_ACTIVITY_CLEAR_TOP?</b></br>
   * <b>FLAG_ACTIVITY_CLEAR_TASK</b> is used to clear all the activities from the task including any existing instances of the class invoked. The Activity launched by intent becomes the new root of the otherwise empty task list. This flag has to be used in conjunction with FLAG_ ACTIVITY_NEW_TASK.</br>
   * <b>FLAG_ACTIVITY_CLEAR_TOP</b> on the other hand, if set and if an old instance of this Activity exists in the task list then barring that all the other activities are removed and that old activity becomes the root of the task list. Else if there’s no instance of that activity then a new instance of it is made the root of the task list. Using FLAG_ACTIVITY_NEW_TASK in conjunction is a good practice, though not necessary.</br>  
+  
+  * <b>Mention two ways to clear the back stack of Activities when a new Activity is called using intent</b></br>
+   * The first approach is to use a FLAG_ACTIVITY_CLEAR_TOP flag. The second way is by using FLAG_ACTIVITY_CLEAR_TASK and FLAG_ACTIVITY_NEW_TASK in conjunction.</br>
+  
   
   
 
@@ -102,7 +102,7 @@
 <br>[Learn from here](https://blog.mindorks.com/android-fragments-and-its-lifecycle)</br>
 
  
-  * <b>Describe fragment lifecycle</b></br>
+* <b>Describe fragment lifecycle</b></br>
   * ```onAttach()``` : The fragment instance is associated with an activity instance.The fragment and the activity is not fully initialized. Typically you get in this method a reference to the activity which uses the fragment for further initialization work.
   * ```onCreate()``` : The system calls this method when creating the fragment. You should initialize essential components of the fragment that you want to retain when the fragment is paused or stopped, then resumed.
   * ```onCreateView()``` : The system calls this callback when it’s time for the fragment to draw its user interface for the first time. To draw a UI for your fragment, you must return a View component from this method that is the root of your fragment’s layout. You can return null if the fragment does not provide a UI.
