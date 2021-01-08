@@ -34,7 +34,18 @@
 
 #### ACTIVITY
 
-* What are the four states of the Activity Lifecycle? [[active/running, paused, stopped, destroyed]](https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle)
+* What are the four states of the Activity Lifecycle? 
+    - The Android OS uses a priority queue to assist in managing activities running on the device. Based on the state a particular Android activity is in, it will be assigned a certain priority within the OS. This priority system helps Android identify activities that are no longer in use, allowing the OS to reclaim memory and resources.
+
+        These states can be broken into three main groups as follows:
+
+        - Active or Running - Activities are considered active or running if they are in the foreground, also known as the top of the activity stack. This is considered the highest priority activity in the Android Activity stack, and as such will only be killed by the OS in extreme situations, such as if the activity tries to use more memory than is available on the device as this could cause the UI to become unresponsive.
+
+        - Paused - When the device goes to sleep, or an activity is still visible but partially hidden by a new, non-full-sized or transparent activity, the activity is considered paused. Paused activities are still alive, that is, they maintain all state and member information, and remain attached to the window manager. This is considered to be the second highest priority activity in the Android Activity stack and, as such, will only be killed by the OS if killing this activity will satisfy the resource requirements needed to keep the Active/Running Activity stable and responsive.
+
+        - Stopped - Activities that are completely obscured by another activity are considered stopped or in the background. Stopped activities still try to retain their state and member information for as long as possible, but stopped activities are considered to be the lowest priority of the three states and, as such, the OS will kill activities in this state first to satisfy the resource requirements of higher priority activities.
+
+<br>[Learn more here](https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle)
 
 * **What is `Activity` and its lifecycle?** 
     - Activities are basically containers or windows to the user interface.
@@ -1161,6 +1172,11 @@ More additional info to get started with RxJava is available at:
 * **What is an Application Not Responding (ANR) error, and how can you prevent them from occurring in an app?**</br>
    * An ANR dialog appears when your UI has been unresponsive for more than 5 seconds, usually because you’ve blocked the main thread. To avoid encountering ANR errors, you should move as much work off the main thread as possible.</br>
 
+
+* **Build Type, Product Flavor, Build Variant**
+    * **Build Type:** Build Types controls how to build and package your app, for example whether or not ProGuard is run, how the resulting application package is signed and whether debug symbols are to be included. By default, the build system defines two build types: `debug` and `release`.
+    * **Product Flavor:** Product Flavor configuration defines a customized version of the application build. It can be used to specify custom features, minimum and target API levels, device and API requirements like layout, drawable and custom code. This can help create different label apps as well. Flavours can vary in adding different features or customizing exisitng features, different icons and resources, different styles and strings etc.
+    * **Build Variant:** The combination of **Build Type** and **Product Flavor** is known as **Build Variant**. For example, for above build types (debug and release) and product flavours (demo and full versions), build variants can be: `demoDebug`, `demoRelease`, `fullDebug`, `fullRelease`.
 
 * **What is DDMS and what can you do with it?** - [Learn more here](https://developer.android.com/studio/profile/monitor)
 
