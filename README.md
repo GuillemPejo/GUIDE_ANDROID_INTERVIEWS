@@ -949,14 +949,14 @@ Serializable uses reflection while for parcelable, developers from android team 
       [Official documentation](https://developer.android.com/topic/libraries/architecture/livedata) or [More info](https://github.com/Kirchhoff-/Android-Interview-Questions/blob/master/Android/What's%20LiveData.md) or [Sample  implementation](https://github.com/anitaa1990/GameOfThronesTrivia)
 
        * **Navigation Component** 
-                The Navigation Architecture Component simplifies implementing navigation, while also helping you visualize your app's navigation flow. The library provides a number of benefits, including:
-                    * -Automatic handling of fragment transactions
-                    * Correctly handling *up* and *back* by default
-                * Default behaviors for animations and transitions
-                * Deep linking as a first class operation
-                * Implementing navigation UI patterns (like navigation drawers and bottom nav) with little additional work
-                * Type safety when passing information while navigating
-                * Android Studio tooling for visualizing and editing the navigation flow of an app
+                : The Navigation Architecture Component simplifies implementing navigation, while also helping you visualize your app's navigation flow. The library provides a number of benefits, including:  
+                    * Automatic handling of fragment transactions 
+                    * Correctly handling up and back by default 
+                    * Default behaviors for animations and transitions 
+                    * Deep linking as a first class operation 
+                    * Implementing navigation UI patterns (like navigation drawers and bottom nav) with little additional work 
+                    * Type safety when passing information while navigating 
+                    * Android Studio tooling for visualizing and editing the navigation flow of an appvisualizing and editing the navigation flow of an app
 
             The Navigation component consists of three key parts that are described below:
                 - Navigation graph: An XML resource that contains all navigation-related information in one centralized location. This includes all of the individual content areas within your app, called *destinations*, as well as the possible paths that a user can take through your app.
