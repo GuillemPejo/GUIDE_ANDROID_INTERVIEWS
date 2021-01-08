@@ -940,7 +940,7 @@ Serializable uses reflection while for parcelable, developers from android team 
         [Article on how to implement Room Db](https://medium.com/@anitaa_1990/5-steps-to-implement-room-persistence-library-in-android-47b10cd47b24)           [Sample  implementation](https://github.com/anitaa1990/RoomDb-Sample)
         
       * **Live Data** 
-      - LiveData is an observable data holder class. Unlike a regular observable, LiveData is lifecycle-aware, meaning it respects the lifecycle of other app components, such as activities, fragments, or services. This awareness ensures LiveData only updates app component observers that are in an active lifecycle state.
+        LiveData is an observable data holder class. Unlike a regular observable, LiveData is lifecycle-aware, meaning it respects the lifecycle of other app components, such as activities, fragments, or services. This awareness ensures LiveData only updates app component observers that are in an active lifecycle state.
 
         LiveData considers an observer, which is represented by the Observer class, to be in an active state if its lifecycle is in the STARTED or RESUMED state. LiveData only notifies active observers about updates. Inactive observers registered to watch LiveData objects aren't notified about changes.
 
@@ -949,14 +949,14 @@ Serializable uses reflection while for parcelable, developers from android team 
       [Official documentation](https://developer.android.com/topic/libraries/architecture/livedata) or [More info](https://github.com/Kirchhoff-/Android-Interview-Questions/blob/master/Android/What's%20LiveData.md) or [Sample  implementation](https://github.com/anitaa1990/GameOfThronesTrivia)
 
        * **Navigation Component** 
-       - The Navigation Architecture Component simplifies implementing navigation, while also helping you visualize your app's navigation flow. The library provides a number of benefits, including:
-                - Automatic handling of fragment transactions
-                - Correctly handling *up* and *back* by default
-                - Default behaviors for animations and transitions
-                - Deep linking as a first class operation
-                - Implementing navigation UI patterns (like navigation drawers and bottom nav) with little additional work
-                - Type safety when passing information while navigating
-                - Android Studio tooling for visualizing and editing the navigation flow of an app
+                The Navigation Architecture Component simplifies implementing navigation, while also helping you visualize your app's navigation flow. The library provides a number of benefits, including:
+                * Automatic handling of fragment transactions
+                * Correctly handling *up* and *back* by default
+                * Default behaviors for animations and transitions
+                * Deep linking as a first class operation
+                * Implementing navigation UI patterns (like navigation drawers and bottom nav) with little additional work
+                * Type safety when passing information while navigating
+                * Android Studio tooling for visualizing and editing the navigation flow of an app
 
             The Navigation component consists of three key parts that are described below:
                 - Navigation graph: An XML resource that contains all navigation-related information in one centralized location. This includes all of the individual content areas within your app, called *destinations*, as well as the possible paths that a user can take through your app.
