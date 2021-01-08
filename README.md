@@ -7,10 +7,19 @@
         - Activities - Provides the window in which the app draws its UI
         - Services − It will perform background functionalities
         - Intent  & Broadcast Receivers − It will perform the inter connection between activities and the data passing mechanism
+        - Content Providers − It will share the data between applications
         - Resource Externalization − strings and graphics
         - Notification − light, sound, icon, notification, dialog box and toast
-        - Content Providers − It will share the data between applications
 <br> [Learn more here](https://developer.android.com/guide/components/fundamentals.html#Components)
+
+* **Describe Android application components.** 
+    - A **Activity** represents a single screen with a user interface, in-short Activity performs actions on the screen. An activity provides the window in which the app draws its UI. This window typically fills the screen, but may be smaller than the screen and float on top of other windows. Generally, one activity implements one screen in an app. For instance, one of an app’s activities may implement a Preferences screen, while another activity implements a Select Photo screen. In new architectural approaches, there is only one activity for the entire application, and it controls the fragments that interact with the user.
+
+    - A **Service** is an application component that can perform long-running operations in the background, and it doesn't provide a user interface. Another application component can start a service, and it continues to run in the background even if the user switches to another application. Additionally, a component can bind to a service to interact with it and even perform interprocess communication (IPC). For example, a service can handle network transactions, play music, perform file I/O, or interact with a content provider, all from the background.
+
+    - A **Broadcast Receivers** (receiver) is an Android component which allows you to register for system or application events. Android apps can send or receive broadcast messages from the Android system and other Android apps, similar to the publish-subscribe design pattern. These broadcasts are sent when an event of interest occurs. For example, the Android system sends broadcasts when various system events occur, such as when the system boots up or the device starts charging. Apps can also send custom broadcasts, for example, to notify other apps of something that they might be interested in (for example, some new data has been downloaded).
+
+    - A **Content Provider** manages access to a central repository of data. You implement a provider as one or more classes in an Android application, along with elements in the manifest file. One of your classes implements a subclass `ContentProvider`, which is the interface between your provider and other applications. Although content providers are meant to make data available to other applications, you may of course have activities in your application that allow the user to query and modify the data managed by your provider.
 
 * **What is the project structure of an Android Application?** 
     - [Learn more here](https://developer.android.com/studio/projects)
@@ -118,6 +127,16 @@
 * **Describe fragments:**</br>
   * Fragment is a UI entity attached to Activity. Fragments can be reused by attaching in different activities. Activity can have multiple fragments attached to it. Fragment must be attached to an activity and its lifecycle will depend on its host activity. 
 <br>[Learn more here](https://blog.mindorks.com/android-fragments-and-its-lifecycle) or [here](http://developer.android.com/guide/components/fragments.html)</br>
+
+* **What are the four states of the Activity Lifecycle?** 
+    
+    Managing the lifecycle of a fragment is a lot like managing the lifecycle of an activity. Like an activity, a fragment can exist in three states:
+
+        - **Resumed**: The fragment is visible in the running activity.
+
+        - **Paused** - Another activity is in the foreground and has focus, but the activity in which this fragment lives is still visible (the foreground activity is partially transparent or doesn't cover the entire screen).
+
+        - **Stopped** - The fragment isn't visible. Either the host activity has been stopped or the fragment has been removed from the activity but added to the back stack. A stopped fragment is still alive (all state and member information is retained by the system). However, it is no longer visible to the user and is killed if the activity is killed.
 
  
 * **Describe fragment lifecycle**</br>
@@ -229,6 +248,19 @@ A View is a superclass for all the UI components. You can also check out the off
   
 * **What is the difference between a regular .png and a nine-patch image?**</br>
    * It is one of a resizable bitmap resource which is being used as backgrounds or other images on the device. The NinePatch class allows drawing a bitmap in nine sections. The four corners are unscaled; the middle of the image is scaled in both axes, the four edges are scaled into one axis.</br>
+
+
+* **Raw folder vs Assets folder**
+    - The files in both directories will be stored intact in the APK package after being packaged and will not be compiled into binary systems.
+
+    **The differences between res/raw and assets:**
+
+    Since `raw` is a subfolder of Resources (`res`), Android will automatically generate an ID for any file located inside it. This ID is then stored an the `R` class that will act as a reference to a file, meaning it can be easily accessed from other Android classes and methods and even in Android XML files. Using the automatically generated ID is the fastest way to have access to a file in Android.
+
+    The Assets folder is an “appendix” directory. The `R` class does not generate IDs for the files placed there, so its less compatible with some Android classes and methods. Also, it’s much slower to access a file inside it, since you will need to get a handle to it based on a String. However some operations are more easily done by placing files in this folder, like copying a database file to the system’s memory. There’s no (easy) way to create an Android XML reference to files inside the Assets folder.
+
+* **@id vs @+id**</br>
+   * The at-symbol (`@`) at the beginning of the string indicates that the XML parser should parse and expand the rest of the ID string and identify it as an ID resource. The plus-symbol (`+`) means that this is a new resource name that must be created and added to our resources (in the `R.java` file). In other words, the `+` symbol tells Android build tools that you are declaring a new resource, `@id/` you are referring to an existing resource (predefined by `@+id/` and already exists in `R.java`.
     
    
 * Describe how to implement XML namespaces.
@@ -358,8 +390,9 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
 * **How does RecyclerView differ from ListView?**</br>
    * **ViewHolder Pattern**:  Recyclerview implements the ViewHolders pattern whereas it is not mandatory in a ListView. A RecyclerView recycles and reuses cells when scrolling. 
    * **What is a ViewHolder Pattern?** - A ViewHolder object stores each of the component views inside the tag field of the Layout, so you can immediately access them without the need to look them up repeatedly. In ListView, the code might call ```findViewById()``` frequently during the scrolling of ListView, which can slow down performance. Even when the Adapter returns an inflated view for recycling, you still need to look up the elements and update them. A way around repeated use of ```findViewById()``` is to use the "view holder" design pattern.
-   * **LayoutManager**: In a ListView, the only type of view available is the vertical ListView.  A RecyclerView decouples list from its container so we can put list items easily at run time in the different containers (linearLayout, gridLayout) by setting LayoutManager.
-   * **Item Animator**: ListViews are lacking in support of good animations, but the RecyclerView brings a whole new dimension to it.</br> 
+   * **LayoutManager**: In a ListView, the only type of view available is the vertical ListView.  A RecyclerView decouples list from its container so we can put list items easily at run time in the different containers (linearLayout, gridLayout and staggeredLayout) by setting LayoutManager.
+   * **Item Animator**: ListViews are lacking in support of good animations, but the RecyclerView brings a whole new dimension to it. Using the RecyclerView.ItemAnimator class, animating the views becomes so much easy and intuitive.
+    * **Item Decoration**: In case of **ListViews**, dynamically decorating items like adding borders or dividers was never easy. But in case of **RecyclerView**, the **RecyclerView.ItemDecorator** class gives huge control to the developers but makes things a bit more time consuming and complex.</br> 
    
    
 * **How would you implement swipe animation in Android**</br> 
@@ -460,7 +493,18 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
 
 * **Difference between Service & Intent Service**</br>
   * **Service** is the base class for Android services that can be extended to create any service. A class that directly extends Service runs on the main thread so it will block the UI (if there is one) and should therefore either be used only for short tasks or should make use of other threads for longer tasks.</br>  
-  * **IntentService** is a subclass of Service that handles asynchronous requests (expressed as “Intents”) on demand. Clients send requests through startService(Intent) calls. The service is started as needed, handles each Intent in turn using a worker thread, and stops itself when it runs out of work.</br>[Learn more here](https://stackoverflow.com/a/15772151/497132)
+  * **IntentService** is a subclass of Service that handles asynchronous requests (expressed as “Intents”) on demand. Clients send requests through startService(Intent) calls. The service is started as needed, handles each Intent in turn using a worker thread, and stops itself when it runs out of work.
+
+    | `Service`  | `IntentService`  |
+    |---|---|
+    | Is invoked using `startService()`  | Is invoked using `Intent` |
+    | Can be invoked from any thread  | Can in invoked from the Main thread only  |
+    | Runs background operations on the Main Thread of the Application by default. Hence it can block your Application’s UI  | Creates a separate   worker thread to run background operations  |
+    | Invoked multiple times would create multiple instances.  |  Invoked   multiple times won’t create multiple instances |
+    | Needs to be stopped using `stopSelf()` or `stopService()`  | Automatically    stops after the queue is completed. No need to trigger `stopService()` or `stopSelf()`  |
+    | Can run parallel operations  | Multiple intent calls are automatically queued and they would be executed sequentially |
+
+</br>[Learn more here](https://stackoverflow.com/a/15772151/497132)
   
 
 * **What are "launch modes"?** 
@@ -1184,21 +1228,21 @@ More additional info to get started with RxJava is available at:
 
 
 * **Room vs SQLite** 
-- SQLite is an in-process library that implements a self-contained, serverless, zero-configuration, transactional SQL database engine. 
+    SQLite is an in-process library that implements a self-contained, serverless, zero-configuration, transactional SQL database engine. 
 
-SQLite is an embedded SQL database engine. Unlike most other SQL databases, SQLite does not have a separate server process. SQLite reads and writes directly to ordinary disk files. A complete SQL database with multiple tables, indices, triggers, and views, is contained in a single disk file. The database file format is cross-platform - you can freely copy a database between 32-bit and 64-bit systems or between big-endian and little-endian architectures
+    SQLite is an embedded SQL database engine. Unlike most other SQL databases, SQLite does not have a separate server process. SQLite reads and writes directly to ordinary disk files. A complete SQL database with multiple tables, indices, triggers, and views, is contained in a single disk file. The database file format is cross-platform - you can freely copy a database between 32-bit and 64-bit systems or between big-endian and little-endian architectures
 
-The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access while harnessing the full power of SQLite.
+    The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access while harnessing the full power of SQLite.
 
-The library helps you create a cache of your app's data on a device that's running your app. This cache, which serves as your app's single source of truth, allows users to view a consistent copy of key information within your app, regardless of whether users have an internet connection.
+    The library helps you create a cache of your app's data on a device that's running your app. This cache, which serves as your app's single source of truth, allows users to view a consistent copy of key information within your app, regardless of whether users have an internet connection.
 
-Room is an ORM, Object Relational Mapping library. In other words, Room will map our database objects to Java objects. Room provides an abstraction layer over SQLite to allow fluent database access while harnessing the full power of SQLite.
+    Room is an ORM, Object Relational Mapping library. In other words, Room will map our database objects to Java objects. Room provides an abstraction layer over SQLite to allow fluent database access while harnessing the full power of SQLite.
 
-Difference between SQLite and Room persistence library:
-- In the case of SQLite, There is no compile-time verification of raw SQLite queries. But in Room, there is SQL validation at compile time.
-- You need to use lots of boilerplate code to convert between SQL queries and Java data objects. But, Room maps our database objects to Java Object without boilerplate code.
-- As your schema changes, you need to update the affected SQL queries manually. Room solves this problem.
-- Room is built to work with LiveData and RxJava for data observation, while SQLite does not.
+    Difference between SQLite and Room persistence library:
+        - In the case of SQLite, There is no compile-time verification of raw SQLite queries. But in Room, there is SQL validation at compile time.
+        - You need to use lots of boilerplate code to convert between SQL queries and Java data objects. But, Room maps our database objects to Java Object without boilerplate code.
+        - As your schema changes, you need to update the affected SQL queries manually. Room solves this problem.
+        - Room is built to work with LiveData and RxJava for data observation, while SQLite does not.
 
 * **What is DDMS and what can you do with it?** - [Learn more here](https://developer.android.com/studio/profile/monitor)
 
