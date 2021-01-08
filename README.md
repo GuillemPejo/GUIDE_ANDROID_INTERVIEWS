@@ -29,7 +29,8 @@
     - A **Context** is a handle to the system; it provides services like resolving resources, obtaining access to databases and preferences, and so on. An Android app has activities. Context is like a handle to the environment your application is currently running in.
     - **Application Context:** This context is tied to the lifecycle of an application. The application context can be used where you need a context whose lifecycle is separate from the current context or when you are passing a context beyond the scope of an activity.
     - **Activity Context:** This context is available in an activity. This context is tied to the lifecycle of an activity. The activity context should be used when you are passing the context in the scope of an activity or you need the context whose lifecycle is attached to the current context.
-<br>[Learn more here](https://blog.mindorks.com/understanding-context-in-android-application-330913e32514)
+<br>[Learn more here](https://blog.mindorks.com/understanding-context-in-android-application-330913e32514) or [here](https://github.com/Kirchhoff-/Android-Interview-Questions/blob/master/Android/What's%20Context.md)
+
 
 * **What is AndroidManifest.xml used for? Give examples of what kind of data you would add to it.**
 
@@ -129,7 +130,13 @@
 
 #### CONTENT PROVIDERS
 
-* What is ContentProviders typically used for and how works?
+* **Describe content providers**</br>
+  * A ContentProvider provides data from one application to another, when requested. It manages access to a structured set of data.  It provides mechanisms for defining data security. ContentProvider is the standard interface that connects data in one process with code running in another process.</br>  
+  * When you want to access data in a **ContentProvider**, you must instead use the ContentResolver object in your application’s Context to communicate with the provider as a client. The provider object receives data requests from clients, performs the requested action, and returns the results.</br>
+  <br>[Learn more here](http://developer.android.com/guide/topics/providers/content-providers.html)
+
+
+* **What is ContentProviders typically used for and how works?**
     - You need to build a content provider if you want to provide one or more of the following features:
         - You want to offer complex data or files to other applications.
         - You want to allow users to copy complex data from your app into other apps.
@@ -141,9 +148,9 @@
 
     To understand how it works, consider the following diagram:
 
-    ![](./assets/content_provider.jpg "Content provider")
+    ![](/assets/content_provider.jpeg "Content provider")
 
-    * Content URIs
+    * **Content URIs**
 
         Content URIs are the uniform resource identifiers that identify the data in the content providers. A content URI includes two things: *Authority* that is the symbolic name of the Provider and a *Path* that is a name that points towards the data. Every content provider methods have an argument which is URI. URIs for content providers look like this:
 
@@ -154,11 +161,6 @@
         - **path** – It is often used to identify some or the other data of the provider. The path is mostly used to identify individual tables.
         - **optional_id** – id is used to access a single particular record of a file. We use this only in cases where we need to access only a particular record and not the complete file. It’s a numeric identifier to access a particular row of the data table.
 
-
-* **Describe content providers**</br>
-  * A ContentProvider provides data from one application to another, when requested. It manages access to a structured set of data.  It provides mechanisms for defining data security. ContentProvider is the standard interface that connects data in one process with code running in another process.</br>  
-  * When you want to access data in a **ContentProvider**, you must instead use the ContentResolver object in your application’s Context to communicate with the provider as a client. The provider object receives data requests from clients, performs the requested action, and returns the results.</br>
-  <br>[Learn more here](http://developer.android.com/guide/topics/providers/content-providers.html)
   
   
 * **Access data using Content Provider:**</br>
@@ -919,16 +921,51 @@ Serializable uses reflection while for parcelable, developers from android team 
 
 #### Android Jetpack
 
-* **What is Android Jetpack and why to use this?** - [Learn more here](https://blog.mindorks.com/what-is-android-jetpack-and-why-should-we-use-it)
+* **What is Android Jetpack and why to use this?** 
+    - Jetpack encompasses a collection of Android libraries that incorporate best practices and provide backwards compatibility in your Android apps. The Android Jetpack components bring together the existing Support Library and Architecture Components and arranges them into four categories.
+
+        ![image](assets/jetpack.png)
+
+        Android Jetpack components are provided as "unbundled" libraries that are not part of the underlying Android platform. This means that you can adopt each component at your own speed, at your own time. When new Android Jetpack functionality is available, you can add it to your app.
+
+        In addition, your app can run on various versions of the platform because Android Jetpack components are built to provide their functionality independent of any specific version, providing backwards compatibility.
+
+        Further, Android Jetpack is built around modern design practices like separation of concerns and testability as well as productivity features like Kotlin integration. This makes it far easier for you to build robust, high quality apps with less code. While the components of Android Jetpack are built to work together, e.g. lifecycle awareness and live data, you don't have to use all of them -- you can integrate the parts of Android Jetpack that solve your problems while keeping the parts of your app that are already working great.
+
+[Learn more here](https://blog.mindorks.com/what-is-android-jetpack-and-why-should-we-use-it)
 
 * **What are Android Architecture Components?** 
    * A collection of libraries that help you design robust, testable, and maintainable apps. [Official documentation](https://developer.android.com/topic/libraries/architecture/)
       * **Room** - [Official documentation](https://developer.android.com/topic/libraries/architecture/room)   
-        [Article on how to implement Room Db](https://medium.com/@anitaa_1990/5-steps-to-implement-room-persistence-library-in-android-47b10cd47b24)  
-        [Sample  implementation](https://github.com/anitaa1990/RoomDb-Sample)
+        [Article on how to implement Room Db](https://medium.com/@anitaa_1990/5-steps-to-implement-room-persistence-library-in-android-47b10cd47b24)           [Sample  implementation](https://github.com/anitaa1990/RoomDb-Sample)
         
-      * **Live Data** - [Official documentation](https://developer.android.com/topic/libraries/architecture/livedata)   
-        [Sample  implementation](https://github.com/anitaa1990/GameOfThronesTrivia)
+      * **Live Data** 
+      - LiveData is an observable data holder class. Unlike a regular observable, LiveData is lifecycle-aware, meaning it respects the lifecycle of other app components, such as activities, fragments, or services. This awareness ensures LiveData only updates app component observers that are in an active lifecycle state.
+
+        LiveData considers an observer, which is represented by the Observer class, to be in an active state if its lifecycle is in the STARTED or RESUMED state. LiveData only notifies active observers about updates. Inactive observers registered to watch LiveData objects aren't notified about changes.
+
+        You can register an observer paired with an object that implements the LifecycleOwner interface. This relationship allows the observer to be removed when the state of the corresponding Lifecycle object changes to DESTROYED. This is especially useful for activities and fragments because they can safely observe LiveData objects and not worry about leaks—activities and fragments are instantly unsubscribed when their lifecycles are destroyed.
+
+      [Official documentation](https://developer.android.com/topic/libraries/architecture/livedata) or [More info](https://github.com/Kirchhoff-/Android-Interview-Questions/blob/master/Android/What's%20LiveData.md) or [Sample  implementation](https://github.com/anitaa1990/GameOfThronesTrivia)
+
+       * **Navigation Component** 
+       - The Navigation Architecture Component simplifies implementing navigation, while also helping you visualize your app's navigation flow. The library provides a number of benefits, including:
+                - Automatic handling of fragment transactions
+                - Correctly handling *up* and *back* by default
+                - Default behaviors for animations and transitions
+                - Deep linking as a first class operation
+                - Implementing navigation UI patterns (like navigation drawers and bottom nav) with little additional work
+                - Type safety when passing information while navigating
+                - Android Studio tooling for visualizing and editing the navigation flow of an app
+
+            The Navigation component consists of three key parts that are described below:
+                - Navigation graph: An XML resource that contains all navigation-related information in one centralized location. This includes all of the individual content areas within your app, called *destinations*, as well as the possible paths that a user can take through your app.
+                - `NavHost`: An empty container that displays destinations from your navigation graph. The Navigation component contains a default `NavHost` implementation, `NavHostFragment`, that displays fragment destinations.
+                - `NavController`: An object that manages app navigation within a `NavHost`. The `NavController` orchestrates the swapping of destination content in the `NavHost` as users move throughout your app.
+                As you navigate through your app, you tell the `NavController` that you want to navigate either along a specific path in your navigation graph or directly to a specific destination. The `NavController` then shows the appropriate destination in the `NavHost`.
+
+
+       [Official documentation](https://developer.android.com/guide/navigation)
         
       * **ViewModel** - [Official documentation](https://developer.android.com/topic/libraries/architecture/viewmodel)   
         [Sample  implementation](https://github.com/anitaa1990/GameOfThronesTrivia)
