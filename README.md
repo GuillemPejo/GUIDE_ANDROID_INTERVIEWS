@@ -30,7 +30,29 @@
     - **Activity Context:** This context is available in an activity. This context is tied to the lifecycle of an activity. The activity context should be used when you are passing the context in the scope of an activity or you need the context whose lifecycle is attached to the current context.
 <br>[Learn more here](https://blog.mindorks.com/understanding-context-in-android-application-330913e32514)
 
-* What is AndroidManifest.xml used for? Give examples of what kind of data you would add to it. [Learn more here](http://developer.android.com/guide/topics/manifest/manifest-intro.html)
+* **What is AndroidManifest.xml used for? Give examples of what kind of data you would add to it.**
+
+    * - The `AndroidManifest.xml` file contains information of your package, including components of the application such as activities, services, broadcast receivers, content providers etc.
+
+    * - **Responsibilities:**
+        - Protect the application to access any protected parts by providing the permissions.
+        - Declares the android api that the application is going to use.
+        - Declares lists the instrumentation classes. The instrumentation classes provides profiling and other informations.
+        - Specify whether app should be install on an SD card of the internal memory.
+    * **Nodes:**
+        - **uses-sdk** - It is used to define a minimum and maximum SDK version that must be available on a device so that our application function properly. However, beware that attributes in the **<uses-sdk>** element are overridden by corresponding properties in the `build.gradle`
+  
+        - **uses-configuration** - The uses-configuration nodes are used to specify the combination of input mechanisms that are supported by our application.
+
+        - **uses-features** -  It is used to specify which hardware and software features your app needs.
+
+        - **supports-screens** - It is used to describe the screen support for application.
+
+        - **permission** - It is used to create permissions to restrict access to shared application components. Also used the existing platform permissions for this purpose or define your own permissions in the manifest.
+
+        - **application** - The declaration of the application. This element contains subelements that declare each of the application's components (such as *Activity*, *Service*, *Content Provider*, and *Broadcast Receiver*) and has attributes that can affect all the components.
+
+[Learn more here](http://developer.android.com/guide/topics/manifest/manifest-intro.html)
 
 * **What is `AndroidManifest.xml`?** 
     - **Manifest**: Every application must have an AndroidManifest.xml file (with precisely that name) in its root directory. The manifest presents essential information about the application to the Android system, information the system must have before it can run any of the application's code. It contains information of your package, including components of the application such as activities, services, broadcast receivers, content providers etc.
@@ -53,7 +75,7 @@
     * **Paused**: When the device goes to sleep, or an activity is still visible but partially hidden by a new, non-full-sized or transparent activity, the activity is considered paused. Paused activities are still alive, that is, they maintain all state and member information, and remain attached to the window manager. This is considered to be the second highest priority activity in the Android Activity stack and, as such, will only be killed by the OS if killing this activity will satisfy the resource requirements needed to keep the Active/Running Activity stable and responsive.
 
     * **Stopped**: Activities that are completely obscured by another activity are considered stopped or in the background. Stopped activities still try to retain their state and member information for as long as possible, but stopped activities are considered to be the lowest priority of the three states and, as such, the OS will kill activities in this state first to satisfy the resource requirements of higher priority activities.
-[Learn more here](https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle)
+    <br>[Learn more here](https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle)
 
 * **What is `Activity` and its lifecycle?** 
     - Activities are basically containers or windows to the user interface.
@@ -132,11 +154,11 @@
     
     Managing the lifecycle of a fragment is a lot like managing the lifecycle of an activity. Like an activity, a fragment can exist in three states:
 
-        * **Resumed**: The fragment is visible in the running activity.
+    * **Resumed**: The fragment is visible in the running activity.
 
-        * **Paused**: Another activity is in the foreground and has focus, but the activity in which this fragment lives is still visible (the foreground activity is partially transparent or doesn't cover the entire screen).
+    * **Paused**: Another activity is in the foreground and has focus, but the activity in which this fragment lives is still visible (the foreground activity is partially transparent or doesn't cover the entire screen).
 
-        * **Stopped**: The fragment isn't visible. Either the host activity has been stopped or the fragment has been removed from the activity but added to the back stack. A stopped fragment is still alive (all state and member information is retained by the system). However, it is no longer visible to the user and is killed if the activity is killed.
+    * **Stopped**: The fragment isn't visible. Either the host activity has been stopped or the fragment has been removed from the activity but added to the back stack. A stopped fragment is still alive (all state and member information is retained by the system). However, it is no longer visible to the user and is killed if the activity is killed.
 
  
 * **Describe fragment lifecycle**</br>
@@ -203,11 +225,22 @@ savedInstanceState.Also it won't affect the performance even if there are large 
 
 #### VIEWS AND VIEWGROUPS, AND LAYOUTS
 
-* **What is `View` in Android?** 
-- The view is the component which Android provides us to design the layouts of the app. So, we can understand view as a rectangular area which is going to contain some element inside it.
+* **What is `View` in Android and its lifecycle ?** 
+    - `View` class represents the basic building block for user interface components. A View occupies a rectangular area on the screen and is responsible for drawing and event handling. View is the base class for *widgets*, which are used to create interactive UI components (buttons, text fields, etc.).
 
-A View is a superclass for all the UI components. You can also check out the official documentation of View, here. 
-<br> [Learn more here](https://blog.mindorks.com/android-user-interface-view-components)
+    Every `Activity` has it’s own lifecycle similarly Views also have a lifecycle. A view which was rendered on the screen must undergo these lifecycle methods to get drawn on the screen correctly.
+
+    ![](./assets/view_lifecycle.png "View lifecycle")
+
+    - `onAttachedToWindow()` - Called when the view is attached to a window. This is the phase where the view knows it can be active and has a surface for drawing. So we can start allocating any resources or set up listeners.
+    - `onFinishInflate()` - Called after a view and all of its children has been inflated from XML.
+    - `onMeasure(int, int)` - Called to determine the size requirements for this view and all of its children.
+    - `onLayout(boolean, int, int, int, int)` - Called when this view should assign a size and position to all of its children.
+    - `onSizeChanged(int, int, int, int)` - Called when the size of this view has changed.
+    - `onDraw(android.graphics.Canvas)` - Canvas object generated (or updates) has a list of OpenGL-ES commands (displayList) to send to the GPU. Never create objects in `onDraw()` as it gets called a number of times.
+    - `invalidate()` - method that insists on force reDrawing of a particular view that we wish to show changes. Needs to be called when there was a change in view’s appearance.
+    - `requestLayout()` - At some point, there is a state change in the view. `requestLayout()` is the signal to the view system that it needs to recalculate the Measure and Layout phase of the views (measure → layout → draw).
+    - `onDetachedFromWindow()` - This is called when the view is detached from a window. At this point, it no longer has a surface for drawing. This place where you need to stop doing any kind of work that is scheduled or clean up resources that are allocated. This method is called when we call remove view on the `ViewGroup` or when the `Activity` is destroyed etc.
 
 * **Difference between `View.GONE` and `View.INVISIBLE`?** 
     - `View.GONE`: This view is invisible, and it doesn't take any space for layout purposes.
