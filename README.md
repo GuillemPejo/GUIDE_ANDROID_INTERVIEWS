@@ -949,20 +949,19 @@ Serializable uses reflection while for parcelable, developers from android team 
       [Official documentation](https://developer.android.com/topic/libraries/architecture/livedata) or [More info](https://github.com/Kirchhoff-/Android-Interview-Questions/blob/master/Android/What's%20LiveData.md) or [Sample  implementation](https://github.com/anitaa1990/GameOfThronesTrivia)
 
        * **Navigation Component** 
-        : The Navigation Architecture Component simplifies implementing navigation, while also helping you visualize your app's navigation flow. The library provides a number of benefits, including:  
+        The Navigation Architecture Component simplifies implementing navigation, while also helping you visualize your app's navigation flow. The library provides a number of benefits, including:  
             * Automatic handling of fragment transactions 
-                    * Correctly handling up and back by default 
-                    * Default behaviors for animations and transitions 
-                    * Deep linking as a first class operation 
-                    * Implementing navigation UI patterns (like navigation drawers and bottom nav) with little additional work 
-                    * Type safety when passing information while navigating 
-                    * Android Studio tooling for visualizing and editing the navigation flow of an appvisualizing and editing the navigation flow of an app
+            * Correctly handling up and back by default 
+            * Default behaviors for animations and transitions 
+            * Deep linking as a first class operation 
+            * Implementing navigation UI patterns (like navigation drawers and bottom nav) with little additional work 
+            * Type safety when passing information while navigating 
+            * Android Studio tooling for visualizing and editing the navigation flow of an appvisualizing and editing the navigation flow of an app
 
             The Navigation component consists of three key parts that are described below:
-                - Navigation graph: An XML resource that contains all navigation-related information in one centralized location. This includes all of the individual content areas within your app, called *destinations*, as well as the possible paths that a user can take through your app.
-                - `NavHost`: An empty container that displays destinations from your navigation graph. The Navigation component contains a default `NavHost` implementation, `NavHostFragment`, that displays fragment destinations.
-                - `NavController`: An object that manages app navigation within a `NavHost`. The `NavController` orchestrates the swapping of destination content in the `NavHost` as users move throughout your app.
-                As you navigate through your app, you tell the `NavController` that you want to navigate either along a specific path in your navigation graph or directly to a specific destination. The `NavController` then shows the appropriate destination in the `NavHost`.
+            * Navigation graph: An XML resource that contains all navigation-related information in one centralized location. This includes all of the individual content areas within your app, called *destinations*, as well as the possible paths that a user can take through your app.
+            * `NavHost`: An empty container that displays destinations from your navigation graph. The Navigation component contains a default `NavHost` implementation, `NavHostFragment`, that displays fragment destinations.
+            * `NavController`: An object that manages app navigation within a `NavHost`. The `NavController` orchestrates the swapping of destination content in the `NavHost` as users move throughout your app. As you navigate through your app, you tell the `NavController` that you want to navigate either along a specific path in your navigation graph or directly to a specific destination. The `NavController` then shows the appropriate destination in the `NavHost`.
 
 
        [Official documentation](https://developer.android.com/guide/navigation)
