@@ -27,6 +27,131 @@
 
 
 
+## Java
+
+* Interfaces vs Abstract Classes.Why Interfaces if abstract classes are already there.
+
+* JAVA 8 new features
+
+* Hashmap implementation,ArrayList implementation
+
+* How to make a class immutable.
+
+* String pools,intern keyword,new() keyword
+
+* Linked list vs Array,Array vs ArrayList,Set vs List vs Map,Iterator vs Enumeration.
+
+* How to compare two objects in Set?(hint : equals() and hashcode() overriding)
+
+* How ClickListener implemented in Java?
+
+* Programs based on Inheritance and multithreading. (Most Important)
+
+*  1.) Add(String string) 2.) Add (Object object), you called Add(null) what will be the output here?
+
+* Why main Static?
+
+* Static vs Singleton? Which to prefer when?
+
+* Can a static method be overloaded/overridden?Can a constructor be made static? Can we override/overload constructor? Which type of error you get-Compile/Runtime.
+
+* Can we have final/static/default methods in interface/abstract classes?
+
+* Check for every keyword? Which type of error-Compile time or runtime(I remember it after I tried a sample in Android studio).
+
+* Stack vs Heap allocation in Java.
+
+* Why is String immutable?
+
+* Why reflection in Java?Introspection vs Reflection?
+
+* Anonymous vs Inner Classes.Static Inner Classes. Can we have Static inner classes on Top?
+
+* What is the naming structure for an inner class in java?
+
+* Default value for Access specifiers,primitie types.
+
+* Protected vs Default. Do static retain value if an application is removed from recent.
+
+* How is the Exception class implemented in java?Try/Catch with finally block.
+
+* Any situation when finally won’t get executed?
+
+* Is Java pass by value/reference?
+
+* What will be the result if StringBuffer value compared with String — strbuf.equals(str) /str.equals(strbuf)
+
+* Synchronization in Java.
+
+* Can one interface extend/implement other/Can one abstract class extend other? Can interface extend abstract classes?
+
+* Runtime vs compile time polymorphism with real-world scenarios. How do you define encapsulation?
+
+* this vs super() keyword
+
+* Implement own Garbage collection in java.
+
+* Why runnable interface if we have already had Thread class in Java?
+
+* Why thread pool in Java?
+
+* Order of call of constructors during Inheritance.
+
+## Kotlin
+
+* Why should we use Kotlin for Android Development?
+
+* Kotlin operators - apply, run, let, ?
+
+* How Kotlin is null-safe?
+
+* What is the difference between var and val?
+
+* How const is different from val?
+
+* What is the difference between ?. and !!
+
+* How to define static functions in Kotlin?
+
+* What are Data Classes in Kotlin?
+
+* What do you mean by Sealed classes in Kotlin?
+
+* Collections in Kotlin.
+
+* Difference between lateinit and lazy.
+
+* What is Kotlin synthetic binding?
+
+* Difference between Kotlin Synthetics, View binding and Butterknife?
+
+* What are extension functions in Kotlin?
+
+* What are lambda expressions?
+
+* What are Higher-Order functions in Kotlin?
+
+* Difference between let, run, with, also, apply in Kotlin.
+
+* What is the best way for performing tasks on a background thread in kotlin?
+
+* What are Coroutines in Kotlin?
+
+* What are the different Coroutines Scope?
+
+* Why use suspend function in Kotlin Coroutines?
+
+* Explain Coroutine LifecycleScope.
+
+* What is Kotlin Flow?
+
+* Kotlin Flow vs RxJava.
+
+* Room vs Realm? Why not Realm?
+
+
+
+
 ### Java and Kotlin
  
   

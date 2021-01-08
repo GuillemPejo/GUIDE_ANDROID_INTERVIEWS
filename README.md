@@ -228,6 +228,29 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
 * for layout\_width and layout\_height, what's the difference between match\_parent and wrap\_content?
 * How do you implement Google's new Material Design in an Android application? [[info]](https://developer.android.com/training/material/get-started.html)
 
+* **nodpi VS anydpi**</br>
+   * **nodpi: Fallback** 
+ - A drawable inside the `res/drawable-nodpi/`  folder is valid for any
+   screen density.
+   Eg.
+   **drawable-nodpi/ic_icon.png**
+   The above icon will will look small on `xxxhdpi` devices and big on `ldpi` devices.
+
+      **drawable-hdpi/ic_icon.png**
+      **drawable-nodpi-21/ic_icon.xml**
+       In android 21 hdpi devices `ic_icon.png` will be used and in android 21 xhdpi devices `ic_icon.xml` will be used.
+
+   * **Relative Layout** 
+ - A drawable inside `drawable-anydpi`  is also valid for any screen
+   density but anydpi variant has more priority over any density
+   specific variant.
+
+    Eg. 
+    If we have **res/drawable-anydpi/ic_icon.xml** and  **res/drawable-xxxhdpi/ic_icon.png** then `ic_icon.xml` will be used even in xxxhdpi devices.
+
+     -Most of the times `-anydpi` used in conjunction with other qualifiers. A good example is  `anydpi-v21` as vector drawables were introduced in android 21 , so after that  we usually have `res/drawable-anydpi-v21/ic_icon.xml` (Vector drawable) and `res/drawable-xxhdpi/ic_icon.png`. The vector drawable (`ic_icon.xml`) will be used in all android 21+ devices and `ic_icon.png` will be used in xxhdpi devices runing in android 4.4 or older
+ </br>
+
 
 * **Difference between RelativeLayout and LinearLayout?**</br>
    * **Linear Layout** - Arranges elements either vertically or horizontally. i.e. in a row or column. 
@@ -1083,6 +1106,14 @@ More additional info to get started with RxJava is available at:
 * **Design Uber App.** - [Learn more here](https://github.com/MindorksOpenSource/ridesharing-uber-lyft-app)
 
 * **Design Facebook App.**
+
+* **Implement search functionality with debounce operator (If user keeps on typing, then cancel the last network call and hit for the present one, How will you achieve that?)**
+
+* **Design a Location Tracking application**
+
+* **Design Twitter.**
+
+* **Design Bookmyshow.**
 
 * **Design Facebook Near-By Friends App.**
 

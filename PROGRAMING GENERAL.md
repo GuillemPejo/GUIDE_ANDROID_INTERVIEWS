@@ -387,3 +387,75 @@ hero
    <a href="https://github.com/anitaa1990/Android-Cheat-sheet/blob/master/media/4.png" target="_blank"><img src="https://github.com/anitaa1990/Android-Cheat-sheet/blob/master/media/4.png"></a></br>
    
    
+
+
+
+   1) <a href="https://www.geeksforgeeks.org/find-minimum-element-in-a-sorted-and-rotated-array/">https://www.geeksforgeeks.org/find-minimum-element-in-a-sorted-and-rotated-array/</a>
+
+2) <a href="https://www.geeksforgeeks.org/largest-subarray-with-equal-number-of-0s-and-1s/">https://www.geeksforgeeks.org/largest-subarray-with-equal-number-of-0s-and-1s//</a>
+
+3) <a href="https://www.geeksforgeeks.org/find-triplets-array-whose-sum-equal-zero/">https://www.geeksforgeeks.org/find-triplets-array-whose-sum-equal-zero/</a>
+
+4) <a href="https://www.geeksforgeeks.org/level-order-traversal-in-spiral-form/">https://www.geeksforgeeks.org/level-order-traversal-in-spiral-form/</a>
+
+5) <a href="https://www.geeksforgeeks.org/construct-tree-from-given-inorder-and-preorder-traversal/">https://www.geeksforgeeks.org/construct-tree-from-given-inorder-and-preorder-traversal/</a>
+
+6) <a href="https://www.geeksforgeeks.org/write-an-efficient-c-function-to-convert-a-tree-into-its-mirror-tree/">https://www.geeksforgeeks.org/write-an-efficient-c-function-to-convert-a-tree-into-its-mirror-tree/</a>
+
+7) <a href="https://www.geeksforgeeks.org/maximum-sum-such-that-no-two-elements-are-adjacent/">https://www.geeksforgeeks.org/maximum-sum-such-that-no-two-elements-are-adjacent/</a>
+
+8) [https://www.geeksforgeeks.org/longest-common-subarray-in-the-given-two-arrays/?ref=leftbar-rightbar](https://www.geeksforgeeks.org/longest-common-subarray-in-the-given-two-arrays/?ref=leftbar-rightbar)
+
+9) [https://www.geeksforgeeks.org/maximum-sum-path-across-two-arrays/](https://www.geeksforgeeks.org/maximum-sum-path-across-two-arrays/)
+
+10) [https://www.geeksforgeeks.org/merge-two-sorted-arrays-o1-extra-space/](https://www.geeksforgeeks.org/merge-two-sorted-arrays-o1-extra-space/)
+
+11) [https://www.geeksforgeeks.org/segregate-0s-and-1s-in-an-array-by-traversing-array-once/](https://www.geeksforgeeks.org/segregate-0s-and-1s-in-an-array-by-traversing-array-once/)
+
+12) [https://www.geeksforgeeks.org/construction-of-longest-monotonically-increasing-subsequence-n-log-n/](https://www.geeksforgeeks.org/construction-of-longest-monotonically-increasing-subsequence-n-log-n/)
+
+13) [https://www.geeksforgeeks.org/kth-smallestlargest-element-unsorted-array/](https://www.geeksforgeeks.org/kth-smallestlargest-element-unsorted-array/)
+
+14) [https://www.geeksforgeeks.org/find-zeroes-to-be-flipped-so-that-number-of-consecutive-1s-is-maximized/](https://www.geeksforgeeks.org/find-zeroes-to-be-flipped-so-that-number-of-consecutive-1s-is-maximized/)
+
+15) [https://www.geeksforgeeks.org/reverse-a-doubly-linked-list/](https://www.geeksforgeeks.org/reverse-a-doubly-linked-list/)
+
+16) [https://www.geeksforgeeks.org/longest-common-increasing-subsequence-lcs-lis/](https://www.geeksforgeeks.org/longest-common-increasing-subsequence-lcs-lis/)
+
+17) [https://www.geeksforgeeks.org/fix-two-swapped-nodes-of-bst/](https://www.geeksforgeeks.org/fix-two-swapped-nodes-of-bst/)
+
+18) [https://www.geeksforgeeks.org/backttracking-set-2-rat-in-a-maze/](https://www.geeksforgeeks.org/backttracking-set-2-rat-in-a-maze/)
+
+19) [https://www.geeksforgeeks.org/detect-and-remove-loop-in-a-linked-list/](https://www.geeksforgeeks.org/detect-and-remove-loop-in-a-linked-list/)
+
+20) [https://www.geeksforgeeks.org/find-minimum-element-in-a-sorted-and-rotated-array/](https://www.geeksforgeeks.org/find-minimum-element-in-a-sorted-and-rotated-array/)
+
+21) [https://www.geeksforgeeks.org/maximum-product-subarray/](https://www.geeksforgeeks.org/maximum-product-subarray/)
+
+22) [https://www.geeksforgeeks.org/merge-k-sorted-arrays/](https://www.geeksforgeeks.org/merge-k-sorted-arrays/)
+
+23) [https://www.geeksforgeeks.org/sort-an-array-of-0s-1s-and-2s/](https://www.geeksforgeeks.org/sort-an-array-of-0s-1s-and-2s/)
+
+24) [https://www.geeksforgeeks.org/a-product-array-puzzle/](https://www.geeksforgeeks.org/a-product-array-puzzle/)
+
+25) [https://www.geeksforgeeks.org/count-frequencies-elements-array-o1-extra-space-time/](https://www.geeksforgeeks.org/count-frequencies-elements-array-o1-extra-space-time/)
+
+26) [https://www.geeksforgeeks.org/median-of-two-sorted-arrays-of-different-sizes/](https://www.geeksforgeeks.org/median-of-two-sorted-arrays-of-different-sizes/)
+
+27) [https://www.geeksforgeeks.org/find-maximum-path-sum-in-a-binary-tree/](https://www.geeksforgeeks.org/find-maximum-path-sum-in-a-binary-tree/)
+
+28) [https://www.geeksforgeeks.org/lowest-common-ancestor-in-a-binary-search-tree/](https://www.geeksforgeeks.org/lowest-common-ancestor-in-a-binary-search-tree/)
+
+29) [https://www.geeksforgeeks.org/lowest-common-ancestor-binary-tree-set-1](https://www.geeksforgeeks.org/lowest-common-ancestor-binary-tree-set-1)
+
+30) [https://www.geeksforgeeks.org/sorted-linked-list-to-balanced-bst/](https://www.geeksforgeeks.org/sorted-linked-list-to-balanced-bst/)
+
+31) [https://www.geeksforgeeks.org/given-an-array-a-and-a-number-x-check-for-pair-in-a-with-sum-as-x/](https://www.geeksforgeeks.org/given-an-array-a-and-a-number-x-check-for-pair-in-a-with-sum-as-x/)
+
+32) [https://www.educative.io/edpresso/how-to-find-the-most-frequent-word-in-an-array-of-strings](https://www.educative.io/edpresso/how-to-find-the-most-frequent-word-in-an-array-of-strings)
+
+33) Continuation Question to `32`, What is the time complexity of your solution and how can you improve it?
+
+34) What is the time complexity of mergeSort, quickSort and Binary search?
+
+35) What is the time complexity for removing an element from LinkedList?
