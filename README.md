@@ -266,6 +266,27 @@ savedInstanceState.Also it won't affect the performance even if there are large 
     - `requestLayout()` - At some point, there is a state change in the view. `requestLayout()` is the signal to the view system that it needs to recalculate the Measure and Layout phase of the views (measure → layout → draw).
     - `onDetachedFromWindow()` - This is called when the view is detached from a window. At this point, it no longer has a surface for drawing. This place where you need to stop doing any kind of work that is scheduled or clean up resources that are allocated. This method is called when we call remove view on the `ViewGroup` or when the `Activity` is destroyed etc.
 
+* **What is `ViewGroup`?** 
+    - A `ViewGroup` is a special view that can contain other views (called children.) The view group is the base class for layouts and views containers. This class also defines the `ViewGroup.LayoutParams` class which serves as the base class for layouts parameters.
+
+        ViewGroups is invisible container in which other Views can be placed.  The class `ViewGroup` extends the class `View`
+        Popular ViewGroups: 
+        - LineraLayout
+        - RelativeLayout
+        - RelativeLayout
+        - MotionLayout
+        - ConstraintLayout
+
+* **Differences between `View` and `ViewGroup`?** 
+    `View`:
+        `View` objects are the basic building blocks of User Interface(UI) elements in Android.
+        - `View` is a simple rectangle box which responds to the user's actions.
+        - `View` refers to the android.view.View class, which is the base class of all UI classes.
+
+    `ViewGroup`: 
+        - `ViewGroup` is the invisible container. It holds `View` and `ViewGroup`
+        - `ViewGroup` is the base class for Layouts.
+
 * **Difference between `View.GONE` and `View.INVISIBLE`?** 
     - `View.GONE`: This view is invisible, and it doesn't take any space for layout purposes.
     - `View.INVISIBLE`: This view is invisible, but it still takes up space for layout purposes.
@@ -282,7 +303,17 @@ savedInstanceState.Also it won't affect the performance even if there are large 
 *   The drawing of canvas happens in Bitmap, where we draw the outline and then the Paint API helps to fill color and whatever style we need. 
 <br>[Learn more here](https://blog.mindorks.com/understanding-canvas-api-in-android)
 
-* **What is a `SurfaceView`?** - [Learn more here](https://developer.android.com/reference/android/view/SurfaceView)
+* **What is a `SurfaceView`?** 
+    - `SurfaceView` can be updated on the background thread.
+
+    - `SurfaceView` has dedicate surface buffer while all the view share one surface buffer that is allocated by ViewRoot. In another word, `SurfaceView` cost more resources.
+
+    - `SurfaceView` cannot be hardware accelerated (as of JB4.2) while 95% operations on normal View are HW accelerated using openGL ES.
+
+    - More work should be done to create your customized `SurfaceView`. You need to listener to the surfaceCreated/Destroy Event, create a render thread, more importantly, synchronized the render thread and main thread. 
+
+    - The timing to update is different. Normal view update mechanism is constraint or controlled by the framework: You call `view.invalidate()` in the UI thread or `view.postInvalidate()` in other thread to indicate to the framework that the view should be updated. However, the view won't be updated immediately but wait until next VSYNC event arrived. The easy approach to understand VYSNC is to consider it is as a timer that fire up every 16ms for a 60fps screen. In Android, all the normal view update, is synchronized with VSYNC to achieve better smoothness.
+[Learn more here](https://developer.android.com/reference/android/view/SurfaceView)
 
 * **Relative Layout vs Linear Layout.** - [Learn more here](https://blog.mindorks.com/android-layout-relative-linear-frame)
 
@@ -362,17 +393,34 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
    
    
 * **What is Adapters?**</br>
-   * An adapter responsible for converting each data entry into a View that can then be added to the AdapterView (ListView/RecyclerView).</br>
+   * An adapter responsible for converting each data entry into a View that can then be added to the AdapterView (ListView/RecyclerView).
+        When you define your adapter, you need to override three key methods:
+            - `onCreateViewHolder()`: `RecyclerView` calls this method whenever it needs to create a new `ViewHolder`. The method creates and initializes the `ViewHolder` and its associated `View`, but does not fill in the view's contents—the `ViewHolder` has not yet been bound to specific data.
+            - `onBindViewHolder()`: `RecyclerView` calls this method to associate a `ViewHolder` with data. The method fetches the appropriate data and uses the data to fill in the view holder's layout. For example, if the `RecyclerView` dislays a list of names, the method might find the appropriate name in the list and fill in the view holder's `TextView` widget.
+            - `getItemCount()`: `RecyclerView` calls this method to get the size of the data set. For example, in an address book app, this might be the total number of addresses. `RecyclerView` uses this to determine when there are no more items that can be displayed.
+
+
+
+</br>
    
 
 * **How to support different screen sizes?**</br>
-   * Create a flexible layout - The best way to create a responsive layout for different screen sizes is to use ConstraintLayout as the base layout in your UI. ConstraintLayout allows you to specify the position and size for each view according to spatial relationships with other views in the layout. This way, all the views can move and stretch together as the screen size changes.
+   * Use ConstraintLayout
+        The best way to create a responsive layout for different screen sizes is to use ConstraintLayout as the base layout in your UI. ConstraintLayout allows you to specify the position and size for each view according to spatial relationships with other views in the layout. This way, all the views can move and stretch together as the screen size changes.
+        The easiest way to build a layout with ConstraintLayout is to use the Layout Editor in Android Studio. It allows you to drag new views to the layout, attach their constraints to the parent view and other sibling views, and edit the view's properties, all without editing any XML by hand.
+
+    * Create alternative layouts
+        If the above option doesn't meet your needs,say you need to support a much larger device like tabs,then your app should also provide alternative layout resources to optimize the UI design for certain screen sizes.
+
    * Create stretchable nine-patch bitmaps
+        A nine-patch bitmap is basically a standard PNG file, but with an extra 1px border that indicates which pixels should be stretched.As shown in figure below,the intersection between the black lines on the left and top edge is the area of the bitmap that can be stretched.
    * Avoid hard-coded layout sizes - Use wrap_content or match_parent. Create alternative layouts - The app should provide alternative layouts to optimize the UI design for certain screen sizes. For eg: different UI for tablets
    * Use the smallest width qualifier.  For example, you can create a layout named main_activity that's optimized for handsets and tablets by creating different versions of the file in directories as follows:            
       * res/layout/main_activity.xml           # For handsets (smaller than 600dp available width)                      
       * res/layout-sw600dp/main_activity.xml   # For 7” tablets (600dp wide and bigger). 
       * The smallest width qualifier specifies the smallest of the screen's two sides, regardless of the device's current orientation, so it's a simple way to specify the overall screen size available for your layout.</br>
+
+* **How do you support different types of resolutions?** - [Learn more here](https://developer.android.com/training/multiscreen/screensizes)
   
   
   
@@ -839,7 +887,14 @@ Serializable uses reflection while for parcelable, developers from android team 
 
 #### Look and Feel
 
-* **What is a `Spannable`?** - [Learn more here](https://medium.com/androiddevelopers/underspanding-spans-1b91008b97e4)
+* **What is a `Spannable`?** 
+    - This is the interface for text to which markup objects can be attached and detached. It used for styling text. Can be applied to whole paragraphs or to parts of the text. Used for:
+    - Change the color
+    - Make text clickable
+    - Scale text size
+    - Draw custom points
+    - Change line height
+    [Learn more here](https://medium.com/androiddevelopers/underspanding-spans-1b91008b97e4)
 
 * **What is a `SpannableString`?**
    - A SpannableString has immutable text, but its span information is mutable. Use a SpannableString when your text doesn't need to be changed but the styling does. Spans are ranges over the text that include styling information like color, highlighting, italics, links, etc
@@ -851,6 +906,22 @@ Serializable uses reflection while for parcelable, developers from android team 
 * **How to generate dynamic colors based in image?** - [Learn more here](https://blog.mindorks.com/color-palette-in-android)
 
 * **Explain about Density Independence Pixel** - [Learn more here](https://blog.mindorks.com/understanding-density-independent-pixel-sp-dp-dip-in-android)
+
+* **What about fdark theme?**
+    - Dark theme is available in Android 10 (API level 29) and higher. It has many benefits.
+
+        You might want to allow users to change the app's theme while the app is running. Your app can let the user choose between themes. The recommended options are:
+            - Light
+            - Dark
+            - System default (*the recommended default option*)
+
+        Each of the options map directly to one of the AppCompat.DayNight modes:
+
+            - Light - `MODE_NIGHT_NO`
+            - Dark - `MODE_NIGHT_YES`
+            - System default - `MODE_NIGHT_FOLLOW_SYSTEM`
+
+
 
 #### Memory Optimizations
 
@@ -888,11 +959,6 @@ Serializable uses reflection while for parcelable, developers from android team 
 - An app may draw the same pixel more than once within a single frame, an event called overdraw. Overdraw is usually unnecessary, and best eliminated. It manifests itself as a performance problem by wasting GPU time to render pixels that don't contribute to what the user sees on the screen.
 
 [Learn more here](https://developer.android.com/topic/performance/rendering/overdraw.html)
-
-#### Supporting Different Screen Sizes
-
-* **How do you support different types of resolutions?** - [Learn more here](https://developer.android.com/training/multiscreen/screensizes)
-
 
 #### Native Programming
 
@@ -936,11 +1002,17 @@ Serializable uses reflection while for parcelable, developers from android team 
 
 * **What are Android Architecture Components?** 
    * A collection of libraries that help you design robust, testable, and maintainable apps. [Official documentation](https://developer.android.com/topic/libraries/architecture/)
-      * **Room** - [Official documentation](https://developer.android.com/topic/libraries/architecture/room)   
-        [Article on how to implement Room Db](https://medium.com/@anitaa_1990/5-steps-to-implement-room-persistence-library-in-android-47b10cd47b24)           [Sample  implementation](https://github.com/anitaa1990/RoomDb-Sample)
+      * **Room**: The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access while harnessing the full power of SQLite.
+
+        The library helps you create a cache of your app's data on a device that's running your app. This cache, which serves as your app's single source of truth, allows users to view a consistent copy of key information within your app, regardless of whether users have an internet connection.
+        **Components**
+        ![image](assets/room.png)
+
+
+      - [Official documentation](https://developer.android.com/topic/libraries/architecture/room) or
+        [Article on how to implement Room Db](https://medium.com/@anitaa_1990/5-steps-to-implement-room-persistence-library-in-android-47b10cd47b24)or [Sample  implementation](https://github.com/anitaa1990/RoomDb-Sample)
         
-      * **Live Data** 
-        LiveData is an observable data holder class. Unlike a regular observable, LiveData is lifecycle-aware, meaning it respects the lifecycle of other app components, such as activities, fragments, or services. This awareness ensures LiveData only updates app component observers that are in an active lifecycle state.
+      * **Live Data**: LiveData is an observable data holder class. Unlike a regular observable, LiveData is lifecycle-aware, meaning it respects the lifecycle of other app components, such as activities, fragments, or services. This awareness ensures LiveData only updates app component observers that are in an active lifecycle state.
 
         LiveData considers an observer, which is represented by the Observer class, to be in an active state if its lifecycle is in the STARTED or RESUMED state. LiveData only notifies active observers about updates. Inactive observers registered to watch LiveData objects aren't notified about changes.
 
@@ -948,8 +1020,7 @@ Serializable uses reflection while for parcelable, developers from android team 
 
       [Official documentation](https://developer.android.com/topic/libraries/architecture/livedata) or [More info](https://github.com/Kirchhoff-/Android-Interview-Questions/blob/master/Android/What's%20LiveData.md) or [Sample  implementation](https://github.com/anitaa1990/GameOfThronesTrivia)
 
-       * **Navigation Component** 
-        The Navigation Architecture Component simplifies implementing navigation, while also helping you visualize your app's navigation flow. The library provides a number of benefits, including:  
+       * **Navigation Component**: The Navigation Architecture Component simplifies implementing navigation, while also helping you visualize your app's navigation flow. The library provides a number of benefits, including:  
             * Automatic handling of fragment transactions 
             * Correctly handling up and back by default 
             * Default behaviors for animations and transitions 
@@ -964,15 +1035,69 @@ Serializable uses reflection while for parcelable, developers from android team 
             * `NavController`: An object that manages app navigation within a `NavHost`. The `NavController` orchestrates the swapping of destination content in the `NavHost` as users move throughout your app. As you navigate through your app, you tell the `NavController` that you want to navigate either along a specific path in your navigation graph or directly to a specific destination. The `NavController` then shows the appropriate destination in the `NavHost`.
 
 
-       [Official documentation](https://developer.android.com/guide/navigation)
+       [Official documentation](https://developer.android.com/guide/navigation) or [here](https://github.com/Kirchhoff-/Android-Interview-Questions/blob/master/Android/What's%20Navigation%20component.md)
         
-      * **ViewModel** - [Official documentation](https://developer.android.com/topic/libraries/architecture/viewmodel)   
+      * **ViewModel**: The `ViewModel` class is designed to store and manage UI-related data in a lifecycle conscious way. The `ViewModel` class allows data to survive configuration changes such as screen rotations.
+
+        The Android framework manages the lifecycles of UI controllers, such as activities and fragments. The framework may decide to destroy or re-create a UI controller in response to certain user actions or device events that are completely out of your control.
+
+        If the system destroys or re-creates a UI controller, any transient UI-related data you store in them is lost. For example, your app may include a list of users in one of its activities. When the activity is re-created for a configuration change, the new activity has to re-fetch the list of users.  For simple data, the activity can use the `onSaveInstanceState()` method and restore its data from the bundle in `onCreate()`, but this approach is only suitable for small amounts of data that can be serialized then deserialized, not for potentially large amounts of data like a list of users or bitmaps.
+
+        Another problem is that UI controllers frequently need to make asynchronous calls that may take some time to return. The UI controller needs to manage these calls and ensure the system cleans them up after it's destroyed to avoid potential memory leaks. This management requires a lot of maintenance, and in the case where the object is re-created for a configuration change, it's a waste of resources since the object may have to reissue calls it has already made.
+
+        UI controllers such as activities and fragments are primarily intended to display UI data, react to user actions, or handle operating system communication, such as permission requests. Requiring UI controllers to also be responsible for loading data from a database or network adds bloat to the class. Assigning excessive responsibility to UI controllers can result in a single class that tries to handle all of an app's work by itself, instead of delegating work to other classes. Assigning excessive responsibility to the UI controllers in this way also makes testing a lot harder.
+
+      [Official documentation](https://developer.android.com/topic/libraries/architecture/viewmodel)   
         [Sample  implementation](https://github.com/anitaa1990/GameOfThronesTrivia)
+
+      * **Work Manager**
+      - WorkManager is an API that makes it easy to schedule deferrable, asynchronous tasks that are expected to run even if the app exits or the device restarts. The WorkManager API is a suitable and recommended replacement for all previous Android background scheduling APIs, including *FirebaseJobDispatcher*, *GcmNetworkManager*, and *Job Scheduler*. WorkManager incorporates the features of its predecessors in a modern, consistent API that works back to API level 14 while also being conscious of battery life.
+
+        WorkManager handles background work that needs to run when various constraints are met, regardless of whether the application process is alive or not. Background work can be started when the app is in the background, when the app is in the foreground, or when the app starts in the foreground but goes to the background. Regardless of what the application is doing, background work should continue to execute, or be restarted if Android kills its process.
+
+        Under the hood WorkManager uses an underlying job dispatching service based on the following criteria:
+        ![](assets/work_manager_criteria.png "Work manager criteria")
         
-      * **Data Binding** - [Official documentation](https://developer.android.com/topic/libraries/data-binding/)   
-        [Sample  implementation](https://github.com/anitaa1990/DataBindingExample)        
+      * **Data Binding** 
+      - Data binding is a general technique that binds data sources from the provider and consumer together and synchronizes them. In a data binding process, each data change is reflected automatically by the elements that are bound to the data. The term data binding is also used in cases where an outer representation of data in an element changes, and the underlying data is automatically updated to reflect this change.
+
+        The Data Binding Library is a support library that allows you to bind UI components in your layouts to data sources in your app using a declarative format rather than programmatically.
+
+        Layouts are often defined in activities with code that calls UI framework methods. For example, the code below calls `findViewById()` to find a `TextView` widget and bind it to the `userName` property of the `viewModel` variable:
+        ```
+        findViewById<TextView>(R.id.sample_text).apply {
+            text = viewModel.userName
+        }
+        ```
+
+        With helping of data binding library we can simplify code showed above by moving such logic to XML:
+
+        ```
+        <TextView
+            android:text="@{viewmodel.userName}" />
+        ```
+
+        Binding components in the layout file lets you remove many UI framework calls in your activities, making them simpler and easier to maintain. This can also improve your app's performance and help prevent memory leaks and null pointer exceptions.
+
+       [Official documentation](https://developer.android.com/topic/libraries/data-binding/)   
+        [Sample  implementation](https://github.com/anitaa1990/DataBindingExample)
+
+      * **Paging** 
+      - The Paging Library helps you load and display small chunks of data at a time. Loading partial data on demand reduces usage of network bandwidth and system resources.
+
+        The Paging Library supports the following data architectures:
+        - Served only from a backend server;
+        - Stored only in an on-device database;
+        - A combination of the other sources, using the on-device database as a cache. 
+      [Official documentation](https://developer.android.com/topic/libraries/architecture/lifecycle)        
         
-      * **Lifecycles** - [Official documentation](https://developer.android.com/topic/libraries/architecture/lifecycle)
+      * **Lifecycles** 
+      - Lifecycle-aware components perform actions in response to a change in the lifecycle status of another component, such as activities and fragments. These components help you produce better-organized, and often lighter-weight code, that is easier to maintain.
+
+        A common pattern is to implement the actions of the dependent components in the lifecycle methods of activities and fragments. However, this pattern leads to a poor organization of the code and to the proliferation of errors. By using lifecycle-aware components, you can move the code of dependent components out of the lifecycle methods and into the components themselves.
+
+        The `androidx.lifecycle` package provides classes and interfaces that let you build lifecycle-aware components—which are components that can automatically adjust their behavior based on the current lifecycle state of an activity or fragment. 
+      [Official documentation](https://developer.android.com/topic/libraries/architecture/lifecycle)
   </br>
 
 [Learn more here](https://blog.mindorks.com/what-are-android-architecture-components)
@@ -1005,6 +1130,18 @@ Serializable uses reflection while for parcelable, developers from android team 
     Example of this Asymmetric encryption are HTTPS using SSL certificate, Bitcoin, etc.
     For more info, refer to this [video](https://youtu.be/AQDCe585Lnc)
 
+    * **Some security tips**
+        - **User data**
+            - **Store private data within internal storage**. Store all private user data within the device's internal storage, which is sandboxed per app. Your app doesn't need to request permission to view these files, and other apps cannot access the files. As an added security measure, when the user uninstalls an app, the device deletes all files that the app saved within internal storage.
+            - **Store data in external storage based on use case**. Use external storage for large, non-sensitive files that are specific to your app, as well as files that your app shares with other apps.
+            - **Check validity of data**. If your app uses data from external storage, make sure that the contents of the data haven't been corrupted or modified. Your app should also include logic to handle files that are no longer in a stable format.
+            - **Store only non-sensitive data in cache files**. To provide quicker access to non-sensitive app data, store it in the device's cache. For caches larger than 1 MB in size, use `getExternalCacheDir()`; otherwise, use `getCacheDir()`. Each method provides you with the `File` object that contains your app's cached data.
+            - **Use SharedPreferences in private mode**. When using `getSharedPreferences()` to create or access your app's `SharedPreferences` objects, use `MODE_PRIVATE`. That way, only your app can access the information within the shared preferences file.
+
+        - **Other**
+            - **Code Obfuscation**. Protect the source code by making it unintelligible for both humans and decompiler. All this, while preserving its entire operations during the compilation. The purpose of the obfuscation process is to give an impenetrable code. It promotes the confidentiality of all intellectual properties against reverse engineering.
+            - **Data encryption**. Mobile app security involves securing all kinds of stored data on the mobile device. It includes the source code as well as the data transmitted between the application and the back-end server. The execution of certificate pinning helps affirm the backend Web service certificate for the application. High-level data encryption is one of the best android mobile app security practices. It protects the valuable data from hackers.
+            - **Regular Updation And Testing**. Hackers detect vulnerabilities in software and exploit, while developers repair the breach, which causes hackers to discover another weakness. Although Google cannot avoid the development of these vulnerabilities, it effectively updates the Android OS to counter the detected problems. However, these measures will not be useful if the software is not up-to-date. Penetration testing is another method for server-side checks.
 
 
 
@@ -1391,13 +1528,44 @@ More additional info to get started with RxJava is available at:
 * **What is ProGuard?** 
     - Proguard is free Java class file shrinker, optimizer, obfuscator, and preverifier. It detects and removes unused classes, fields, methods, and attributes. It optimizes bytecode and removes unused instructions. It renames the remaining classes, fields, and methods using short meaningless names.
 
-        Main function: 
-        *    - Shrinking: detects and safely removes unused classes, fields, methods, and attributes from your app and its library dependencies (making it a valuable tool for working around the 64k reference limit). For example, if you use only a few APIs of a library dependency, shrinking can identify library code that your app is not using and remove only that code from your app. 
-        *    - Resource shrinking: removes unused resources from your packaged app, including unused resources in your app’s library dependencies. It works in conjunction with code shrinking such that once unused code has been removed, any resources no longer referenced can be safely removed as well.
-        *    - Optimization:  inspects and rewrites your code to further reduce the size of your app’s DEX files.
-        *    - Obfuscation:  shortens the name of classes and members, which results in reduced DEX file sizes.
+        When you build you project using `Android Gradle plugin 3.4.0` or higher, the plugin no longer uses ProGuard to perform compile-time code optimization. Instead, the plugin works with the R8 compiler to handle the following compile-time tasks:
+            - **Code shrinking (or tree-shaking)**: detects and safely removes unused classes, fields, methods, and attributes from your app and its library dependencies (making it a valuable tool for working around the 64k reference limit). For example, if you use only a few APIs of a library dependency, shrinking can identify library code that your app is not using and remove only that code from your app.
+            - **Resource shrinking**: Removes unused resources from your packaged app, including unused resources in your app’s library dependencies. It works in conjunction with code shrinking such that once unused code has been removed, any resources no longer referenced can be safely removed as well. 
+            - **Obfuscation**: Shortens the name of classes and members, which results in reduced DEX file sizes.
+            - **Optimization**: Inspects and rewrites your code to further reduce the size of your app’s DEX files. For example, if R8 detects that the `else {}` branch for a given `if/else` statement is never taken, R8 removes the code for the `else {}` branch.
 
-    **Notes**: When you build you project using Android Gradle plugin 3.4.0 or higher, the plugin no longer uses ProGuard to perform compile-time code optimization. Instead, the plugin works with the R8 compiler. by default, R8 automatically performs the compile-time tasks described above for you. However, you can disable certain tasks or customize R8’s behavior through ProGuard rules files. In fact, R8 works with all of your existing ProGuard rules files, so updating the Android Gradle plugin to use R8 should not require you to change your existing rules.
+        When building the release version of your app, by default, R8 automatically performs the compile-time tasks described above for you. However, you can disable certain tasks or customize R8’s behavior through ProGuard rules files. In fact, R8 works with all of your existing ProGuard rules files, so updating the Android Gradle plugin to use R8 should not require you to change your existing rules.
+* **Why widgets?** 
+    * Home screen widgets are broadcast receivers which provide interactive components. They are primarily used on the Android home screen. They typically display some kind of data and allow the user to perform actions with them.
+
+        Widgets typically fall into one of the following categories:
+        - **Information widgets**. Typically display a few crucial information elements that are important to a user and track how that information changes over time. Good examples for information widgets are weather widgets, clock widgets or sports score trackers.
+            - **Collection widgets**. Specialize in displaying multitude elements of the same type, such as a collection of pictures from a gallery app, a collection of articles from a news app or a collection of emails/messages from a communication app.
+            - **Control widgets**. The main purpose of a control widget is to display often used functions that the user can trigger right from the home screen without having to open the app first. A typical example of control widgets are music app widgets that allow the user to play, pause or skip music tracks from outside the actual music app.
+            - **Hybrid widgets**. Combine elements of different types. For example a music player widget is primarily a control widget, but also keeps the user informed about what track is currently playing. It essentially combines a control widget with elements of an information widget type.
+
+        Steps to create a `Widget`:
+            - Define a layout file
+            - Create an XML file which describes the properties of the widget, e.g. size or the fixed update frequency.
+            - Create a `BroadcastReceiver` which is used to build the user interface of the widget.
+            - Enter the *Widget* configuration in the *AndroidManifest.xml* file.
+            - Optional you can specify a configuration *activity* which is called once a new instance of the widget is added to the `widget` host
+
+        Lifecycle method:
+    | Method | Description |
+    |---|---|
+    | `onEnabled()`   |  Called the first time an instance of your widget is added to the home screen.  |
+    | `onDisabled()`  |  Called once the last instance of your widget is removed from the home screen.  |
+    | `onUpdate()`    |  Called for every update of the widget. Contains the ids of `appWidgetIds` for which an update is needed. |
+    | `onDeleted()`   |  Widget instance is removed from the home screen. |
+    | `onReceive()`   |  This is called for every broadcast and before each of the above callback methods. You normally don't need to implement this method because the default AppWidgetProvider implementation filters all App Widget broadcasts and calls the above methods as appropriate. |
+
+        -  Widget limitations
+            - 1. Because widgets live on the home screen, they have to co-exist with the navigation that is established there. This limits the gesture support that is available in a widget compared to a full-screen app. The only gestures available for widgets are: - Touch and - Vertical swipe
+
+            - 2. Creating the App Widget layout is simple if you're familiar with `Layouts`. However, you must be aware that App Widget layouts are based on `RemoteViews`, which do not support every kind of layout or view widget. A RemoteViews object (and, consequently, an App Widget) can support the following layout classes: - `FragmeLayout`, `LinearLayout`, `RelativeLayout` and `GridLayout`. And the following widget classes: `AnalogClock`,  `Button`, `Chronometer`, `ImageButton`, `ImageView`, `ProgressBar`, `TextView`, `ViewFlipper`, `ListView`, `GridView`, `StackView`, `AdapterViewFlipper`.
+
+            - 3. A widget has the same runtime restrictions as a normal broadcast receiver, i.e., it has only 5 seconds to finish its processing. A receive (widget) should therefore perform time consuming operations in a service and perform the update of the widgets from the service.
 
 
 
