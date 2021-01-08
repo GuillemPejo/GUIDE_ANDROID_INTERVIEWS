@@ -32,9 +32,7 @@
 
 * **What is AndroidManifest.xml used for? Give examples of what kind of data you would add to it.**
 
-    * - The `AndroidManifest.xml` file contains information of your package, including components of the application such as activities, services, broadcast receivers, content providers etc.
-
-    * - **Responsibilities:**
+    * The `AndroidManifest.xml` file contains information of your package, including components of the application such as activities, services, broadcast receivers, content providers etc. Responsibilities:
         - Protect the application to access any protected parts by providing the permissions.
         - Declares the android api that the application is going to use.
         - Declares lists the instrumentation classes. The instrumentation classes provides profiling and other informations.
@@ -466,7 +464,9 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
        * [Sample Implementation](https://medium.com/mindorks/a-journey-to-the-world-of-mvp-and-loaders-part-2-e176200e5866) </br>
    
 * **What the difference between `Dialog` and `Dialog Fragment`?** 
-- A fragment that displays a dialog window, floating on top of its activity's window. This fragment contains a Dialog object, which it displays as appropriate based on the fragment's state. Dialogs are entirely dependent on Activities. If the screen is rotated, the dialog is dismissed. Dialog fragments take care of orientation, configuration changes as well. 
+    - The `Dialog` class is the base class for dialogs, but you should avoid instantiating `Dialog` directly. Instead, use one of it's subclasses. `Dialogs` are entirely dependent on Activities. If the screen is rotated, the dialog is dismissed. 
+
+    - A `DialogFragment` is a fragment that displays a dialog window, floating on top of its activity's window. This fragment contains a `Dialog` object, which it displays as appropriate based on the fragment's state. Using `DialogFragment` to manage the dialog ensures that it correctly handles lifecycle events such as when the user presses the Back button or rotates the screen. 
 [Learn more here](https://stackoverflow.com/questions/7977392/android-dialogfragment-vs-dialog)
 
 #### Intents and Broadcasting
@@ -675,8 +675,14 @@ A bound service is a service that can be used not only by components running in 
 
 * **Difference between Serializable and Parcelable?**</br>
   * Serializable is a standard Java interface. Parcelable is an Android specific interface where you implement the serialization yourself. It was created to be far more efficient than Serializable (The problem with this approach is that reflection is used and it is a slow process. This mechanism also tends to create a lot of temporary objects and cause quite a bit of garbage collection.).
-  * Serialization Serialization is the process of converting an object into a stream of bytes in order to store an object into memory, so that it can be recreated at a later time, while still keeping the object's original state and data. 
-  * **How to disallow serialization?** We can declare the variable as transient.</br>
+  * Serialization is the process of converting an object into a stream of bytes in order to store an object into memory, so that it can be recreated at a later time, while still keeping the object's original state and data. 
+  * **How to disallow serialization?** We can declare the variable as transient.
+  * Parcelable is faster than Serializable interface
+    * Parcelable interface takes more time to implement compared to Serializable interface (with Kotlin this is not true)
+    * Serializable interface is easier to implement
+    * Serializable interface creates a lot of temporary objects and causes quite a bit of garbage collection
+
+</br>
 
 Serializable uses reflection while for parcelable, developers from android team wrote custom code that performs manual marshalling(converting data into byte stream) and unmarshalling(converting the byte stream back to their original data). Usually Parcelable is considered faster than Serializable.
 <br> [Learn more here](https://stackoverflow.com/a/50114007/497132)
@@ -836,7 +842,10 @@ Serializable uses reflection while for parcelable, developers from android team 
 
 * **What is Doze? What about App Standby?** - [Learn more here](https://developer.android.com/training/monitoring-device-state/doze-standby)
 
-* **What is `overdraw`?** - [Learn more here](https://developer.android.com/topic/performance/rendering/overdraw.html)
+* **What is `overdraw`?** 
+- An app may draw the same pixel more than once within a single frame, an event called overdraw. Overdraw is usually unnecessary, and best eliminated. It manifests itself as a performance problem by wasting GPU time to render pixels that don't contribute to what the user sees on the screen.
+
+[Learn more here](https://developer.android.com/topic/performance/rendering/overdraw.html)
 
 #### Supporting Different Screen Sizes
 
@@ -1303,6 +1312,19 @@ More additional info to get started with RxJava is available at:
 
 * **What is Gradle?** - [Learn more here](https://blog.mindorks.com/gradle-for-android-developers-getting-the-most-of-it)
 
+* **What is ProGuard?** 
+    - Proguard is free Java class file shrinker, optimizer, obfuscator, and preverifier. It detects and removes unused classes, fields, methods, and attributes. It optimizes bytecode and removes unused instructions. It renames the remaining classes, fields, and methods using short meaningless names.
+
+    Main function: 
+        - Shrinking: detects and safely removes unused classes, fields, methods, and attributes from your app and its library dependencies (making it a valuable tool for working around the 64k reference limit). For example, if you use only a few APIs of a library dependency, shrinking can identify library code that your app is not using and remove only that code from your app. 
+        - Resource shrinking: removes unused resources from your packaged app, including unused resources in your app’s library dependencies. It works in conjunction with code shrinking such that once unused code has been removed, any resources no longer referenced can be safely removed as well.
+        - Optimization:  inspects and rewrites your code to further reduce the size of your app’s DEX files.
+        - Obfuscation:  shortens the name of classes and members, which results in reduced DEX file sizes.
+
+    **Notes**: When you build you project using Android Gradle plugin 3.4.0 or higher, the plugin no longer uses ProGuard to perform compile-time code optimization. Instead, the plugin works with the R8 compiler. by default, R8 automatically performs the compile-time tasks described above for you. However, you can disable certain tasks or customize R8’s behavior through ProGuard rules files. In fact, R8 works with all of your existing ProGuard rules files, so updating the Android Gradle plugin to use R8 should not require you to change your existing rules.
+
+
+
 * **APK Size Reduction.** 
    * Enable proguard in your project by adding following lines to your release build type.
    * Enable shrinkResources.
@@ -1354,5 +1376,41 @@ More additional info to get started with RxJava is available at:
 * **How to change some parameters in an app without app update?** - [Learn more here](https://blog.mindorks.com/getting-started-with-firebase-remote-config-in-android)
 
 
+* **What is installLocation tag in AndroidManifest?**
+    - `installLocation` is the tag in AndroidManifest that configure default install location for the app. The following keyword strings are accepted:
+
+    | Value | Description |
+    |---|---|
+    | internalOnly | The app must be installed on the internal device storage only. If this is set, the app will never be installed on the external storage. If the internal storage is full, then the system will not install the app. This is also the default behavior if you do not define `android:installLocation`. |
+    | auto | The app may be installed on the external storage, but the system will install the app on the internal storage by default. If the internal storage is full, then the system will install it on the external storage. Once installed, the user can move the app to either internal or external storage through the system settings. |
+    | preferExternal |  The app prefers to be installed on the external storage (SD card). There is no guarantee that the system will honor this request. The app might be installed on internal storage if the external media is unavailable or full. Once installed, the user can move the app to either internal or external storage through the system settings. |
+
+    When an app is installed on the external storage:
+        - The `.apk` file is saved to the external storage, but any app data (such as databases) is still saved on the internal device memory.
+        - The container in which the `.apk` file is saved is encrypted with a key that allows the app to operate only on the device that installed it. (A user cannot transfer the SD card to another device and use apps installed on the card.) Though, multiple SD cards can be used with the same device.
+        - At the user's request, the app can be moved to the internal storage.
+
+    The user may also request to move an app from the internal storage to the external storage. However, the system will not allow the user to move the app to external storage if this attribute is set to `internalOnly`, which is the default setting.
 
 
+* **What is a ArrayMap and how works?**
+    - ArrayMap is a generic key->value mapping data structure that is designed to be more memory efficient than a traditional HashMap. It keeps its mappings in an array data structure - an integer array of hash codes for each item, and an Object array of the key/value pairs. This allows it to avoid having to create an extra object for every entry put in to the map, and it also tries to control the growth of the size of these arrays more aggressively (since growing them only requires copying the entries in the array, not rebuilding a hash map).
+
+    Note that this implementation is not intended to be appropriate for data structures that may contain large numbers of items. It is generally slower than a traditional HashMap, since lookups require a binary search and adds and removes require inserting and deleting entries in the array. For containers holding up to hundreds of items, the performance difference is not significant, less than 50%.
+
+    Because this container is intended to better balance memory use, unlike most other standard Java containers it will shrink its array as items are removed from it. Currently you have no control over this shrinking - if you set a capacity and then remove an item, it may reduce the capacity to better match the current size. In the future an explicit call to set the capacity should turn off this aggressive shrinking behavior.
+
+    This structure is NOT thread-safe.
+
+    - **How works**
+        `ArrayMap` uses 2 arrays. The instance variables used internally are `Object[] mArray` to store the objects and the `int[] mHashes` to store hashCodes. When a key/value is inserted:
+        - Key/Value is autoboxed;
+        - The key object is inserted in the `mArray` where on the index in which it needs to pushed is searched using the binary search;
+        - A value object is also inserted in the position next to key’s position in `mArray[]`;
+        - The hashCode of the key is calculated and placed in `mHashes[]` at the next available position.
+
+    For searching a key:
+        - Key’s hashCode is calculated;
+        - Binary search is done for this hashCode in the `mHashes` array. This implies time complexity increases to `O(logN)`;
+        - Once we get the index of hash, we know that key is at 2\*index position in `mArray` and value is at 2\*index+1 position;
+        - Here the time complexity increases from `O(1)` to `O(logN)`, but it is memory efficient. Whenever we play on a dataset of around 100, there will no problem of time complexity, it will be non-noticeable. As we have the advantage of memory efficient application.
