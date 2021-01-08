@@ -949,9 +949,9 @@ Serializable uses reflection while for parcelable, developers from android team 
       [Official documentation](https://developer.android.com/topic/libraries/architecture/livedata) or [More info](https://github.com/Kirchhoff-/Android-Interview-Questions/blob/master/Android/What's%20LiveData.md) or [Sample  implementation](https://github.com/anitaa1990/GameOfThronesTrivia)
 
        * **Navigation Component** 
-            *    The Navigation Architecture Component simplifies implementing navigation, while also helping you visualize your app's navigation flow. The library provides a number of benefits, including:
-                *   Automatic handling of fragment transactions
-                * Correctly handling *up* and *back* by default
+                The Navigation Architecture Component simplifies implementing navigation, while also helping you visualize your app's navigation flow. The library provides a number of benefits, including:
+                    * -Automatic handling of fragment transactions
+                    * Correctly handling *up* and *back* by default
                 * Default behaviors for animations and transitions
                 * Deep linking as a first class operation
                 * Implementing navigation UI patterns (like navigation drawers and bottom nav) with little additional work
