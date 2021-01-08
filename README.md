@@ -191,9 +191,9 @@ A View is a superclass for all the UI components. You can also check out the off
     - ViewGroup: ViewGroup is the invisible container. It holds View and ViewGroup. For example, LinearLayout is the ViewGroup that contains Button(View), and other Layouts also. ViewGroup is the base class for Layouts.
 
 * **What is a Canvas?** 
-    - Canvas API in Android is a drawing framework which helps us to draw custom design like line, circle or even a rectangle. Using these we can make any shape whichever we want according to design.
+*   Canvas API in Android is a drawing framework which helps us to custom design like line, circle or even a rectangle. Using these we can make any shape whichever we want according to design. 
 
-    The drawing of canvas happens in Bitmap, where we draw the outline and then the Paint API helps to fill color and whatever style we need. 
+*   The drawing of canvas happens in Bitmap, where we draw the outline and then the Paint API helps to fill color and whatever style we need. 
 <br>[Learn more here](https://blog.mindorks.com/understanding-canvas-api-in-android)
 
 * **What is a `SurfaceView`?** - [Learn more here](https://developer.android.com/reference/android/view/SurfaceView)
@@ -227,8 +227,6 @@ A View is a superclass for all the UI components. You can also check out the off
 on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]](http://developer.android.com/guide/topics/resources/drawable-resource.html#StateList)
 * for layout\_width and layout\_height, what's the difference between match\_parent and wrap\_content?
 * How do you implement Google's new Material Design in an Android application? [[info]](https://developer.android.com/training/material/get-started.html)
-* Difference between View.GONE and View.INVISIBLE? [[info]](https://stackoverflow.com/a/11556629/497132)
-
 
 
 * **Difference between RelativeLayout and LinearLayout?**</br>
