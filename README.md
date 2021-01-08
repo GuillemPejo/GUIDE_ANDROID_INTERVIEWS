@@ -1270,7 +1270,7 @@ More additional info to get started with RxJava is available at:
 
 
 * **Room vs SQLite** 
-    SQLite is an in-process library that implements a self-contained, serverless, zero-configuration, transactional SQL database engine. 
+    - SQLite is an in-process library that implements a self-contained, serverless, zero-configuration, transactional SQL database engine. 
 
     SQLite is an embedded SQL database engine. Unlike most other SQL databases, SQLite does not have a separate server process. SQLite reads and writes directly to ordinary disk files. A complete SQL database with multiple tables, indices, triggers, and views, is contained in a single disk file. The database file format is cross-platform - you can freely copy a database between 32-bit and 64-bit systems or between big-endian and little-endian architectures
 
@@ -1315,11 +1315,11 @@ More additional info to get started with RxJava is available at:
 * **What is ProGuard?** 
     - Proguard is free Java class file shrinker, optimizer, obfuscator, and preverifier. It detects and removes unused classes, fields, methods, and attributes. It optimizes bytecode and removes unused instructions. It renames the remaining classes, fields, and methods using short meaningless names.
 
-    Main function: 
-        - Shrinking: detects and safely removes unused classes, fields, methods, and attributes from your app and its library dependencies (making it a valuable tool for working around the 64k reference limit). For example, if you use only a few APIs of a library dependency, shrinking can identify library code that your app is not using and remove only that code from your app. 
-        - Resource shrinking: removes unused resources from your packaged app, including unused resources in your app’s library dependencies. It works in conjunction with code shrinking such that once unused code has been removed, any resources no longer referenced can be safely removed as well.
-        - Optimization:  inspects and rewrites your code to further reduce the size of your app’s DEX files.
-        - Obfuscation:  shortens the name of classes and members, which results in reduced DEX file sizes.
+        Main function: 
+        *    - Shrinking: detects and safely removes unused classes, fields, methods, and attributes from your app and its library dependencies (making it a valuable tool for working around the 64k reference limit). For example, if you use only a few APIs of a library dependency, shrinking can identify library code that your app is not using and remove only that code from your app. 
+        *    - Resource shrinking: removes unused resources from your packaged app, including unused resources in your app’s library dependencies. It works in conjunction with code shrinking such that once unused code has been removed, any resources no longer referenced can be safely removed as well.
+        *    - Optimization:  inspects and rewrites your code to further reduce the size of your app’s DEX files.
+        *    - Obfuscation:  shortens the name of classes and members, which results in reduced DEX file sizes.
 
     **Notes**: When you build you project using Android Gradle plugin 3.4.0 or higher, the plugin no longer uses ProGuard to perform compile-time code optimization. Instead, the plugin works with the R8 compiler. by default, R8 automatically performs the compile-time tasks described above for you. However, you can disable certain tasks or customize R8’s behavior through ProGuard rules files. In fact, R8 works with all of your existing ProGuard rules files, so updating the Android Gradle plugin to use R8 should not require you to change your existing rules.
 
@@ -1396,21 +1396,21 @@ More additional info to get started with RxJava is available at:
 * **What is a ArrayMap and how works?**
     - ArrayMap is a generic key->value mapping data structure that is designed to be more memory efficient than a traditional HashMap. It keeps its mappings in an array data structure - an integer array of hash codes for each item, and an Object array of the key/value pairs. This allows it to avoid having to create an extra object for every entry put in to the map, and it also tries to control the growth of the size of these arrays more aggressively (since growing them only requires copying the entries in the array, not rebuilding a hash map).
 
-    Note that this implementation is not intended to be appropriate for data structures that may contain large numbers of items. It is generally slower than a traditional HashMap, since lookups require a binary search and adds and removes require inserting and deleting entries in the array. For containers holding up to hundreds of items, the performance difference is not significant, less than 50%.
+    *    Note that this implementation is not intended to be appropriate for data structures that may contain large numbers of items. It is generally slower than a traditional HashMap, since lookups require a binary search and adds and removes require inserting and deleting entries in the array. For containers holding up to hundreds of items, the performance difference is not significant, less than 50%.
 
-    Because this container is intended to better balance memory use, unlike most other standard Java containers it will shrink its array as items are removed from it. Currently you have no control over this shrinking - if you set a capacity and then remove an item, it may reduce the capacity to better match the current size. In the future an explicit call to set the capacity should turn off this aggressive shrinking behavior.
+    *    Because this container is intended to better balance memory use, unlike most other standard Java containers it will shrink its array as items are removed from it. Currently you have no control over this shrinking - if you set a capacity and then remove an item, it may reduce the capacity to better match the current size. In the future an explicit call to set the capacity should turn off this aggressive shrinking behavior.
 
-    This structure is NOT thread-safe.
+    *    This structure is **NOT thread-safe**.
 
     - **How works**
-        `ArrayMap` uses 2 arrays. The instance variables used internally are `Object[] mArray` to store the objects and the `int[] mHashes` to store hashCodes. When a key/value is inserted:
-        - Key/Value is autoboxed;
-        - The key object is inserted in the `mArray` where on the index in which it needs to pushed is searched using the binary search;
-        - A value object is also inserted in the position next to key’s position in `mArray[]`;
-        - The hashCode of the key is calculated and placed in `mHashes[]` at the next available position.
+    *   `ArrayMap` uses 2 arrays. The instance variables used internally are `Object[] mArray` to store the objects and the `int[] mHashes` to store hashCodes. When a key/value is inserted:
+        *   - Key/Value is autoboxed;
+        *   - The key object is inserted in the `mArray` where on the index in which it needs to pushed is searched using the binary search;
+        *   - A value object is also inserted in the position next to key’s position in `mArray[]`;
+        *   - The hashCode of the key is calculated and placed in `mHashes[]` at the next available position.
 
     For searching a key:
-        - Key’s hashCode is calculated;
-        - Binary search is done for this hashCode in the `mHashes` array. This implies time complexity increases to `O(logN)`;
-        - Once we get the index of hash, we know that key is at 2\*index position in `mArray` and value is at 2\*index+1 position;
-        - Here the time complexity increases from `O(1)` to `O(logN)`, but it is memory efficient. Whenever we play on a dataset of around 100, there will no problem of time complexity, it will be non-noticeable. As we have the advantage of memory efficient application.
+        *   - Key’s hashCode is calculated;
+        *   - Binary search is done for this hashCode in the `mHashes` array. This implies time complexity increases to `O(logN)`;
+        *   - Once we get the index of hash, we know that key is at 2\*index position in `mArray` and value is at 2\*index+1 position;
+        *   - Here the time complexity increases from `O(1)` to `O(logN)`, but it is memory efficient. Whenever we play on a dataset of around 100, there will no problem of time complexity, it will be non-noticeable. As we have the advantage of memory efficient application.
