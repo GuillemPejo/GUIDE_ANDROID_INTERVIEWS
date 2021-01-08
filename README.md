@@ -17,7 +17,8 @@
 
     - A **Service** is an application component that can perform long-running operations in the background, and it doesn't provide a user interface. Another application component can start a service, and it continues to run in the background even if the user switches to another application. Additionally, a component can bind to a service to interact with it and even perform interprocess communication (IPC). For example, a service can handle network transactions, play music, perform file I/O, or interact with a content provider, all from the background.
 
-    - A **Broadcast Receivers** (receiver) is an Android component which allows you to register for system or application events. Android apps can send or receive broadcast messages from the Android system and other Android apps, similar to the publish-subscribe design pattern. These broadcasts are sent when an event of interest occurs. For example, the Android system sends broadcasts when various system events occur, such as when the system boots up or the device starts charging. Apps can also send custom broadcasts, for example, to notify other apps of something that they might be interested in (for example, some new data has been downloaded).
+    - A **Broadcast Receivers** (receiver) is an Android component which allows you to register for system or application events. Android apps can send or receive broadcast messages from the Android system and other Android apps, similar to the publish-subscribe design pattern. These broadcasts are sent when an event of interest occurs. For example, the Android system sends broadcasts when various system events occur, such as when the system boots up or the device starts charging. Apps can also send custom broadcasts, for example, to notify other apps of something that they might be interested in (for example, some new data has been downloaded). Apps can receive broadcasts in two ways: Manifest-declared receivers and Context-registered receivers
+
 
     - A **Content Provider** manages access to a central repository of data. You implement a provider as one or more classes in an Android application, along with elements in the manifest file. One of your classes implements a subclass `ContentProvider`, which is the interface between your provider and other applications. Although content providers are meant to make data available to other applications, you may of course have activities in your application that allow the user to query and modify the data managed by your provider.
 
@@ -128,7 +129,30 @@
 
 #### CONTENT PROVIDERS
 
-* What is a ContentProvider and what is it typically used for?
+* What is ContentProviders typically used for and how works?
+    - You need to build a content provider if you want to provide one or more of the following features:
+        - You want to offer complex data or files to other applications.
+        - You want to allow users to copy complex data from your app into other apps.
+        - You want to provide custom search suggestions using the search framework.
+        - You want to expose your application data to widgets.
+        - You want to implement the `AbstractThreadedSyncAdapter`, `CursorAdapter`, or `CursorLoader` classes.
+
+    You don't need a provider to use databases or other types of persistent storage if the use is entirely within your own application and you don’t need any of the features listed above.
+
+    To understand how it works, consider the following diagram:
+
+    ![](./assets/content_provider.jpg "Content provider")
+
+    * Content URIs
+
+        Content URIs are the uniform resource identifiers that identify the data in the content providers. A content URI includes two things: *Authority* that is the symbolic name of the Provider and a *Path* that is a name that points towards the data. Every content provider methods have an argument which is URI. URIs for content providers look like this:
+
+        `content://<authority>/<path>/<optional_id>`
+
+        - **content://** – It’s always present, and is the scheme portion of the URI.
+        - **authority** – It is the unique name of the content provider, like photos, contacts. It’s a string that can identify the whole content provider.
+        - **path** – It is often used to identify some or the other data of the provider. The path is mostly used to identify individual tables.
+        - **optional_id** – id is used to access a single particular record of a file. We use this only in cases where we need to access only a particular record and not the complete file. It’s a numeric identifier to access a particular row of the data table.
 
 
 * **Describe content providers**</br>
@@ -437,6 +461,18 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
     ```
 </br>
 
+* **What is DiffUtil?** 
+    - `DiffUtil` is a utility class that calculates the difference between two lists and outputs a list of update operations that converts the first list into the second one. 
+
+    It can be used to calculate updates for a RecyclerView Adapter.  See [ListAdapter](https://developer.android.com/reference/androidx/recyclerview/widget/ListAdapter) and [AsyncListDiffer](https://developer.android.com/reference/androidx/recyclerview/widget/AsyncListDiffer) which can simplify the use of `DiffUtil` on a background thread.
+
+    `DiffUtil` uses Eugene W. Myers's difference algorithm to calculate the minimal number of updates to convert one list into another. Myers's algorithm does not handle items that are moved so DiffUtil runs a second pass on the result to detect items that were moved.
+
+    Note that `DiffUtil`, `ListAdapter`, and `AsyncListDiffer` require the list to not mutate while in use. This generally means that both the lists themselves and their elements (or at least, the properties of elements used in diffing) should not be modified directly. Instead, new lists should be provided any time content changes. It's common for lists passed to `DiffUtil` to share elements that have not mutated, so it is not strictly required to reload all data to use `DiffUtil`.
+
+    If the lists are large, this operation may take significant time so you are advised to run this on a background thread, get the `DiffUtil.DiffResult` then apply it on the `RecyclerView` on the main thread.
+
+
 
 * **What is the difference between `ListView` and `RecyclerView`?** - [Learn more here](https://stackoverflow.com/questions/26728651/recyclerview-vs-listview)
 
@@ -490,7 +526,9 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
 
 * **What is a `BroadcastReceiver`?** - [Learn more here](https://developer.android.com/guide/components/broadcasts)
 
-* **What is a `LocalBroadcastManager`?** - [Learn more here](https://blog.mindorks.com/using-localbroadcastmanager-in-android)
+* **What is a `LocalBroadcastManager`?** - [Learn more here](https://blog.mindorks.com/using-localbroadcastmanager-in-android) or [here](https://github.com/Kirchhoff-/Android-Interview-Questions/blob/master/Android/What's%20BroadcastReceiver.md)
+
+
 
 * **What is a Sticky `Intent`?**
     - Sticky Intents allows communication between a function and a service. sendStickyBroadcast() performs a sendBroadcast(Intent) known as sticky, i.e. the Intent you are sending stays around after the broadcast is complete, so that others can quickly retrieve that data through the return value of registerReceiver(BroadcastReceiver, IntentFilter). For example, if you take an intent for ACTION_BATTERY_CHANGED to get battery change events: When you call registerReceiver() for that action — even with a null BroadcastReceiver — you get the Intent that was last Broadcast for that action. Hence, you can use this to find the state of the battery without necessarily registering for all future state changes in the battery.
@@ -675,7 +713,9 @@ A bound service is a service that can be used not only by components running in 
 
 * **Difference between Serializable and Parcelable?**</br>
   * Serializable is a standard Java interface. Parcelable is an Android specific interface where you implement the serialization yourself. It was created to be far more efficient than Serializable (The problem with this approach is that reflection is used and it is a slow process. This mechanism also tends to create a lot of temporary objects and cause quite a bit of garbage collection.).
-  * Serialization is the process of converting an object into a stream of bytes in order to store an object into memory, so that it can be recreated at a later time, while still keeping the object's original state and data. 
+  * Serialization is the process of converting an object into a stream of bytes in order to store an object into memory, so that it can be recreated at a later time, while still keeping the object's original state and data.
+  * 
+
   * **How to disallow serialization?** We can declare the variable as transient.
   * Parcelable is faster than Serializable interface
     * Parcelable interface takes more time to implement compared to Serializable interface (with Kotlin this is not true)
@@ -1392,6 +1432,14 @@ More additional info to get started with RxJava is available at:
 
     The user may also request to move an app from the internal storage to the external storage. However, the system will not allow the user to move the app to external storage if this attribute is set to `internalOnly`, which is the default setting.
 
+* **What is a SparseArray and how works?** 
+    - `SparseArray` maps integers to Objects and, unlike a normal array of Objects, its indices can contain gaps. `SparseArray` is intended to be more memory-efficient than a `HashMap`, because it avoids auto-boxing keys and its data structure doesn't rely on an extra entry object for each mapping.
+
+        Note that this container keeps its mappings in an array data structure, using a binary search to find keys. The implementation is not intended to be appropriate for data structures that may contain large numbers of items. It is generally slower than a `HashMap` because lookups require a binary search, and adds and removes require inserting and deleting entries in the array. For containers holding up to hundreds of items, the performance difference is less than 50%.
+
+        To help with performance, the container includes an optimization when removing keys: instead of compacting its array immediately, it leaves the removed entry marked as deleted. The entry can then be re-used for the same key or compacted later in a single garbage collection of all removed entries. This garbage collection must be performed whenever the array needs to be grown, or when the map size or entry values are retrieved.
+
+        It is possible to iterate over the items in this container using `keyAt(int)` and `valueAt(int)`. Iterating over the keys using `keyAt(int)` with ascending values of the index returns the keys in ascending order. In the case of `valueAt(int)`, the values corresponding to the keys are returned in ascending order.
 
 * **What is a ArrayMap and how works?**
     - ArrayMap is a generic key->value mapping data structure that is designed to be more memory efficient than a traditional HashMap. It keeps its mappings in an array data structure - an integer array of hash codes for each item, and an Object array of the key/value pairs. This allows it to avoid having to create an extra object for every entry put in to the map, and it also tries to control the growth of the size of these arrays more aggressively (since growing them only requires copying the entries in the array, not rebuilding a hash map).
