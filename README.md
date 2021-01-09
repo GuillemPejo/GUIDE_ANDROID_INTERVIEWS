@@ -133,6 +133,8 @@
 * **Describe content providers**</br>
   * A ContentProvider provides data from one application to another, when requested. It manages access to a structured set of data.  It provides mechanisms for defining data security. ContentProvider is the standard interface that connects data in one process with code running in another process.</br>  
   * When you want to access data in a **ContentProvider**, you must instead use the ContentResolver object in your application’s Context to communicate with the provider as a client. The provider object receives data requests from clients, performs the requested action, and returns the results.</br>
+
+
   <br>[Learn more here](http://developer.android.com/guide/topics/providers/content-providers.html)
 
 
@@ -198,6 +200,8 @@
   * ```onDestroy()``` :called to do final clean up of the fragment’s state but Not guaranteed to be called by the Android platform.</br>  
 ![image](assets/fragment_lifecycle.png)
 
+* **Which method is called only once in a fragment life cycle?**
+    - `onAttached()`
 
 * **What is the correlation between activity and fragment life cycle?**<br/>
 -   Here is how Activity's and Fragment's lifecyle are called together:
@@ -317,7 +321,11 @@ savedInstanceState.Also it won't affect the performance even if there are large 
 
 * **Relative Layout vs Linear Layout.** - [Learn more here](https://blog.mindorks.com/android-layout-relative-linear-frame)
 
-* **Tell about Constraint Layout** - [Learn more here](https://blog.mindorks.com/using-constraint-layout-in-android-531e68019cd)
+* **Tell about Constraint Layout** 
+    - ConstraintLayout allows you to create large and complex layouts with a flat view hierarchy (no nested view groups). It's similar to RelativeLayout in that all views are laid out according to relationships between sibling views and the parent layout, but it's more flexible than RelativeLayout and easier to use with Android Studio's Layout Editor.
+
+    Intention of ConstraintLayout is to optimize and flatten the view hierarchy of your layouts by applying some rules to each view to avoid nesting.
+- [Learn more here](https://blog.mindorks.com/using-constraint-layout-in-android-531e68019cd)
 
 * **Do you know what is the view tree? How can you optimize its depth?** - [Learn more here](https://developer.android.com/reference/android/view/ViewTreeObserver)
 
@@ -336,6 +344,10 @@ savedInstanceState.Also it won't affect the performance even if there are large 
   
 * **What is the difference between a regular .png and a nine-patch image?**</br>
    * It is one of a resizable bitmap resource which is being used as backgrounds or other images on the device. The NinePatch class allows drawing a bitmap in nine sections. The four corners are unscaled; the middle of the image is scaled in both axes, the four edges are scaled into one axis.</br>
+
+* **What is the difference between Bitmap and Drawable in Android?**
+    - A Bitmap is a representation of a bitmap image (something like java.awt.Image).
+    - A Drawable is an abstraction of "something that can be drawn". It could be a Bitmap (wrapped up as a BitmapDrawable), but it could also be a solid color, a collection of other Drawable objects, or any number of other structures.
 
 
 * **Raw folder vs Assets folder**
@@ -418,7 +430,19 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
    * Use the smallest width qualifier.  For example, you can create a layout named main_activity that's optimized for handsets and tablets by creating different versions of the file in directories as follows:            
       * res/layout/main_activity.xml           # For handsets (smaller than 600dp available width)                      
       * res/layout-sw600dp/main_activity.xml   # For 7” tablets (600dp wide and bigger). 
-      * The smallest width qualifier specifies the smallest of the screen's two sides, regardless of the device's current orientation, so it's a simple way to specify the overall screen size available for your layout.</br>
+      * The smallest width qualifier specifies the smallest of the screen's two sides, regardless of the device's current orientation, so it's a simple way to specify the overall screen size available for your layout.
+        `
+        MyProject/
+        res/
+        layout/ # default (portrait)
+        main.xml
+        layout-land/ # landscape
+        main.xml
+        layout-large/ # large (portrait)
+        main.xml
+        layout-large-land/ # large landscape
+        main.xml
+        `</br>
 
 * **How do you support different types of resolutions?** - [Learn more here](https://developer.android.com/training/multiscreen/screensizes)
   
@@ -443,6 +467,10 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
    * Bitmap pooling is a simple technique, that aims to reuse bitmaps instead of creating new ones every time. When you need a bitmap, you check a bitmap stack to see if there are any bitmaps available. If there are not bitmaps available you create a new bitmap otherwise you pop a bitmap from the stack and reuse it. Then when you are done with the bitmap, you can put it on a stack. [Find more info here](https://www.linkedin.com/pulse/performance-improvement-bitmap-pooling-android-ali-muzaffar/)</br>
    
    
+
+* **Is it possible to create an activity in Android without a user interface ?**
+    - Yes, an activity can be created without any user interface. These activities are treated as abstract activities.
+
 * **How to load bitmap to memory?**</br>
    * [Find more info here](https://android.jlelse.eu/loading-large-bitmaps-efficiently-in-android-66826cd4ad53)</br>   
   
@@ -540,6 +568,18 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
 
 * **What is `Dialog` in Android?** - [Learn more here](https://developer.android.com/guide/topics/ui/dialogs)
 
+
+* **Which dialog boxes are supported by android?**
+    - Android supports 4 dialog boxes:
+
+    a.) AlertDialog: Alert dialog box supports 0 to 3 buttons and a list of selectable elements which includes check boxes and radio buttons.
+
+    b.) ProgressDialog: This dialog box is an extension of AlertDialog and supports adding buttons. It displays a progress wheel or bar.
+
+    c.) DatePickerDialog: The user can select the date using this dialog box.
+
+    d.) TimePickerDialog: The user can select the time using this dialog box.
+
 * **What is `Toast` in Android?** 
 - Android Toast can be used to display information for the short period of time. A toast contains message to be displayed quickly and disappears after sometime.
 [Learn more here](https://developer.android.com/guide/topics/ui/notifiers/toasts)
@@ -560,7 +600,11 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
 #### INTENTS
 
 * Describe three common use cases for using an Intent.
+    - Common use cases for using an Intent include:
 
+        - To start an activity: You can start a new instance of an Activity by passing an Intent to startActivity() method.
+        - To start a service: You can start a service to perform a one-time operation (such as download a file) by passing an Intent to startService().
+        - To deliver a broadcast: You can deliver a broadcast to other apps by passing an Intent to sendBroadcast(), sendOrderedBroadcast(), or sendStickyBroadcast().
 
 * **What is an intent?**</br>
   * Intents are messages that can be used to pass information to the various components of android. For instance, launch an activity, open a webview etc.</br>
@@ -628,6 +672,13 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
 </br>[Learn more here](https://stackoverflow.com/a/15772151/497132)
   
 
+* **An Intent can it be used to provide data to a ContentProvider? Why or why not?**
+    - The Intent object is a common mechanism for starting new activity and transferring data from one activity to another. However, you cannot start a ContentProvider using an Intent.
+
+    When you want to access data in a ContentProvider, you must instead use the ContentResolver object in your application’s Context to communicate with the provider as a client. The ContentResolver object communicates with the provider object, an instance of a class that implements ContentProvider. The provider object receives data requests from clients, performs the requested action, and returns the results.
+
+
+
 * **What are "launch modes"?** 
    * **Standard**: It creates a new instance of an activity in the task from which it was started. Multiple instances of the activity can be created and multiple instances can be added to the same or different tasks. 
      * Example: Suppose there is an activity stack of A -> B -> C. Now if we launch B again with the launch mode as “standard”, the new stack will be A -> B -> C -> B.
@@ -668,6 +719,13 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
 
 * **`Service` vs `IntentService`.** 
     - IntentService is a subclass of Service that can perform tasks using worker thread unlike service that blocks main thread.
+
+    - `Service` is the base class for Android services that can be extended to create any service. A class that directly extends Service runs on the main thread so it will block the UI (if there is one) and should therefore either be used only for short tasks or should make use of other threads for longer tasks.
+
+    `IntentService` is a subclass of Service that handles asynchronous requests (expressed as “Intents”) on demand. Clients send requests through startService(Intent) calls. The service is started as needed, handles each Intent in turn using a worker thread, and stops itself when it runs out of work. Writing an IntentService can be quite simple; just extend the IntentService class and override the onHandleIntent(Intent intent) method where you can manage all incoming requests.
+
+
+
     [Learn more here](https://blog.mindorks.com/service-vs-intentservice-in-android)
 
       * **Difference between Activity & Service**</br>
@@ -694,6 +752,20 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
   * We need to register a LocalBroadcastReceiver in the activity. And send a broadcast with the data using intents from the background service. As long as the activity is in the foreground, the UI will be updated from the background. Ensure to unregister the broadcast receiver in the onStop() method of the activity to avoid memory leaks. 
 We can also register a Handler and pass data using Handlers. I have detailed a sample implementation on this. You can check it out [here](https://medium.com/@anitaa_1990/how-to-update-an-activity-from-background-service-or-a-broadcastreceiver-6dabdb5cef74)</br>
 
+* **How all the activities that are running run in main thread?**
+    - All the applications that are running or can be accessed runs in main thread of user interface by default. The modification can be done to make it run differently or to make it run or not at all. The exception also comes defining that the code handles the IPC calls that are coming from other processes. The system used to maintain separate pools for all the processes and threads. One pool consists of the transaction threads that are in each process to dispatch all the incoming calls. It also allows the interpersonal calls to be handled in a specialized manner. This allows the creation of separate threads that is used for long-running code, and to avoid blocking of the main user interface threads. The services that run can be killed by the system if it is going out of memory. The system restart the service and implement onStartCommand() to bring the activities back in the memory pool.
+
+* **What is an AsyncTask?**
+    - `AsyncTask` is one of the easiest ways to implement parallelism in Android without having to deal with more complex methods like Threads. Though it offers a basic level of parallelism with the UI thread, it should not be used for longer operations (of, say, not more than 2 seconds).
+
+        AsyncTask has four methods
+
+        - `onPreExecute()`
+        - `doInBackground()`
+        - `onProgressUpdate()`
+        - `onPostExecute()`
+
+        where `doInBackground()` is the most important as it is where background computations are performed.
   
 * **Difference between AsyncTasks & Threads?**</br>
   * **Thread** should be used to separate long running operations from main thread so that performance is improved. But it can't be cancelled elegantly and it can't handle configuration changes of Android. You can't update UI from Thread.
@@ -874,7 +946,27 @@ Serializable uses reflection while for parcelable, developers from android team 
 
 * **How would you preserve `Activity` state during a screen rotation?** - [Learn more here](https://stackoverflow.com/questions/3915952/how-to-save-state-during-orientation-change-in-android-if-the-state-is-made-of-m)
 
-* **What are different ways to store data in your Android app?** - [Learn more here](https://blog.mindorks.com/understanding-storage-system-to-store-data-in-android) or [here](https://developer.android.com/guide/topics/data/data-storage.html)
+* **What are different ways to store data in your Android app?** 
+    - Different data storage options are available in Android are:
+        - SharedPreferences
+        - SQlite
+        - ContentProvider
+        - File Storage
+        - Cloud Storage
+
+
+* **Describe SharedPreference storage option with example.**
+     - SharedPreference is the simplest mechanism to store the data in android. You do not worry about creating the file or using files API.It stores the data in XML files. SharedPreference stores the data in key value pair.The SharedPreferences class allows you to save and retrieve key-value pairs of primitive data types. You can use SharedPreferences to save any primitive data: boolean, floats, int, longs, and strings.The data is stored in XML file in the directory data/data//shared-prefs folder.
+
+        Application of SharedPreference
+
+        - Storing the information about number of visitors (counter).
+        - Storing the date and time (when your Application is updated).
+        - Storing the username and password.
+        - Storing the user settings.
+
+
+- [Learn more here](https://blog.mindorks.com/understanding-storage-system-to-store-data-in-android) or [here](https://developer.android.com/guide/topics/data/data-storage.html)
 
 
 * **Explain Scoped Storage in Android.** - [Learn more here](https://blog.mindorks.com/understanding-the-scoped-storage-in-android)
@@ -898,6 +990,9 @@ Serializable uses reflection while for parcelable, developers from android team 
 
 * **What is a `SpannableString`?**
    - A SpannableString has immutable text, but its span information is mutable. Use a SpannableString when your text doesn't need to be changed but the styling does. Spans are ranges over the text that include styling information like color, highlighting, italics, links, etc
+
+* **What is a difference between Spannable and String?**
+    - A Spannable allows to attach formatting information like bold, italic, ... to sub-sequences ("spans", thus the name) of the characters. It can be used whenever you want to represent "rich text".
 
 * **What are the best practices for using text in Android?** - [Learn more here](https://blog.mindorks.com/best-practices-for-using-text-in-android)
 
@@ -928,6 +1023,9 @@ Serializable uses reflection while for parcelable, developers from android team 
 * **What is the `onTrimMemory()` method?** - [Learn more here](https://developer.android.com/topic/performance/memory)
 
 * **How does the OutOfMemory happens?** - [Learn more here](https://blog.mindorks.com/practical-guide-to-solve-out-of-memory-error-in-android-application)
+
+* **What is a memory leak?**
+    -   Memory leaks happen when you hold on to an object long after its purpose has been served. Every object has got its own lifetime, after which it needs to say goodbye and leave the memory. But if some other object(s) is holding onto this object (directly or indirectly), then the garbage collector will not be able to collect it.
 
 * **How do you find memory leaks in Android applications?** - [Learn more here](https://blog.mindorks.com/practical-guide-to-solve-out-of-memory-error-in-android-application) and [here](https://mindorks.com/blog/detecting-and-fixing-memory-leaks-in-android)
 
@@ -968,6 +1066,16 @@ Serializable uses reflection while for parcelable, developers from android team 
 
 #### Android System Internal
 
+
+* **There are four Java classes related to the use of sensors on the Android platform. List them and explain the purpose of each.**
+    - The four Java classes related to the use of sensors on the Android platform are:
+
+        -   Sensor: Provides methods to identify which capabilities are available for a specific sensor.
+        -   SensorManager: Provides methods for registering sensor event listeners and calibrating sensors.
+        -   SensorEvent: Provides raw sensor data, including information regarding accuracy.
+        -   SensorEventListener: Interface that defines callback methods that will receive sensor event notifications.
+
+
 * **What is ABI Management?** 
     - Different Android handsets use different CPUs, which in turn support different instruction sets. Each combination of CPU and instruction sets has its own Application Binary Interface, or ABI. The ABI defines, with great precision, how an application's machine code is supposed to interact with the system at runtime. You must specify an ABI for each CPU architecture you want your app to work with. You can checkout the full specifcations <a href="https://developer.android.com/ndk/guides/abis">here</a>
 
@@ -975,13 +1083,29 @@ Serializable uses reflection while for parcelable, developers from android team 
     - Android uses DVM (Dalvik Virtual Machine ) rather using JVM(Java Virtual Machine).
 
 
-* **What is the Dalvik Virtual Machine?** - [Learn more here](https://blog.mindorks.com/what-are-the-differences-between-dalvik-and-art)
+* **What is the Dalvik Virtual Machine?** 
+    - It is Android's virtual machine.
+    - It is an interpreter-only virtual machine which executes files in Dalvik Executable (.dex) format. This format is optimized for efficient storage and memory-mappable execution.
+
+    The Dalvik Virtual Machine (DVM) is an android virtual machine optimized for mobile devices. It optimizes the virtual machine for memory, battery life and performance.
+
+    The Dex compiler converts the class files into the .dex file that run on the Dalvik VM. Multiple class files are converted into one dex file.
+
+    Dalvik is a Just In Time (JIT) compiler. By the term JIT, we mean to say that whenever you run your app in your mobile device then that part of your code that is needed for execution of your app will only be compiled at that moment and rest of the code will be compiled in the future when needed. The JIT or Just In Time compiles only a part of your code and it has a smaller memory footprint and due to this, it uses very less physical space on your device.
+
+- [Learn more here](https://blog.mindorks.com/what-are-the-differences-between-dalvik-and-art)
 
 * **What is the difference JVM, DVM and ART?** - [Learn more here](https://android.jlelse.eu/closer-look-at-android-runtime-dvm-vs-art-1dc5240c3924)
 
 * **What are the differences between Dalvik and ART?** - [Learn more here](https://blog.mindorks.com/what-are-the-differences-between-dalvik-and-art)
 
 * **What is DEX?** - [Learn more here](https://developer.android.com/reference/dalvik/system/DexFile)
+
+* **What is ARMV7**
+    - There are 3 CPU architectures in Android:
+        - ARMv7 is the most common as it is optimised for battery consumption.
+        - ARM64 is an evolved version of that that supports 64-bit processing for more powerful computing.
+        - ARMx86, is the least used for these three, since it is not battery friendly. It is more powerful than the other two.
 
 * **Can you manually call the Garbage collector?** - [Learn more here](https://stackoverflow.com/questions/15632734/can-we-call-the-garbage-collector-explicitly)
 
@@ -1271,7 +1395,13 @@ More additional info to get started with RxJava is available at:
 
 * **How do you troubleshoot a crashing application?** - [Learn more here](https://developer.android.com/topic/performance/vitals/crash)
 
-* **Explain Android notification system?** - [Learn more here](https://blog.mindorks.com/how-to-increase-push-notification-delivery-rate-in-android)
+* **Explain Android notification system?** 
+    -   A notification is a message that Android displays outside your app's UI to provide the user with reminders, communication from other people, or other timely information from your app. Users can tap the notification to open your app or take an action directly from the notification.
+
+    Notifications appear to users in different locations and formats, such as an icon in the status bar, a more detailed entry in the notification drawer, as a badge on the app's icon, and on paired wearables automatically. Beginning with Android 5.0, notifications can appear on the lock screen.
+
+    Starting in Android 8.0 (API level 26), all notifications must be assigned to a channel or it will not appear. By categorizing notifications into channels, users can disable specific notification channels for your app (instead of disabling all your notifications), and users can control the visual and auditory options for each channel—all from the Android system settings.
+- [Learn more here](https://blog.mindorks.com/how-to-increase-push-notification-delivery-rate-in-android)
 
 * **What is the difference between Serializable and Parcelable? Which is the best approach in Android?** - [Learn more here](https://android.jlelse.eu/parcelable-vs-serializable-6a2556d51538)
 
@@ -1384,7 +1514,11 @@ More additional info to get started with RxJava is available at:
 * **Difference between Schedulers.io() and Schedulers.computation() in RxJava.**
 
 * **What is dependency injection?**
-
+    - Dependency Injection is a design pattern to implement inversion of control, and to resolve dependencies. Dependency Injection (DI) eliminates boilerplate code (for example, by removing listener) and provides a much cleaner and more effective code.
+        There are a few DI libraries used in Android development:
+        -   Dagger
+        -   ButterKnife
+        -   RoboGuice
 * **Why do we use the Dependency Injection Framework like Dagger in Android?** - [Learn more here](https://blog.mindorks.com/why-do-we-use-the-dependency-injection-framework-in-android)
 
 * **How does the Dagger work?** - [Learn more here](https://blog.mindorks.com/android-annotation-processing-tutorial-part-1-a-practical-approach) and [here]((https://www.youtube.com/watch?v=Grzqz-B3NWU))
@@ -1428,7 +1562,8 @@ More additional info to get started with RxJava is available at:
 
 * **Describe MVC.** - [Learn more here](https://blog.mindorks.com/mvc-mvp-mvvm-architecture-in-android)
 
-* **Describe MVI** - [Learn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Beginners)
+* **Describe MVI** - [Le
+arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Beginners)
 
 * **Describe the repository pattern** - [Learn more here](https://blog.mindorks.com/android-mvp-architecture-extension-with-interactors-and-repositories-bd4b51972339)
 
@@ -1467,6 +1602,14 @@ More additional info to get started with RxJava is available at:
 * **HTTP Request vs HTTP Long-Polling vs WebSockets** - [Lear from here](https://www.youtube.com/watch?v=k56H0DHqu5Y)
 
 ### Android Unit Testing
+
+* **What kind of tests can you write to test your Android application?**
+    - Your app should include the three categories of tests: small, medium, and large:
+
+        -   Small tests are unit tests that you can run in isolation from production systems. They typically mock every major component and should run quickly on your machine.
+        -   Medium tests are integration tests that sit in between small tests and large tests. They integrate several components, and they run on emulators or real devices.
+        -   Large tests are integration and UI tests that run by completing a UI workflow. They ensure that key end-user tasks work as expected on emulators or real devices.
+
 * **What is Espresso?** 
     Espresso is an open source android user interface (UI) testing framework developed by Google. Espresso is a simple, efficient and flexible testing framework. Google released the Espresso framework in Oct. 2013. Since its 2.0 release Espresso is part of the Android Support Repository. Espresso tests can be written in both Java and Kotlin, a modern programming language to develop android application.
 
@@ -2028,14 +2171,16 @@ More additional info to get started with RxJava is available at:
 * What libraries have you used for interacting with databases and why did you choose them?
 * What are contract classes? [[info]](https://stackoverflow.com/a/36265603/497132)
 * How do you use the BaseColumns interface to describe your data schema? [[info]](https://stackoverflow.com/a/7900591/497132)
-* What is ADB?
-* What is ANR?
 
 
-* **What is ADB?** - [Learn more here](https://developer.android.com/studio/command-line/adb)
+* **What is ADB?** 
+    - Adb is short for Android Debug Bridge. It allows developers the power to execute remote shell commands. Its basic function is to allow and control communication towards and from the emulator port. 
+- [Learn more here](https://developer.android.com/studio/command-line/adb)
 
 * **What is an Application Not Responding (ANR) error, and how can you prevent them from occurring in an app?**</br>
-   * An ANR dialog appears when your UI has been unresponsive for more than 5 seconds, usually because you’ve blocked the main thread. To avoid encountering ANR errors, you should move as much work off the main thread as possible.</br>
+   * An ANR dialog appears when your UI has been unresponsive for more than 5 seconds, usually because you’ve blocked the main thread. To avoid encountering ANR errors, you should move as much work off the main thread as possible.
+
+    The ANR dialog is displayed to the user based on two possible conditions. One is when there is no response to an input event within 5 seconds, and the other is when a broadcast receiver is not done executing within 10 seconds. </br>
 
 
 * **Build Type, Product Flavor, Build Variant**
@@ -2066,7 +2211,20 @@ More additional info to get started with RxJava is available at:
         - As your schema changes, you need to update the affected SQL queries manually. Room solves this problem.
         - Room is built to work with LiveData and RxJava for data observation, while SQLite does not.
 
-* **What is DDMS and what can you do with it?** - [Learn more here](https://developer.android.com/studio/profile/monitor)
+* **What is DDMS and what can you do with it?** 
+    - DDMS is the Dalvik Debug Monitor Server that ships with Android. It provides a wide array of debugging features including:
+
+        - port-forwarding services
+        - screen capture
+        - thread and heap information
+        - network traffic tracking
+        - logcat
+        - incoming call and SMS spoofing
+        - simulating network state, speed, and latency
+        - location data spoofing
+
+
+- [Learn more here](https://developer.android.com/studio/profile/monitor)
 
 * **What is the StrictMode?** - [Learn more here](https://blog.mindorks.com/use-strictmode-to-find-things-you-did-by-accident-in-android-development-4cf0e7c8d997)
 
@@ -2079,6 +2237,12 @@ More additional info to get started with RxJava is available at:
 * **Firebase.** - [Learn more here](https://firebase.google.com/)
 
 * **How to measure method execution time in Android?** - [Learn more here](https://blog.mindorks.com/measure-method-execution-time-in-android-debug-build)
+
+* **Are SQL Injection attacks valid in Android? How would you prevent them?**
+
+Are SQL Injection attacks valid in Android? How would you prevent them?
+    - If you are using data and retrieving it from components or network components that at the end perform an SQL query, SQL injections are an issue. Besides using validation in input fields or libraries to avoid SQL injections, another possible solution is to use parameterized queries with ContentProviders, which virtually remove the risk of suffering an SQL Injection.
+
 
 * **Can you access your database of SQLite Database for debugging?** - [Learn more here](https://blog.mindorks.com/how-to-access-sqlite-database-in-android-for-debugging)
 
@@ -2134,6 +2298,20 @@ More additional info to get started with RxJava is available at:
 
             - 3. A widget has the same runtime restrictions as a normal broadcast receiver, i.e., it has only 5 seconds to finish its processing. A receive (widget) should therefore perform time consuming operations in a service and perform the update of the widgets from the service.
 
+* **Imagine you need to create an Android app that supports multiple languages and cultures, what's the best approach for you to do this?**
+    - First we need to make sure that we don't have any hardcoded strings inside our app. All strings should be put inside values => strings.xml file. If we want to create translation into Spanish language, we will create a new folder called values-es and create a new strings.xml file inside this folder. The newly created strings file will contain the same string Ids but the value will be translated into Spanish.
+    **values>strings.xml**
+        `
+    <resources>
+    <string name="thank_you">Thank You</string>
+    </resources>
+    `
+    **values-es>strings.xml**
+    `
+    <resources>
+    <string name="thank_you">Gracias</string>
+    </resources>
+`
 
 
 * **APK Size Reduction.** 
@@ -2264,3 +2442,24 @@ Kodein-DI is a good choice because:
         * Binary search is done for this hashCode in the `mHashes` array. This implies time complexity increases to `O(logN)`;
         * Once we get the index of hash, we know that key is at 2\*index position in `mArray` and value is at 2\*index+1 position;
         * Here the time complexity increases from `O(1)` to `O(logN)`, but it is memory efficient. Whenever we play on a dataset of around 100, there will no problem of time complexity, it will be non-noticeable. As we have the advantage of memory efficient application.
+
+* **How to send SMS in android? Explain with example.**
+    - SMS messaging is one of the basic and important applications on a mobile phone. Now days every mobile phone has SMS messaging capabilities, and nearly all users of any age know how to send and receive such messages. Mobile phones come with a built-in SMS application that enables you to send and receive SMS messages. If you want to send the SMS programmatically then follow the following steps.
+
+    SmsManager class is responsible for sending SMS from one emulator to another or device.
+
+    You cannot directly instantiate this class; instead, you call the getDefault() static method to obtain an SmsManager object. You then send the SMS message using the sendTextMessage() method:
+    `
+    SmsManagersms = SmsManager.getDefault();
+    sms.sendTextMessage("5556", null, "Hello from careerRide", null, null);
+    sendTextMessage() method takes five argument.
+    `
+    - destinationAddress — Phone number of the recipient.
+    - scAddress — Service center address; you can use null also.
+    - text — Content of the SMS message that you want to send.
+    - sentIntent — Pending intent to invoke when the message is sent.
+    - deliveryIntent — Pending intent to invoke when the message has been delivered.
+
+
+* **What is the difference between an interface and an abstract class?**
+    - An interface is absolutely abstracted, and cannot be implemented. It defines the behavior that an object will need to perform, without providing any details about it. An abstract class cannot be instantiated, but it can partially or totally define behavior and internal structure for an object. Interfaces are always implemented, and objects always do extend from abstract classes.
