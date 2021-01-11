@@ -1304,6 +1304,7 @@ Serializable uses reflection while for parcelable, developers from android team 
     - **targetSdkVersion**: The `targetSdkVersion` has nothing to do with how your app is compiled or what APIs you can utilize. The `targetSdkVersion` is supposed to indicate that you have tested your app on (presumably up to and including) the version you specify. This is more like a certification or sign off you are giving the Android OS as a hint to how it should handle your app in terms of OS features.
 
 * **What are the differents Android versions and its API level?**
+<br>
 | Codename              | Version               | API level/NDK release |
 | --------------------- | --------------------- | --------------------- |
 | Android11             | 11                    | API level 30          |
