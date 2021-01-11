@@ -742,6 +742,7 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
 
 
 * **What are "launch modes"?** 
+    Manifest file. When declaring an activity in a manifest file, you can specify how the activity should associate with tasks when it starts. Supported values include:
    * **Standard**: It creates a new instance of an activity in the task from which it was started. Multiple instances of the activity can be created and multiple instances can be added to the same or different tasks. 
      * Example: Suppose there is an activity stack of A -> B -> C. Now if we launch B again with the launch mode as “standard”, the new stack will be A -> B -> C -> B.
    * **SingleTop**: It is the same as the standard, except if there is a previous instance of the activity that exists in the top of the stack, then it will not create a new instance but rather send the intent to the existing instance of the activity. 
@@ -752,7 +753,12 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
      * Now if there is an activity stack of A -> B -> C -> D.  If we launch activity B again with the launch mode as “singleTask”, the new activity stack will be A -> B. Activities C and D will be destroyed.
    * **SingleInstance**: Same as single task but the system does not launch any activities in the same task as this activity. If new activities are launched, they are done so in a separate task. 
      * Eg: Suppose there is an activity stack of A -> B -> C -> D. If we launch activity B again with the launch mode as “singleTask”, the new activity stack will be: 
-     * Task1 — A -> B -> C  and Task2 — D</br>
+     * Task1 — A -> B -> C  and Task2 — D
+</br>
+    -   Intent flags. Calls to startActivity() can include a flag in the Intent that declares if and how the new activity should be associated with the current task. Supported values include:
+            - FLAG_ACTIVITY_NEW_TASK. Same as singleTask value in Manifest file (see above).
+            - FLAG_ACTIVITY_SINGLE_TOP. Same as singleTop value in Manifest file (see above).
+            - FLAG_ACTIVITY_CLEAR_TOP. If the activity being started is already running in the current task, then instead of launching a new instance of that activity, all of the other activities on top of it are destroyed and this intent is delivered to the resumed instance of the activity (now on top), through onNewIntent(). There is no corresponding value in the Manifest file that produces this behavior.
    [Learn more here](https://blog.mindorks.com/android-activity-launchmode-explained-cbc6cf996802) or
    [here](https://android.jlelse.eu/android-activity-launch-mode-e0df1aa72242)
 
@@ -1296,6 +1302,40 @@ Serializable uses reflection while for parcelable, developers from android team 
     - **compileSdkVersion**: The `compileSdkVersion` is the version of the API the app is compiled against. This means you can use Android API features included in that version of the API (as well as all previous versions, obviously). If you try and use API 16 features but set `compileSdkVersion` to 15, you will get a compilation error. If you set `compileSdkVersion` to 16 you can still run the app on a API 15 device as long as your app's execution paths do not attempt to invoke any APIs specific to API 16.
 
     - **targetSdkVersion**: The `targetSdkVersion` has nothing to do with how your app is compiled or what APIs you can utilize. The `targetSdkVersion` is supposed to indicate that you have tested your app on (presumably up to and including) the version you specify. This is more like a certification or sign off you are giving the Android OS as a hint to how it should handle your app in terms of OS features.
+
+* **What are the differents Android versions and its API level?**
+| Codename              | Version               | API level/NDK release |
+| --------------------- | --------------------- | --------------------- |
+| Android11             | 11                    | API level 30          |
+| Android10             | 10                    | API level 29          |
+| Pie                   | 9                     | API level 28          |
+| Oreo                  | 8\.1.0                | API level 27          |
+| Oreo                  | 8\.0.0                | API level 26          |
+| Nougat                | 7\.1                  | API level 25          |
+| Nougat                | 7\.0                  | API level 24          |
+| Marshmallow           | 6\.0                  | API level 23          |
+| Lollipop              | 5\.1                  | API level 22          |
+| Lollipop              | 5\.0                  | API level 21          |
+| KitKat                | 4\.4 - 4.4.4          | API level 19          |
+| Jelly Bean            | 4\.3.x                | API level 18          |
+| Jelly Bean            | 4\.2.x                | API level 17          |
+| Jelly Bean            | 4\.1.x                | API level 16          |
+| Ice Cream Sandwich    | 4\.0.3 - 4.0.4        | API level 15, NDK 8   |
+| Ice Cream Sandwich    | 4\.0.1 - 4.0.2        | API level 14, NDK 7   |
+| Honeycomb             | 3\.2.x                | API level 13          |
+| Honeycomb             | 3\.1                  | API level 12, NDK 6   |
+| Honeycomb             | 3\.0                  | API level 11          |
+| Gingerbread           | 2\.3.3 - 2.3.7        | API level 10          |
+| Gingerbread           | 2\.3 - 2.3.2          | API level 9, NDK 5    |
+| Froyo                 | 2\.2.x                | API level 8, NDK 4    |
+| Eclair                | 2\.1                  | API level 7, NDK 3    |
+| Eclair                | 2\.0.1                | API level 6           |
+| Eclair                | 2\.0                  | API level 5           |
+| Donut                 | 1\.6                  | API level 4, NDK 2    |
+| Cupcake               | 1\.5                  | API level 3, NDK 1    |
+| (no codename)         | 1\.1                  | API level 2           |
+| (no codename)         | 1\.0                  | API level 1           |
+
 
 * **What about LOG**
     - The Log class allows you to create log messages that are displayed in logcat. In general, you should use the following registration methods, which are ordered from highest to lowest priority (or from most detailed to least detailed).
@@ -2384,6 +2424,18 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
 * What are contract classes? [[info]](https://stackoverflow.com/a/36265603/497132)
 * How do you use the BaseColumns interface to describe your data schema? [[info]](https://stackoverflow.com/a/7900591/497132)
 
+* **What is Realm?**
+    - Realm is a database, which isn’t SQLite-based (it brings its own core)
+    - it’s generally called an “object database”: your objects are mapped directly, and many-relations are mapped directly as a list, instead of with JOINs across multiple tables
+    - Realm not only handles storing your data, but it also keeps queried data up to date, and calls any registered change listeners when your data has been modified, allowing you to keep the UI up to date with minimal effort
+    - Most importantly, due to lazy evaluation of RealmResults’ elements, you don’t need to implement pagination logic — just get a RealmResults, throw it in a RealmRecyclerViewAdapter, and it’s good to go — in that case, even the listener that keeps the RecyclerView updated is managed automatically.
+
+    **Why would I use Realm instead of SQLite/DbFlow/Requery/SQLDelight/Room?**
+    Because Realm requires less knowledge of how relational databases are supposed to be designed, and how to manage your relations.
+
+    Even with configuration-based helpers like in Room, relation management can be tricky compared to links in Realm. 
+
+
 
 * **What is ADB?** 
     - Adb is short for Android Debug Bridge. It allows developers the power to execute remote shell commands. Its basic function is to allow and control communication towards and from the emulator port. 
@@ -2486,9 +2538,11 @@ Are SQL Injection attacks valid in Android? How would you prevent them?
             - **Optimization**: Inspects and rewrites your code to further reduce the size of your app’s DEX files. For example, if R8 detects that the `else {}` branch for a given `if/else` statement is never taken, R8 removes the code for the `else {}` branch.
 
         When building the release version of your app, by default, R8 automatically performs the compile-time tasks described above for you. However, you can disable certain tasks or customize R8’s behavior through ProGuard rules files. In fact, R8 works with all of your existing ProGuard rules files, so updating the Android Gradle plugin to use R8 should not require you to change your existing rules.
+* **What is Android Slices?**
+    Slices are UI templates that can display rich, dynamic, and interactive content from your app from within the Google Search app and also in other places like the Google Assistant. Slices can help users perform tasks faster by enabling engagement outside of the fullscreen app experience. You can build Slices as enhancements to App Actions.
 
-
-
+* **What is WindowInsets? **
+    - 
 * **Why widgets?** 
     * Home screen widgets are broadcast receivers which provide interactive components. They are primarily used on the Android home screen. They typically display some kind of data and allow the user to perform actions with them.
 
