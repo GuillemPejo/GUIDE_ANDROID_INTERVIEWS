@@ -99,6 +99,26 @@
     - If finish() is called in the OnCreate method of an activity, the system will invoke onDestroy() method directly.
 <br>[Learn more here](https://www.youtube.com/watch?v=QSxcLnZ1-RU)
 
+
+* **When is onPause() called without onStop() being called?**
+    - This scenario occurs when you start a DialogActivity from your current activity, then the onPause() of current activity is called and after coming on current Activity the onResume() is called.
+
+* **Which method gets called when home button pressed? and back pressed?**
+    - When you install application first time following method call one by one in Activity
+        - onCreate()
+        - onStart()
+        - onResume()
+        
+    after that when you press Home Button then following method call
+        - onPause()
+        - onStop()
+
+    And after pressing back button:
+        - onPause()
+        - onStop()
+        - onDestroy() //Activity destroyed.
+
+
 * **Why do we need to call setContentView() in onCreate() of Activity class?** 
     - As onCreate() of an Activity is called only once, this is the point where most initialization should go. It is inefficient to set the content in onResume() or onStart() (which are called multiple times) as the setContentView() is a heavy operation.
 <br>[Learn more here](https://www.youtube.com/watch?v=zeYK8JdMOi8)
@@ -248,7 +268,26 @@
 savedInstanceState.Also it won't affect the performance even if there are large number of fragments.</br>
 
 
-* **How would you communicate between two Fragments?** - [Learn more here](https://blog.mindorks.com/how-to-communicate-between-fragments)
+* **How would you communicate between two Fragments?** 
+    - The communication between fragments should not be done directly. There are two ways of doing so.
+
+        - With the help of ViewModel
+        - With the help of Interface
+
+    To have a sharing of data between Fragments, either you can use a shared ViewModel that is shared between all the Fragments or you can make an Interface and then use this interface to communicate between fragments.
+
+    The ViewModel process is very simple and you can learn how to communicate between Fragments using ViewModel by reading our Shared ViewModel blog at MindOrks.
+
+    But you should know every possible way of doing so. In this blog, we will be learning about the Interface way of Fragment communication.
+
+    So, basically we will be having one Activity and in that activity, we will be having two Fragments. Our aim is to send the data from one Fragment to the other with the help if Interface.
+
+    The idea is very simple. We can summarize the whole step into the below points:
+        - Make an Interface in your FragmentA
+        - Implement the Interface of the FragmentA in your Activity
+        - Call the Interface method from your Activity
+        - In your Activity, call your FragmentB to do the required changes 
+- [Learn more here](https://blog.mindorks.com/how-to-communicate-between-fragments)
 
 
 #### VIEWS AND VIEWGROUPS, AND LAYOUTS
@@ -617,8 +656,31 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
         
 * **What is an Explicit `Intent`?** - [Learn more here](https://blog.mindorks.com/what-are-intents-in-android) or [here](https://developer.android.com/guide/components/intents-filters.html#ExampleExplicit)
 
+* **Types of broadcast :Local,Normal,Ordered and Sticky**
+    - **Normal Broadcast**:
+        :- use sendBroadcast()
+        :- asynchronous broadcast
+        :- any receiver receives broadcast not any particular order
+    - **Ordered Broadcast**:
+        :- use sendOrderedBroadcast()
+        :- synchronous broadcast
+        :- receiver receives broadcast in priority base
+        :- we can also simply abort broadcast in this type
+    - **Local Broadcast**:
+        :- use only when broadcast is used only inside application
+    - **Sticky Broadcast**:
+        :- normal broadcast intent is not available any more after is was send and processed by the system.
+        :- use sendStickyBroadcast(Intent)
+        :- the corresponding intent is sticky, meaning the intent you are sending stays around after the broadcast is complete.
+        :- because of this others can quickly retrieve that data through the return value of registerReceiver(BroadcastReceiver, IntentFilter).
+        :- apart from this same as sendBroadcast(Intent).
+
+
 
 * **What is a `BroadcastReceiver`?** - [Learn more here](https://developer.android.com/guide/components/broadcasts)
+
+
+
 
 * **What is a `LocalBroadcastManager`?** - [Learn more here](https://blog.mindorks.com/using-localbroadcastmanager-in-android) or [here](https://github.com/Kirchhoff-/Android-Interview-Questions/blob/master/Android/What's%20BroadcastReceiver.md)
 
@@ -746,8 +808,6 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
 -   **When Intent Service is Useful?**<br/>
     A) The IntentService can be used in long tasks usually with no communication to Main Thread. If communication is required, can use Main Thread handler or broadcast intents. Another case of use is when callbacks are needed (Intent triggered tasks).
 
-* **What is a `JobScheduler`?** - [Learn more here](https://developer.android.com/reference/android/app/job/JobScheduler)
-
 * **How would you update the UI of an activity from a background service**</br>
   * We need to register a LocalBroadcastReceiver in the activity. And send a broadcast with the data using intents from the background service. As long as the activity is in the foreground, the UI will be updated from the background. Ensure to unregister the broadcast receiver in the onStop() method of the activity to avoid memory leaks. 
 We can also register a Handler and pass data using Handlers. I have detailed a sample implementation on this. You can check it out [here](https://medium.com/@anitaa_1990/how-to-update-an-activity-from-background-service-or-a-broadcastreceiver-6dabdb5cef74)</br>
@@ -793,9 +853,32 @@ We can also register a Handler and pass data using Handlers. I have detailed a s
      * Tasks that require network access or a Wi-Fi connection.
      * Task that are not critical or user facing
      * Tasks that should be running on a regular basis as batch where the timing is not critical
-     * [Reference](http://www.vogella.com/tutorials/AndroidTaskScheduling/article.html#schedulingtasks) </br>
+     * [Reference](http://www.vogella.com/tutorials/AndroidTaskScheduling/article.html#schedulingtasks) 
+ [Learn more here](https://developer.android.com/reference/android/app/job/JobScheduler)</br>
+
+
+* **Tiemr or Handler?**
+
+
   
-  
+* **Tiemr or Handler?**
+
+    - An application often requires repeating certain tasks on a periodic basis or after a certain interval. This functionality can be used for polling new data from the network, running manual animations, or simply updating the UI. These are four common ways to achieve the same:
+
+        - **Handler** — Execute a Runnable task on the UI Thread after an optional delay.
+        - **ScheduledThreadPoolExecutor** — Execute periodic tasks with a background thread pool
+        - **AlarmManager** — Execute any periodic task in the background as a service
+        - **TimerTask** — Doesn’t run in UIThread and is not reliable. Consensus is to never use TimerTask
+
+    - `Handler` is better than `TimerTask`.
+
+        The Java `TimerTask` and the Android `Handler` both allow you to schedule delayed and repeated tasks on background threads. However, the literature overwhelmingly recommends using `Handler` over `TimerTask` in Android.
+
+        Some of reported problems with TimerTask include:
+
+                - Can't update the UI thread
+                - Memory leaks
+                - Unreliable (doesn't always work)
 
 * **What is the relationship between the life cycle of an AsyncTask and an Activity? What problems can this result in? How can these problems be avoided?**</br>
    * An AsyncTask is not tied to the life cycle of the Activity that contains it. So, for example, if you start an AsyncTask inside an Activity and the user rotates the device, the Activity will be destroyed (and a new Activity instance will be created) but the AsyncTask will not die but instead goes on living until it completes.
@@ -803,12 +886,7 @@ We can also register a Handler and pass data using Handlers. I have detailed a s
    * There’s also the potential for this to result in a memory leak since the AsyncTask maintains a reference to the Activity, which prevents the Activity from being garbage collected as long as the AsyncTask remains alive.
    * For these reasons, using AsyncTasks for long-running background tasks is generally a bad idea . Rather, for long-running background tasks, a different mechanism (such as a service) should be employed.
    * Note: AsyncTasks by default run on a single thread using a serial executor, meaning it has only 1 thread and each task runs one after the other.</br>
-
-
-* **What is the onTrimMemory() method?**</br>
-   * ```onTrimMemory()```: Called when the operating system has determined that it is a good time for a process to trim unneeded memory from its process. This will happen for example when it goes in the background and there is not enough memory to keep as many background processes running as desired.
-   * Android can reclaim memory for from your app in several ways or kill your app entirely if necessary to free up memory for critical tasks. To help balance the system memory and avoid the system's need to kill your app process, you can implement the ```ComponentCallbacks2``` interface in your Activity classes. The provided onTrimMemory() callback method allows your app to listen for memory related events when your app is in either the foreground or the background, and then release objects in response to app lifecycle or system events that indicate the system needs to reclaim memory. [Reference](https://developer.android.com/topic/performance/memory)</br>
-  
+ 
   
 * **Android Bound Service**</br>
   * A bound service is a service that allows other android components (like activity) to bind to it and send and receive data.
@@ -852,13 +930,50 @@ Serializable uses reflection while for parcelable, developers from android team 
 
 #### Inter-process Communication
 
-* **How can two distinct Android apps interact?** - [Learn more here](https://developer.android.com/training/basics/intents)
+* **Is it possible to run an Android app in multiple processes? How?** 
+    - You can specify android:process=":remote" in your manifest to have an activity/service run in a seperate process.
 
-* **Is it possible to run an Android app in multiple processes? How?** - [Learn more here](https://stackoverflow.com/questions/6567768/how-can-an-android-application-have-more-than-one-process)
+    The "remote" is just the name of the remote process, and you can call it whatever you want. If you want several activities/services to run in the same process, just give it the same name.
+- [Learn more here](https://stackoverflow.com/questions/6567768/how-can-an-android-application-have-more-than-one-process)
 
-* **What is AIDL? Enumerate the steps in creating a bounded service through AIDL.** - [Learn more here](https://developer.android.com/guide/components/aidl)
+* **What is AIDL? Enumerate the steps in creating a bounded service through AIDL.** 
+    - The Android Interface Definition Language (AIDL) is similar to other IDLs you might have worked with. It allows you to define the programming interface that both the client and service agree upon in order to communicate with each other using interprocess communication (IPC). On Android, one process cannot normally access the memory of another process. So to talk, they need to decompose their objects into primitives that the operating system can understand, and marshall the objects across that boundary for you. The code to do that marshalling is tedious to write, so Android handles it for you with AIDL.
 
-* **What can you use for background processing in Android?** - [Learn more here](https://developer.android.com/guide/background)
+        To create a bounded service using AIDL, follow these steps:
+
+            - Create the .aidl file
+                This file defines the programming interface with method signatures.
+            
+            - Implement the interface
+                The Android SDK tools generate an interface in the Java programming language, based on your .aidl file. This interface has an inner abstract class named Stub that extends Binder and implements methods from your AIDL interface. You must extend the Stub class and implement the methods.
+
+            - Expose the interface to clients
+                Implement a Service and override onBind() to return your implementation of the Stub class.
+
+- [Learn more here](https://developer.android.com/guide/components/aidl)
+
+* **What can you use for background processing in Android?** 
+    - The following sections describe recommended solutions for each background task type.
+        - **Immediate tasks**:
+            We recommend Kotlin coroutines for tasks that should end when the user leaves a certain scope or finishes an interaction. Many Android KTX libraries contain ready-to-use coroutine scopes for common app components like ViewModel and common application lifecycles.
+
+            For Java programming language users, see Threading on Android for recommended options.
+
+            For tasks that should be executed immediately and need continued processing, even if the user puts the application in background or the device restarts, we recommend using WorkManager and its support for long-running tasks.
+
+            In specific cases, such as with media playback or active navigation, you might want to use foreground Services directly.
+
+            - **Deferred tasks**:
+            Every task that is not directly connected to a user interaction and can run at any time in the future can be deferred. The recommended solution for deferred tasks is WorkManager.
+
+            WorkManager makes it easy to schedule deferrable, asynchronous tasks that are expected to run even if the app exits or the device restarts. See the documentation for WorkManager to learn how to schedule these types of tasks.
+            
+            - **Exact tasks**:
+
+            A task that needs to be executed at an exact point in time can use AlarmManager.
+
+
+- [Learn more here](https://developer.android.com/guide/background)
 
 * **What is a `ContentProvider` and what is it typically used for?** - [Learn more here](https://developer.android.com/guide/topics/providers/content-provider-basics) and [here](https://developer.android.com/guide/topics/providers/content-providers)
 
@@ -1014,13 +1129,10 @@ Serializable uses reflection while for parcelable, developers from android team 
 
             - Light - `MODE_NIGHT_NO`
             - Dark - `MODE_NIGHT_YES`
-            - System default - `MODE_NIGHT_FOLLOW_SYSTEM`
-
-
-
-#### Memory Optimizations
-
-* **What is the `onTrimMemory()` method?** - [Learn more here](https://developer.android.com/topic/performance/memory)
+            - 
+             * ```onTrimMemory()```: Called when the operating system has determined that it is a good time for a process to trim unneeded memory from its process. This will happen for example when it goes in the background and there is not enough memory to keep as many background processes running as desired.
+   * Android can reclaim memory for from your app in several ways or kill your app entirely if necessary to free up memory for critical tasks. To help balance the system memory and avoid the system's need to kill your app process, you can implement the ```ComponentCallbacks2``` interface in your Activity classes. The provided onTrimMemory() callback method allows your app to listen for memory related events when your app is in either the foreground or the background, and then release objects in response to app lifecycle or system events that indicate the system needs to reclaim memory. 
+   [Learn more here](https://developer.android.com/topic/performance/memory)
 
 * **How does the OutOfMemory happens?** - [Learn more here](https://blog.mindorks.com/practical-guide-to-solve-out-of-memory-error-in-android-application)
 
@@ -1060,7 +1172,17 @@ Serializable uses reflection while for parcelable, developers from android team 
 
 #### Native Programming
 
-* **What is the NDK and why is it useful?** - [Learn more here](https://www.youtube.com/watch?v=iljxHVt7Arc) and [here](https://blog.mindorks.com/getting-started-with-android-ndk-android-tutorial) and [here](https://www.youtube.com/watch?v=iljxHVt7Arc)
+* **What is the NDK and why is it useful?** 
+    - NDK or Native Development Kit is a toolset that is provided by Android to use C or C++ code in our Android application. So, if you are using Android Studio version 2.2 or higher then you can use C or C++ in your Android application.
+
+        But for Android development, Java and Kotlin are the recommended languages. So, why to use native languages in Android? Let' find out the advantages of using native languages in Andoird:
+
+            - Very Fast: We all know that to convert a Java code into machine-level code, we need to go to JVM and then to JNI to perform the operations. Same is with Kotlin also because Kotlin also runs Java under the hood. While on the other hand, the NDK directly compiles the native code i.e. the C or C++ code into machine level language by generating a .so file. So, you need not perform the intermediate steps that were required in the case of Java/Kotlin.
+            - Code Re-usability: You can reuse the code written in C or C++ for different platform in your Android application. You can use the code that you wrote while learning C or C++ or the codes of other developers in your Android application.
+
+        So, whenever you want to make some high-performance applications for great speed or want to use some preexisting code written in some native language then you can use C or C++. Due to the speed factor, most of the game developers use C or C++ for writing the code for their games. Also, it becomes an easier task for them to use their C or C++ code in the Android application.
+
+- [Learn more here](https://www.youtube.com/watch?v=iljxHVt7Arc) and [here](https://blog.mindorks.com/getting-started-with-android-ndk-android-tutorial) and [here](https://www.youtube.com/watch?v=iljxHVt7Arc)
 
 * **What is renderscript?** - [Learn more here](https://blog.mindorks.com/comparing-android-ndk-and-renderscript-1a718c01f6fe)
 
@@ -1093,13 +1215,65 @@ Serializable uses reflection while for parcelable, developers from android team 
 
     Dalvik is a Just In Time (JIT) compiler. By the term JIT, we mean to say that whenever you run your app in your mobile device then that part of your code that is needed for execution of your app will only be compiled at that moment and rest of the code will be compiled in the future when needed. The JIT or Just In Time compiles only a part of your code and it has a smaller memory footprint and due to this, it uses very less physical space on your device.
 
-- [Learn more here](https://blog.mindorks.com/what-are-the-differences-between-dalvik-and-art)
+* **What is ART?**
+    - ART is the new Android Runtime. The idea is to replace the Dalvik Virtual Machine with an ahead-of-time on-device compiler suite called dex2oat and a new runtime environment for apps. So if you install an application, it is first compiled to native code by using one of the dex2oat compilers, for example Quick(default in 5.0, 5.1) or Optimizing (default from 6.0), and stored in a so called oat file, which is an ELF shared object. When the app is executed, the runtime loads the content of the oat file into a preinitialized app process. The advantage of AOT compilation is, that you can do state-of-the-art optimizations because it does not execute at runtime. So we get faster apps but slower installation time. 
 
-* **What is the difference JVM, DVM and ART?** - [Learn more here](https://android.jlelse.eu/closer-look-at-android-runtime-dvm-vs-art-1dc5240c3924)
+    Benefits of ART:
+    · Apps run faster as DEX bytecode translation done during installation.
+    · Reduces startup time of applications as native code is directly executed.
+    · Improves battery performance as power utilized to interpreted byte codes line by line is saved.
+    · Improved garbage collector.
+    · Improved developer tool.
 
-* **What are the differences between Dalvik and ART?** - [Learn more here](https://blog.mindorks.com/what-are-the-differences-between-dalvik-and-art)
+    Drawbacks of ART
+    · App Installation takes more time because of DEX bytecodes conversion into machine code during installation.
+    · As the native machine code generated on installation is stored in internal storage, more internal storage is required.
 
-* **What is DEX?** - [Learn more here](https://developer.android.com/reference/dalvik/system/DexFile)
+    - [Learn more here](https://blog.mindorks.com/what-are-the-differences-between-dalvik-and-art)
+
+* **What is the difference JVM, DVM and ART?** 
+    - To maintain the platform independency of the code, JAVA developed JVM i.e. Java Virtual Machine. It developed JVM specific to every platform means JVM is dependency on the platform. The Java compiler converts the .java files into .class files, which is called byte code. This byte code 
+    is given to the JVM which converts it into machine code.
+
+    In Android Java classes converted into DEX bytecode. The DEX bytecode format is translated to native machine code via either ART or the Dalvik runtimes. Here DEX bytecode is independent of device architecture.
+
+    Dalvik is a JIT (Just in time) compilation based engine. There were drawbacks to use Dalvik hence from Android 4.4 (kitkat) ART was introduced as a runtime and from Android 5.0 (Lollipop) it has completely replaced Dalvik. Android 7.0 adds a just-in-time (JIT) compiler with code profiling to Android runtime (ART) that constantly improves the performance of Android apps as they run.
+
+    Key Point: Dalvik used JIT (Just in time) compilation whereas ART uses AOT (Ahead of time) compilation.
+
+    ![image](assets/jvmvsdalvik.png)
+    ![image](assets/dalvikvsart.png)
+
+- [Learn more here](https://android.jlelse.eu/closer-look-at-android-runtime-dvm-vs-art-1dc5240c3924)
+
+- **Differences between JIT and AOT**
+    - **Just In Time (JIT)**
+    With the Dalvik JIT compiler, each time when the app is run, it dynamically translates a part of the Dalvik bytecode into machine code. As the execution progresses, more bytecode is compiled and cached. Since JIT compiles only a part of the code, it has a smaller memory footprint and uses less physical space on the device.
+
+    - **Ahead Of Time (AOT)**
+    ART is equipped with an Ahead-of-Time compiler. During the app’s installation phase, it statically translates the DEX bytecode into machine code and stores in the device’s storage. This is a one-time event which happens when the app is installed on the device. With no need for JIT compilation, the code executes much faster.
+
+    As ART runs app machine code directly (native execution), it doesn’t hit the CPU as hard as just-in-time code compiling on Dalvik. Because of less CPU usage results in less battery drain.
+
+    ART also uses same DEX bytecode as input for Dalvik. An application compiled using ART requires additional time for compilation when an application is installed and take up slightly larger amounts of space to store the compiled code.
+
+* **What is DEX?** 
+    - One of the most remarkable features of the Dalvik Virtual Machine (the workhorse under the Android system) is that it does not use Java bytecode. Instead, a homegrown format called DEX was introduced and not even the bytecode instructions are the same as Java bytecode instructions.
+
+    Android programs are compiled into `.dex` (Dalvik Executable) files, which are in turn zipped into a single `.apk` file on the device. `.dex` files can be created by automatically translating compiled applications written in the Java programming language.
+
+    `.dex` files are similar to java class files, but they were run under the Dalkvik Virtual Machine (DVM) on older Android versions, and compiled at install time on the device to native code with ART on newer Android versions.
+
+
+- [Learn more here](https://developer.android.com/reference/dalvik/system/DexFile)
+
+
+* **What is runtime?**
+    - In a simplest term it is a system used by operating system which takes care of converting the code that you write in a high level language like Java to machine code and understand by CPU/Processor.
+
+    Runtime comprises of software instructions that execute when your program is running, even if they’re not essentially are a part of the code of that piece of software in particular.
+
+    CPUs or more general term our computers understand only machine language (binary codes) so to make it run on CPU, the code must be converted to machine code, which is done by translator.
 
 * **What is ARMV7**
     - There are 3 CPU architectures in Android:
@@ -1107,7 +1281,30 @@ Serializable uses reflection while for parcelable, developers from android team 
         - ARM64 is an evolved version of that that supports 64-bit processing for more powerful computing.
         - ARMx86, is the least used for these three, since it is not battery friendly. It is more powerful than the other two.
 
-* **Can you manually call the Garbage collector?** - [Learn more here](https://stackoverflow.com/questions/15632734/can-we-call-the-garbage-collector-explicitly)
+
+
+* **Can you manually call the Garbage collector?** 
+    - You can call Garbage collector using:
+    `System.gc();`
+    But this does not mean that it'll be executed immediately. The JVM decides when to execute it. In general if the JVM is about to throw an `OutOfMemoryError`, calling `System.gc()` won't prevent it. 
+
+    Calling the gc method suggests that the Java Virtual Machine expend effort toward recycling unused objects in order to make the memory they currently occupy available for quick reuse. When control returns from the method call, the Java Virtual Machine has made a best effort to reclaim space from all discarded objects
+
+- [Learn more here](https://stackoverflow.com/questions/15632734/can-we-call-the-garbage-collector-explicitly)
+
+* **What is the difference between compileSdkVersion and targetSdkVersion?**
+    - **compileSdkVersion**: The `compileSdkVersion` is the version of the API the app is compiled against. This means you can use Android API features included in that version of the API (as well as all previous versions, obviously). If you try and use API 16 features but set `compileSdkVersion` to 15, you will get a compilation error. If you set `compileSdkVersion` to 16 you can still run the app on a API 15 device as long as your app's execution paths do not attempt to invoke any APIs specific to API 16.
+
+    - **targetSdkVersion**: The `targetSdkVersion` has nothing to do with how your app is compiled or what APIs you can utilize. The `targetSdkVersion` is supposed to indicate that you have tested your app on (presumably up to and including) the version you specify. This is more like a certification or sign off you are giving the Android OS as a hint to how it should handle your app in terms of OS features.
+
+* **What about LOG**
+    - The Log class allows you to create log messages that are displayed in logcat. In general, you should use the following registration methods, which are ordered from highest to lowest priority (or from most detailed to least detailed).
+
+        - Log.e (String, String) (error)
+        - Log.w (String, String) (warning)
+        - Log.i (String, String) (information)
+        - Log.d (String, String) (debug)
+        - Log.v (String, String) (verbose log)
 
 #### Android Jetpack
 
@@ -1181,6 +1378,8 @@ Serializable uses reflection while for parcelable, developers from android team 
 
         Under the hood WorkManager uses an underlying job dispatching service based on the following criteria:
         ![](assets/work_manager_criteria.png "Work manager criteria")
+        ![](assets/workmanager_task.png "Work manager criteria")
+
         
       * **Data Binding** 
       - Data binding is a general technique that binds data sources from the provider and consumer together and synchronizes them. In a data binding process, each data change is reflected automatically by the elements that are bound to the data. The term data binding is also used in cases where an outer representation of data in an element changes, and the underlying data is automatically updated to reflect this change.
@@ -1458,6 +1657,19 @@ More additional info to get started with RxJava is available at:
       A) In Retrofit, we can call the operations asynchronously by using enqueue() method where as to call operations synchronously, we can use execute() method. In addition, we can use zip() operator from RxJava to perform multiple network calls using Retrofit library.
 
 
+
+* **GSON vs Jackson vs Moshi**
+    -**Gson** – Google’s own JSON Parser library for Android and the most popular of the bunch (sitting at 18.5k Github stars, vs 5.9k and 6.5k). It is the oldest as well, with its 1.0 version being released in 2008
+
+    - **Jackson** – The longest competitor of Gson in an attempt to provide a faster and more feature-rich parser than its competitor. Fun fact, its 1.0 release in 2009 was codenamed “Hazelnut”, named after the fact that lots of people choke on nuts.
+
+    - **Moshi** – The most modern of the 3 parsers having its first release was in 2015. It was created by Square, the same people who created Retrofit and includes some of the people who have worked on Gson in the past.
+
+    Jackson takes the win here. Gson, quite expectedly didn’t excel in any aspect over the other two. I mean, it is the oldest after all.
+
+    Jackson is very feature rich especially with its many annotations and the fact that it supports parsing for XML and other formats beyond JSON. Despite that, excels in performance. In some cases, extremely so over the other 2 parsers.
+
+    Moshi is also great, with plenty of features to cover your parsing needs, some of which I haven’t seen from Jackson (such as allowing for multiple JSON representations for the same data type).
 
 *   **What about Image loading libraries?**
         [Glide](https://github.com/bumptech/glide) is a fast and efficient open source media management and image loading framework for Android that wraps media decoding, memory and disk caching, and resource pooling into a simple and easy to use interface. 
@@ -2182,6 +2394,15 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
 
     The ANR dialog is displayed to the user based on two possible conditions. One is when there is no response to an input event within 5 seconds, and the other is when a broadcast receiver is not done executing within 10 seconds. </br>
 
+* **ANR vs Crash**
+    - An ANR will occur if you are running a process on the UI thread which takes a long time, usually around 5 seconds. During this time the GUI (Graphical User Interface) will lock up which will result in anything the user presses will not be actioned. After the 5 seconds approx has occurred, if the thread still hasn't recovered then an ANR dialogue box is shown informing the user that the application is not responding and will give the user the choice to either wait, in the hope that the app will eventually recover, or to force close the app. 
+    A crash is when an exception within the app has been thrown which has not been handled. For example, if you try to set the text of an `EditText` component, but the `EditText` is null and there is no try catch statement to catch the exception that your app will crash and will be force closed. The user will not see what caused the crash, they will be shown a dialogue telling that the app has force closed unexpectedly and will give them the option to send a bug report. In this example if you were to look in the bug report you would see the error caused by `java.lang.NullPointerException`. 
+
+* **What is StrictMode?**
+    - StrictMode is a developer tool which detects things you might be doing by accident and brings them to your attention so you can fix them.
+
+    StrictMode is most commonly used to catch accidental disk or network access on the application's main thread, where UI operations are received and animations take place. Keeping disk and network operations off the main thread makes for much smoother, more responsive applications. By keeping your application's main thread responsive, you also prevent ANR dialogs from being shown to users. 
+ - [Learn more here](https://blog.mindorks.com/use-strictmode-to-find-things-you-did-by-accident-in-android-development-4cf0e7c8d997)
 
 * **Build Type, Product Flavor, Build Variant**
     * **Build Type:** Build Types controls how to build and package your app, for example whether or not ProGuard is run, how the resulting application package is signed and whether debug symbols are to be included. By default, the build system defines two build types: `debug` and `release`.
@@ -2226,7 +2447,6 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
 
 - [Learn more here](https://developer.android.com/studio/profile/monitor)
 
-* **What is the StrictMode?** - [Learn more here](https://blog.mindorks.com/use-strictmode-to-find-things-you-did-by-accident-in-android-development-4cf0e7c8d997)
 
 * **What is Lint? What is it used for?** - [Learn more here](https://blog.mindorks.com/what-is-lint-what-is-it-used-for)
 
@@ -2266,6 +2486,9 @@ Are SQL Injection attacks valid in Android? How would you prevent them?
             - **Optimization**: Inspects and rewrites your code to further reduce the size of your app’s DEX files. For example, if R8 detects that the `else {}` branch for a given `if/else` statement is never taken, R8 removes the code for the `else {}` branch.
 
         When building the release version of your app, by default, R8 automatically performs the compile-time tasks described above for you. However, you can disable certain tasks or customize R8’s behavior through ProGuard rules files. In fact, R8 works with all of your existing ProGuard rules files, so updating the Android Gradle plugin to use R8 should not require you to change your existing rules.
+
+
+
 * **Why widgets?** 
     * Home screen widgets are broadcast receivers which provide interactive components. They are primarily used on the Android home screen. They typically display some kind of data and allow the user to perform actions with them.
 

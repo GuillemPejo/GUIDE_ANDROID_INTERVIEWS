@@ -459,3 +459,288 @@ hero
 34) What is the time complexity of mergeSort, quickSort and Binary search?
 
 35) What is the time complexity for removing an element from LinkedList?
+
+
+
+# Scrum vs Kanban
+
+## Scrum 
+
+Scrum is an agile process that helps to deliver the business value in the shortest time. It rapidly and repeatedly inspects actual working software. It emphasizes on teamwork and iterative progress of the software. Its goal is to deliver new software every 1-4 weeks.
+
+## Kanban
+
+Kanban is a visual system for managing work. It visualizes both the process and the actual work passing through that process. The main objective of implementing Kanban is to identify potential bottlenecks in the process and fix them. Kanban goal is that work flow should proceed smoothly at an optimal speed.
+
+## Conclusion
+
+| Scrum | Kanban |
+|---|---|
+| Scrum stresses on planning. It starts with sprint planning and ends up with sprint retrospective.  | Kanban is open to making changes on the go. It means there is less rigidity and things can change frequently. |
+| It recommends collection of time measurements made during sprints  | Kanban recommends graphs to get an overview of team's progress over time.  |
+| Estimation has a very important role in Scrum  | No mandatory requirements for estimation.  |
+| Every individual has their role and responsibilities. | No set roles so flexibility in term of individual responsibilities. |
+| It is not possible to add items to ongoing iterations. | New items can easily add if the additional capacity is available. |
+| Measures production using velocity through sprints.  | Measures production using cycle time or the exact time it takes to complete one full piece of a project. |
+
+
+
+# Concurrency vs Parallelism
+
+**Concurrency** means that an application is making progress on more than one task at the same time (concurrently). Concurrency is a approach that is used for decreasing the response time of the system by using the single processing unit. Concurrency is that the illusion of parallelism, however in actual the chunks of a task aren’t parallelly processed, but inside the application, there are more than one task is being processed at a time. It does not completely finish one task before it begins the next.
+
+Concurrency is achieved through the interleaving operation of processes on the central processing unit(CPU) or in other words by the context switching, that’s rationale it’s like parallel processing. It increases the amount of work finished at a time.
+
+![](assets/concurrency.png "Concurrency")
+
+**Parallelism** Parallelism means that an application splits its tasks up into smaller subtasks which can be processed in parallel, for instance on multiple CPUs at the exact same time. It is used for increasing the throughput and computational speed of the system by using the multiple processors. It is the technique that do lot of things simultaneously.
+
+Parallelism leads to overlapping of central processing unit and input-output tasks in one process with the central processing unit and input-output tasks of another process. Whereas in concurrency the speed is increased by overlapping the input-output activities of one process with CPU process of another process.
+
+![](assets/parallelism.png "Concurrency")
+
+To get more idea about the distinction between concurrency and parallelism, consider the following points −
+- *Concurrent but not parallel*: An application can be concurrent but not parallel means that it processes more than one task at the same time but the tasks are not broken down into subtasks.
+- *Parallel but not concurrent*: An application can be parallel but not concurrent means that it only works on one task at a time and the tasks broken down into subtasks can be processed in parallel.
+- *Neither parallel nor concurrent*: An application can be neither parallel nor concurrent. This means that it works on only one task at a time and the task is never broken into subtasks.
+- *Both parallel and concurrent*: An application can be both parallel and concurrent means that it both works on multiple tasks at a time and the task is broken into subtasks for executing them in parallel.
+
+| Concurrency | Parallelism |
+|---|---|
+| Is the task of running and managing the multiple computations at the same time  | Is the task of running multiple computations simultaneously  |
+| Achieved through the interleaving operation of processes on the central processing unit(CPU) or in other words by the context switching  | Achieved by through multiple central processing units(CPUs)  |
+| Increases the amount of work finished at a time  | Improves the throughput and computational speed of the system  |
+| Deals lot of things simultaneously  | Do lot of things simultaneously |
+| Non-deterministic control flow approach  | Deterministic control flow approach  |
+
+
+
+# git pull vs git fetch
+
+`git-fetch` - Download objects and refs from another repository. Fetch branches and/or tags (collectively, "refs") from one or more other repositories, along with the objects necessary to complete their histories.
+
+By default, any tag that points into the histories being fetched is also fetched; the effect is to fetch tags that point at branches that you are interested in. `git fetch` can fetch from either a single named repository or URL, or from several repositories at once. When no remote is specified, by default the `origin` remote will be used, unless there’s an upstream branch configured for the current branch.
+
+`git-pull` - Fetch from and integrate with another repository or a local branch. Incorporates changes from a remote repository into the current branch. In its default mode, `git pull` is shorthand for `git fetch` followed by `git merge FETCH_HEAD`.
+
+More precisely, `git pull` runs `git fetch` with the given parameters and calls `git merge` to merge the retrieved branch heads into the current branch. With `--rebase`, it runs `git rebase` instead of `git merge`.
+
+
+
+  **git merge**
+  *`git merge`* simply remembers the history as it happened. It takes the two current versions, merge them together based on their common ancestor, fix any conflicts, and then record the history exactly as it happened.
+  
+  **git rebase**
+ *`git rebase`* attempts to make the history look as simple as possible. It picks one of the two sides to be the base  and all the changes on the other side are flattened into a linear series of changes happening afterwards.
+ git rebase  | git merge |
+| ------------- | ------------- |
+| 1.   **git rebase**  gets all unique commits from both branches and applies them one by one  | 1. **git merge**  apply all unique commits from branch A into branch B in one commit with final result.  |
+| 2.  **git rebase** rewrites commit history but doesn’t create extra commit for merging  | 2.  **git merge** doesn’t rewrite commit history, just adds one new commit.  |
+
+
+# OOP Principles
+
+Some sources claim that there are 3 main principles of object-oriented programming - **Inheritance**, **Polymorphism** and **Encapsulation**. Other sources added one more  principle - **Abstraction**. In this answer we will consider all these principles. From my point of view, **Abstraction** is not a principle of object-oriented programming.
+
+## Inheritance
+Inheritance is a mechanism that lets you describe a new class based on an existing (parent or super) class. In doing so, the new class borrows the properties and functionality of the parent class. Inheritance supports the concept of hierarchical classification, this allows classes to be arranged in a hierarchy that represents "is-a-type-of" relationships.
+
+Important terminology:
+- *Super Class*: The class whose features are inherited is known as superclass(or a base class or a parent class).
+- *Sub Class*: The class that inherits the other class is known as subclass(or a derived class, extended class, or child class). The subclass can add its own fields and methods in addition to the superclass fields and methods.
+- *Reusability*: Inheritance supports the concept of “reusability”, i.e. when we want to create a new class and there is already a class that includes some of the code that we want, we can derive our new class from the existing class. By doing this, we are reusing the fields and methods of the existing class.
+
+Subclasses can override the methods defined by superclasses. Multiple inheritance is allowed in some languages, though this can make resolving overrides complicated. Some languages have special support for mixins, though in any language with multiple inheritance, a mixin is simply a class that does not represent an is-a-type-of relationship.
+
+A real-world example of inheritance is a mother and child. The child may inherit attributes such as height, Voice patters, color. The mother can reproduce other children with the same attributes as well. 
+
+In summary, **Inheritance** is concerned with the relationship between classes and method, which is like a parent and a child. A child can be born with some of the attributes of the parents. Inheritance ensures reusability of codes just the way multiple children can inherit the attributes of their parents.
+
+## Polymorphism
+Polymorphism is the ability to work with several types as if they were the same type. Moreover, the objects' behavior will be different depending on their type. 
+
+An excellent example of Polymorphism in Object-oriented programing is a cursor behavior. A cursor may take different forms like an arrow, a line, cross, or other shapes depending on the behavior of the user or the program mode. With polymorphism, a method or subclass can define its behaviors and attributes while retaining some of the functionality of its parent class. This means you can have a class that displays date and time, and then you can create a method to inherit the class but should display a welcome message alongside the date and time. The goals of Polymorphism in Object-oriented programming is to enforce simplicity, making codes more extendable and easily maintaining applications.
+
+Inheritance allows you to create class hierarchies, where a base class gives its behavior and attributes to a derived class. You are then free to modify or extend its functionality. Polymorphism ensures that the proper method will be executed based on the calling object’s type. 
+
+Polymorphism could be static and dynamic both. Method Overloading is static polymorphism while, Method overriding is dynamic polymorphism.
+- Overloading in simple words means more than one method having the same method name that behaves differently based on the arguments passed while calling the method. This called static because, which method to be invoked is decided at the time of compilation
+- Overriding means a derived class is implementing a method of its super class. The call to overriden method is resolved at runtime, thus called runtime polymorphism
+
+## Encapsulation
+
+Encapsulation is defined as the wrapping up of data under a single unit. It is the mechanism that binds together code and the data it manipulates. Other way to think about encapsulation is, it is a protective shield that prevents the data from being accessed by the code outside this shield. Attributes and behaviors are defined by code inside the class template. Then, when an object is instantiated from the class, the data and methods are encapsulated in that object.
+
+- Technically in encapsulation, the variables or data of a class is hidden from any other class and can be accessed only through any member function of own class in which they are declared.
+- As in encapsulation, the data in a class is hidden from other classes using the data hiding concept which is achieved by making the members or methods of class as private and the class is exposed to the end user or the world without providing any details behind implementation using the abstraction concept, so it is also known as combination of data-hiding and abstraction.
+- Encapsulation can be achieved by: Declaring all the variables in the class as private and writing public methods in the class to set and get the values of variables.
+
+Encapsulation adds security. Attributes and methods can be set to private, so they can’t be accessed outside the class. To get information about data in an object, public methods & properties are used to access or update data. This adds a layer of security, where the developer chooses what data can be seen on an object by exposing that data through public methods in the class definition.
+
+Benefits of encapsulation:
+- Adds security
+- Protects developers from common mistakes
+- Protects IP
+- Supportable
+- Developer can change internal code in the class without alerting users
+- Hides complexity
+
+## Abstraction
+Abstraction means that the user interacts with only selected attributes and methods of an object. Abstraction uses simplified, high level tools, to access a complex object.
+
+Data Abstraction may also be defined as the process of identifying only the required characteristics of an object ignoring the irrelevant details.The properties and behaviors of an object differentiate it from other objects of similar type and also help in classifying/grouping the objects.
+
+Consider a real-life example of a man driving a car. The man only knows that pressing the accelerators will increase the speed of car or applying brakes will stop the car but he does not know about how on pressing the accelerator the speed is actually increasing, he does not know about the inner mechanism of the car or the implementation of accelerator, brakes etc in the car. This is what abstraction is.
+
+Benefits of abstraction:
+- Simple, high level user interfaces
+- Complex code is hidden
+- Security. Only chosen parts of object are accessible
+- Easier software maintenance. Code updates rarely change abstraction
+
+
+
+# SOLID Principles
+
+SOLID is a mnemonic acronym for five design principles intended to make software designs more understandable, flexible and maintainable. The theory of SOLID principles was introduced by Martin in his 2000 paper Design Principles and Design Patterns, although the SOLID acronym was introduced later by Michael Feathers.
+
+## Concepts
+- **Single-responsibility principle** - A class should only have a single responsibility, that is, only changes to one part of the software's specification should be able to affect the specification of the class.
+- **Open–closed principle** - Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification.
+- **Liskov substitution principle** - Objects in a program should be replaceable with instances of their subtypes without altering the correctness of that program.
+- **Interface segregation principle** - Many client-specific interfaces are better than one general-purpose interface.
+- **Dependency inversion principle** - Depend on abstractions, not on concretions.
+
+
+
+
+
+# GET vs POST
+
+**GET** - It requests the data from a specified resource
+
+Example:
+```
+https://api.themoviedb.org/3/movie/1/account_states
+```
+
+Feature: 
+- Remains in the browser history
+- Can be bookmarked
+- Can be cached
+- Have length restrictions
+- Should never be used when dealing with sensitive data
+- Should only be used for retrieving the data
+
+**POST** - It submits the processed data to a specified resource
+Example: 
+```
+https://api.themoviedb.org/3/movie/1/rating
+
+RequestBody
+{
+  "value": 8.5
+}
+```
+Feature: 
+- Cannot be bookmarked
+- Have no restrictions on length of data
+- Never cached
+- Do not retain in the browser history
+
+| GET| POST |
+|---|---|
+| Passes request parameter in URL  | Passes request parameter in request body  |
+| Parameters remain in browser history because they are part of the URL  | Parameters are not saved in browser history  |
+| Can be bookmarked  | Cannot be bookmarked  |
+| URL length is restricted. A safe URL length limit is often 2048  | No restrictions for data length  |
+| Only ASCII characters allowed  | No restrictions. Binary data is also allowed  |
+| Mostly used for view purpose (e.g. SQL SELECT)  | Mainly use for update purpose (e.g. SQL INSERT or UPDATE)  |
+
+
+# PUT vs POST
+
+**PUT** - It is used to send data to a server to create/update a resource.
+
+Example:
+```
+http://www.google.com/users/234
+
+PUT /new.html HTTP/1.1
+Host: example.com
+Content-type: text/html
+Content-length: 20
+
+<p>New File</p>
+```
+
+Feature: 
+- Cannot be bookmarked
+- Should only be used for update the data
+- Never cached
+- Do not retain in the browser history
+
+**POST** - It submits the processed data to a specified resource
+Example: 
+```
+https://api.themoviedb.org/3/movie/1/rating
+
+RequestBody
+{
+  "value": 8.5
+}
+```
+Feature: 
+- Cannot be bookmarked
+- Have no restrictions on length of data
+- Never cached
+- Do not retain in the browser history
+
+| PUT| POST |
+|---|---|
+| Is idempotent | Is not idempotent  |
+| If you send the same request multiple times, the result will remain the same  | If you send the same POST request more than one time, you will receive different results  |
+| Mostly used for UPDATE query | Mainly use for create query |
+
+
+
+# HTTP vs HTTPS
+
+**HTTP (Hypertext Transfer Protocol)** - is an application protocol for distributed, collaborative, hypermedia information systems. **HTTP** is the foundation of data communication for the World Wide Web, where hypertext documents include hyperlinks to other resources that the user can easily access, for example by a mouse click or by tapping the screen in a web browser. **HTTP** offers set of rules and standards which govern how any information can be transmitted on the World Wide Web. **HTTP** provides standard rules for web browsers & servers to communicate.
+
+**HTTP** is an application layer network protocol which is built on top of TCP. **HTTP** uses Hypertext structured text which establishes the logical link between nodes containing text. It is also known as "stateless protocol" as each command is executed separately, without using reference of previous run command.
+
+**HTTPS (Hypertext Transfer Protocol Secure)** - is an extension of the **HTTP** . It is used for secure communication over a computer network, and is widely used on the Internet. In **HTTPS**, the communication protocol is encrypted using Transport Layer Security (TLS) or, formerly, its predecessor, Secure Sockets Layer (SSL).
+
+The principal motivations for **HTTPS** are authentication of the accessed website, protection of the privacy and integrity of the exchanged data while in transit. It protects against man-in-the-middle attacks. The bidirectional encryption of communications between a client and server protects against eavesdropping and tampering of the communication. In practice, this provides a reasonable assurance that one is communicating without interference by attackers with the website that one intended to communicate with, as opposed to an impostor.
+
+| HTTP | HTTPS |
+|---|---|
+| It uses port 80 by default  | It was use port 443 by default  |
+| URLs begin with *http://*  | URLs begin with *https://*  |
+| No encryption before sending data.  | Data encrypted before sending |
+| Website don't need SSL | Website need SSL |
+| Works at Application Layer  | Works at Transport Layer  |
+
+
+# TCP vs UDP
+
+## TCP (Transmission Control Protocol)
+Is connection-oriented, and a connection between client and server is established (passive open) before data can be sent. Three-way handshake (active open), retransmission, and error-detection adds to reliability but lengthens latency. TCP employs network congestion avoidance. However, there are vulnerabilities to TCP including denial of service, connection hijacking, TCP veto, and reset attack. For network security, monitoring, and debugging, TCP traffic can be intercepted and logged with a packet sniffer.
+
+TCP guarantees the recipient will receive the packets in order by numbering them. The recipient sends messages back to the sender saying it received the messages. If the sender does not get a correct response, it will resend the packets to ensure the recipient received them. Packets are also checked for errors. TCP is all about this reliability — packets sent with TCP are tracked so no data is lost or corrupted in transit. This is why file downloads do not become corrupted even if there are network hiccups.
+
+## UDP (User Datagram Protocol)
+Uses a simple connectionless communication model with a minimum of protocol mechanisms. UDP provides checksums for data integrity, and port numbers for addressing different functions at the source and destination of the datagram. It has no handshaking dialogues, and thus exposes the user's program to any unreliability of the underlying network, there is no guarantee of delivery, ordering, or duplicate protection.
+
+UDP is suitable for purposes where error checking and correction are either not necessary or are performed in the application. UDP avoids the overhead of such processing in the protocol stack. Time-sensitive applications often use UDP because dropping packets is preferable to waiting for packets delayed due to retransmission, which may not be an option in a real-time system.
+
+| TCP| UDP |
+|---|---|
+| Guarantees delivery of data to the destination router | Delivery of data is not guarantess |
+| Provides extensive error checking mechanisms. It is because it provides flow control and acknowledgment of data | Has only the basic error checking mechanism using checksums |
+| Sequencing of data, packets arrive in-order at the receiver | There is no sequencing of data. If ordering is required, it has to be managed by the application layer |
+| Retransmission of lost packets is possible | There is no retransmission of lost packets |
+| Has a (20-80) bytes variable length header | Has a 8 bytes fixed length header |
+| Doesn’t supports Broadcasting | Supports Broadcasting |
+| Used by HTTP, HTTPs, FTP, SMTP and Telnet | used by DNS, DHCP, TFTP, SNMP, RIP, and VoIP |
