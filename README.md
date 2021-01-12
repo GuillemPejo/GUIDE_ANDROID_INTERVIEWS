@@ -908,7 +908,8 @@ savedInstanceState.Also it won't affect the performance even if there are large 
         [Learn more here](https://codkiller0911.medium.com/a-never-ending-service-android-12ffaf94d6ad)    
 
 * **What is Service Lifecycle?** 
-        ![image](assets/service_lifecycle.png)
+
+    ![image](assets/service_lifecycle.png)
 
 * **`Service` vs `IntentService`.** 
     - `Service` is the base class for Android services that can be extended to create any service. A class that directly extends Service runs on the main thread so it will block the UI (if there is one) and should therefore either be used only for short tasks or should make use of other threads for longer tasks.
@@ -918,23 +919,23 @@ savedInstanceState.Also it won't affect the performance even if there are large 
         [Learn more here](https://blog.mindorks.com/service-vs-intentservice-in-android)
 
 * **Difference between Activity & Service**</br>
-  : Activities are basically containers or windows to the user interface. 
+    - Activities are basically containers or windows to the user interface. 
   Services is a component that is used to perform operations on the background. It does not have an UI.</br>
 
  -  **How to Stop a Service?**<br/>
-    : To stop a service from an activity we can call stopService(Intent intent) method. To Stop a service from itself, we can call stopSelf() method.
+    - To stop a service from an activity we can call stopService(Intent intent) method. To Stop a service from itself, we can call stopSelf() method.
     
 -   **When does a Bound Service stops?**<br/>
-    : A Bound Service will stop automatically by the system when all the Application Components bound to it are unbinded.
+    - A Bound Service will stop automatically by the system when all the Application Components bound to it are unbinded.
 
 -   **What is the method that differentiates it to make Service run in background?**<br/>
-     : onHandleIntent() is the method that helps the IntentService to run a particular code block declared inside it, in worker/background thread.
+    - onHandleIntent() is the method that helps the IntentService to run a particular code block declared inside it, in worker/background thread.
 
 -   **How to Stop an IntentService?**<br/>
-    : An IntentService automatically stops itself after its job is done. We do not need to explicitly call any methods to stop an IntentService unlike Service which requires stopSelf() or StopService(intent:Intent).
+    - An IntentService automatically stops itself after its job is done. We do not need to explicitly call any methods to stop an IntentService unlike Service which requires stopSelf() or StopService(intent:Intent).
 
 -   **When Intent Service is Useful?**<br/>
-    : The IntentService can be used in long tasks usually with no communication to Main Thread. If communication is required, can use Main Thread handler or broadcast intents. Another case of use is when callbacks are needed (Intent triggered tasks).
+    - The IntentService can be used in long tasks usually with no communication to Main Thread. If communication is required, can use Main Thread handler or broadcast intents. Another case of use is when callbacks are needed (Intent triggered tasks).
 
 * **How would you update the UI of an activity from a background service**</br>
   * We need to register a LocalBroadcastReceiver in the activity. And send a broadcast with the data using intents from the background service. As long as the activity is in the foreground, the UI will be updated from the background. Ensure to unregister the broadcast receiver in the onStop() method of the activity to avoid memory leaks. 
@@ -943,23 +944,25 @@ We can also register a Handler and pass data using Handlers. I have detailed a s
 * **How all the activities that are running run in main thread?**
     - All the applications that are running or can be accessed runs in main thread of user interface by default. The modification can be done to make it run differently or to make it run or not at all. The exception also comes defining that the code handles the IPC calls that are coming from other processes. The system used to maintain separate pools for all the processes and threads. One pool consists of the transaction threads that are in each process to dispatch all the incoming calls. It also allows the interpersonal calls to be handled in a specialized manner. This allows the creation of separate threads that is used for long-running code, and to avoid blocking of the main user interface threads. The services that run can be killed by the system if it is going out of memory. The system restart the service and implement onStartCommand() to bring the activities back in the memory pool.
 
-* **What is an AsyncTask?**
-    : `AsyncTask` is one of the easiest ways to implement parallelism in Android without having to deal with more complex methods like Threads. Though it offers a basic level of parallelism with the UI thread, it should not be used for longer operations (of, say, not more than 2 seconds).
 
-    - AsyncTask has four methods: 
-         - **onPreExecute()** --> This method is invoked just before the background thread is created and here we can do some initialisation that we might want to do before the background thread starts the task.
+* **What is an AsyncTask?**
+    - `AsyncTask` is one of the easiest ways to implement parallelism in Android without having to deal with more complex methods like Threads. Though it offers a basic level of parallelism with the UI thread, it should not be used for longer operations (of, say, not more than 2 seconds).
+
+        AsyncTask has four methods: 
+    - **onPreExecute()** --> This method is invoked just before the background thread is created and here we can do some initialisation that we might want to do before the background thread starts the task.
     It is used to basically setup a task. Ex: showing a Progress Bar,etc.
     It runs on the main UI thread.
-  
-        - **doInBackground(Params...)** --> This method is invoked on the background thread immediately after onPreExecute has finished executing and is used to perform the task which is supposed to be run on the background thread.This method can also call publishProgress(Progress...) method to puclish progress on the main UI thread which is received by the onProgressUpdate(Progress...) method.
+    
+    - **doInBackground(Params...)** --> This method is invoked on the background thread immediately after onPreExecute has finished executing and is used to perform the task which is supposed to be run on the background thread.This method can also call publishProgress(Progress...) method to puclish progress on the main UI thread which is received by the onProgressUpdate(Progress...) method.
     Ex: Fetching results from a network request, etc. 
     It runs on the background thread.
-        - **publishProgress()** --> This method can optionally be called within the doInBackground() method to publish progress to the main UI thread and show that progress to the user.
+    - **publishProgress()** --> This method can optionally be called within the doInBackground() method to publish progress to the main UI thread and show that progress to the user.
     It can be called several times within the doInBackground to keep the user updated about the progress of the task happening.
-        - **onProgressUpdate(Progress...)** --> This method is invoked on the main UI thread just after publishProgress(Progress...) is invoked on the background thread and it receives the current progress and can used to display/update the progress on the main UI. 
+    - **onProgressUpdate(Progress...)** --> This method is invoked on the main UI thread just after publishProgress(Progress...) is invoked on the background thread and it receives the current progress and can used to display/update the progress on the main UI. 
     It runs on the main UI thread.
-        - **onPostExecute(Result)** --> This method is invoked on the main UI thread just after the background thread has finished executing and has returned the result to this method as seen in the method parameter. The result can be then be used to do anything the developer wants to do with that result. 
+    - **onPostExecute(Result)** --> This method is invoked on the main UI thread just after the background thread has finished executing and has returned the result to this method as seen in the method parameter. The result can be then be used to do anything the developer wants to do with that result. 
     It runs on the main UI thread.
+
 
     ![image](assets/asynctask.png)
 
