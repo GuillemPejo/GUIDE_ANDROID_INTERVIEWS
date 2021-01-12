@@ -694,13 +694,13 @@ savedInstanceState.Also it won't affect the performance even if there are large 
 
 * **Which dialog boxes are supported by android?**
     - Android supports 4 dialog boxes:
-        - AlertDialog: Alert dialog box supports 0 to 3 buttons and a list of selectable elements which includes check boxes and radio buttons.
+        - **AlertDialog**: Alert dialog box supports 0 to 3 buttons and a list of selectable elements which includes check boxes and radio buttons.
 
-        - ProgressDialog: This dialog box is an extension of AlertDialog and supports adding buttons. It displays a progress wheel or bar.
+        - **ProgressDialog**: This dialog box is an extension of AlertDialog and supports adding buttons. It displays a progress wheel or bar.
 
-        - DatePickerDialog: The user can select the date using this dialog box.
+        - **DatePickerDialog**: The user can select the date using this dialog box.
 
-        - TimePickerDialog: The user can select the time using this dialog box.
+        - **TimePickerDialog**: The user can select the time using this dialog box.
 
 
 * **What is `Toast` in Android?** 
@@ -735,7 +735,7 @@ savedInstanceState.Also it won't affect the performance even if there are large 
 
 
 * **Describe three common use cases for using an Intent**
-    : Common use cases for using an Intent include:
+    - Common use cases for using an Intent include:
 
         - To start an activity: You can start a new instance of an Activity by passing an Intent to startActivity() method.
         
@@ -743,24 +743,28 @@ savedInstanceState.Also it won't affect the performance even if there are large 
         - To deliver a broadcast: You can deliver a broadcast to other apps by passing an Intent to sendBroadcast(), sendOrderedBroadcast(), or sendStickyBroadcast().
 
 * **What is an intent?**</br>
-  : Intents are messages that can be used to pass information to the various components of android. For instance, launch an activity, open a webview etc.</br>
-  
-  : Exist two types of intents:
-    * **Implicit:** Implicit intent is when you call system default intent like send email, send SMS, dial number.</br>
-    * **Explicit:** Explicit intent is when you call an application activity from another activity of the same application.</br>
+    - Intents are messages that can be used to pass information to the various components of android. For instance, launch an activity, open a webview etc.
+    
+        Exist two types of intents:
+        
+        * **Implicit:** Implicit intent is when you call system default intent like send email, send SMS, dial number.</br>
+        * **Explicit:** Explicit intent is when you call an application activity from another activity of the same application.</br>
+    
     [Learn more here](https://blog.mindorks.com/what-are-intents-in-android) or [here](http://developer.android.com/guide/components/intents-filters.html)
-
-* **What is a bundle?**
-    : Bundles are generally used for passing data between various Android activities. It depends on you what type of values you want to pass, but bundles can hold all types of values and pass them to the new activity.
-
-
-* **Diference Intent vs Bundle**
-    : Bundle can operate on objects, but Intent can’t. Bundle has more interfaces than Intent and is more flexible to use, but using Bundle also needs Intent to complete data transfer. In a word, Bundle aims to store data, while Intent aims to transfer value.
-[More info here](https://developpaper.com/the-difference-between-android-value-passing-intent-and-bundle/)
 
 * **What is an Implicit `Intent`?** - [Learn more here](https://blog.mindorks.com/what-are-intents-in-android) or [here](https://developer.android.com/guide/components/intents-filters.html#ExampleSend)
         
 * **What is an Explicit `Intent`?** - [Learn more here](https://blog.mindorks.com/what-are-intents-in-android) or [here](https://developer.android.com/guide/components/intents-filters.html#ExampleExplicit)
+
+* **What is a bundle?**
+    - Bundles are generally used for passing data between various Android activities. It depends on you what type of values you want to pass, but bundles can hold all types of values and pass them to the new activity.
+
+
+* **Diference Intent vs Bundle**
+    - Bundle can operate on objects, but Intent can’t. Bundle has more interfaces than Intent and is more flexible to use, but using Bundle also needs Intent to complete data transfer. In a word, Bundle aims to store data, while Intent aims to transfer value.
+
+    [Learn more here](https://developpaper.com/the-difference-between-android-value-passing-intent-and-bundle/)
+
 
 * **Types of broadcast. Local, Normal, Ordered and Sticky**
     - **Normal Broadcast**:
@@ -787,8 +791,10 @@ savedInstanceState.Also it won't affect the performance even if there are large 
 * **What is a `LocalBroadcastManager`?** - [Learn more here](https://blog.mindorks.com/using-localbroadcastmanager-in-android) or [here](https://github.com/Kirchhoff-/Android-Interview-Questions/blob/master/Android/What's%20BroadcastReceiver.md)
 
 * **What is a Sticky `Intent`?**
-    - Sticky Intents allows communication between a function and a service. sendStickyBroadcast() performs a sendBroadcast(Intent) known as sticky, i.e. the Intent you are sending stays around after the broadcast is complete, so that others can quickly retrieve that data through the return value of registerReceiver(BroadcastReceiver, IntentFilter). For example, if you take an intent for ACTION_BATTERY_CHANGED to get battery change events: When you call registerReceiver() for that action — even with a null BroadcastReceiver — you get the Intent that was last Broadcast for that action. Hence, you can use this to find the state of the battery without necessarily registering for all future state changes in the battery.
-    <br>[Learn more here](https://stackoverflow.com/a/26038985/497132)
+    - Sticky Intents allows communication between a function and a service.
+    sendStickyBroadcast() performs a sendBroadcast(Intent) known as sticky, i.e. the Intent you are sending stays around after the broadcast is complete, so that others can quickly retrieve that data through the return value of registerReceiver(BroadcastReceiver, IntentFilter). For example, if you take an intent for ACTION_BATTERY_CHANGED to get battery change events: When you call registerReceiver() for that action — even with a null BroadcastReceiver — you get the Intent that was last Broadcast for that action. Hence, you can use this to find the state of the battery without necessarily registering for all future state changes in the battery.
+    
+    [Learn more here](https://stackoverflow.com/a/26038985/497132)
 
 *   **What is the difference between START_NOT_STICKY, START_STICKY AND START_REDELIVER_INTENT?**
     - **START_NOT_STICKY:**
@@ -800,18 +806,21 @@ savedInstanceState.Also it won't affect the performance even if there are large 
     If the system kills the service after onStartCommand() returns, recreate the service and call onStartCommand() with the last intent that was delivered to the service. Any pending intents are delivered in turn. This is *suitable for services that are actively performing a job that should be immediately resumed, such as downloading a file.*
 
 * **What is a Pending Intent?**</br>
-    : PendingIntent is a token that you give to a foreign application (e.g. NotificationManager, AlarmManager, Home Screen AppWidgetManager, or other 3rd party applications), which allows the foreign application to use your application's permissions to execute a predefined piece of code. It specifies a task that requires to be performed in future.
+    - PendingIntent is a token that you give to a foreign application (e.g. NotificationManager, AlarmManager, Home Screen AppWidgetManager, or other 3rd party applications), which allows the foreign application to use your application's permissions to execute a predefined piece of code. It specifies a task that requires to be performed in future.
   
-       If you want someone to perform any Intent operation at future point of time on behalf of you, then we will use Pending Intent. </br>
+        If you want someone to perform any Intent operation at future point of time on behalf of you, then we will use Pending Intent. </br>
   
 * **What is an Action?**</br>
   * Description of the intent. For instance, ACTION_CALL - used to perform calls</br>
 
-* **What is the function of an `IntentFilter`?** 
-    :  Intent filters are a very powerful feature of the Android platform. They provide the ability to launch an activity based not only on an explicit request, but also an implicit one. For example, an explicit request might tell the system to “Start the Send Email activity in the Gmail app". By contrast, an implicit request tells the system to “Start a Send Email screen in any activity that can do the job." When the system UI asks a user which app to use in performing a task, that’s an intent filter at work. Here's an example of how to declare Intent Filter in AndroidManifest:
-        ```xml
+* **What is the function of an `IntentFilter`?**  
+    -  Intent filters are a very powerful feature of the Android platform. They provide the ability to launch an activity based not only on an explicit request, but also an implicit one. For example, an explicit request might tell the system to “Start the Send Email activity in the Gmail app". By contrast, an implicit request tells the system to “Start a Send Email screen in any activity that can do the job." When the system UI asks a user which app to use in performing a task, that’s an intent filter at work. 
+
+        Here's an example of how to declare Intent Filter in AndroidManifest:
+
+        ```
         <activity android:name=".ExampleActivity" android:icon="@drawable/app_icon">
-          <intent-filter>
+          ```<intent-filter>
               <action android:name="android.intent.action.SEND" />
               <category android:name="android.intent.category.DEFAULT" />
               <data android:mimeType="text/plain" />
