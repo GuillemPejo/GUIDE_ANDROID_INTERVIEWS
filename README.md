@@ -493,25 +493,19 @@ savedInstanceState.Also it won't affect the performance even if there are large 
     - A **Bitmap** is a representation of a bitmap image (something like java.awt.Image).
     - A **Drawable** is an abstraction of "something that can be drawn". It could be a Bitmap (wrapped up as a BitmapDrawable), but it could also be a solid color, a collection of other Drawable objects, or any number of other structures.
 
-
 * **Raw folder vs Assets folder**
     - The files in both directories will be stored intact in the APK package after being packaged and will not be compiled into binary systems.
 
         The differences between res/raw and assets:
 
-            - Since `raw` is a subfolder of Resources (`res`), Android will automatically generate an ID for any file located inside it. This ID is then stored an the `R` class that will act as a reference to a file, meaning it can be easily accessed from other Android classes and methods and even in Android XML files. Using the automatically generated ID is the fastest way to have access to a file in Android.
+        - Since `raw` is a subfolder of Resources (`res`), Android will automatically generate an ID for any file located inside it. This ID is then stored an the `R` class that will act as a reference to a file, meaning it can be easily accessed from other Android classes and methods and even in Android XML files. Using the automatically generated ID is the fastest way to have access to a file in Android.
+        
+        - The Assets folder is an “appendix” directory. The `R` class does not generate IDs for the files placed there, so its less compatible with some Android classes and methods. Also, it’s much slower to access a file inside it, since you will need to get a handle to it based on a String. However some operations are more easily done by placing files in this folder, like copying a database file to the system’s memory. There’s no (easy) way to create an Android XML reference to files inside the Assets folder.
 
-            - The Assets folder is an “appendix” directory. The `R` class does not generate IDs for the files placed there, so its less compatible with some Android classes and methods. Also, it’s much slower to access a file inside it, since you will need to get a handle to it based on a String. However some operations are more easily done by placing files in this folder, like copying a database file to the system’s memory. There’s no (easy) way to create an Android XML reference to files inside the Assets folder.
 
 * **@id vs @+id**</br>
     - The at-symbol (`@`) at the beginning of the string indicates that the XML parser should parse and expand the rest of the ID string and identify it as an ID resource. The plus-symbol (`+`) means that this is a new resource name that must be created and added to our resources (in the `R.java` file). In other words, the `+` symbol tells Android build tools that you are declaring a new resource, `@id/` you are referring to an existing resource (predefined by `@+id/` and already exists in `R.java`.
     
-        - Describe how to implement XML namespaces.
-        - Explain the differences and similarities of List Views and Grid Views.
-        -  Explain how to present different styles/drawables for a button depending
-on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]](http://developer.android.com/guide/topics/resources/drawable-resource.html#StateList)
-        * for layout\_width and layout\_height, what's the difference between match\_parent and wrap\_content?
-        * How do you implement Google's new Material Design in an Android application? [[info]](https://developer.android.com/training/material/get-started.html)
 
 * **nodpi VS anydpi**</br>
    * **nodpi: Fallback** 
@@ -533,9 +527,9 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
    * Frame Layouts are designed to contain a single item, making them an efficient choice when you need to display a single View.
        If you add multiple Views to a FrameLayout then it’ll stack them one above the other, so FrameLayouts are also useful if you need overlapping Views, for example if you’re implementing an overlay or a HUD element.</br> 
    
-  
+
 * **What is Adapters?**</br>
-   : An adapter responsible for converting each data entry into a View that can then be added to the AdapterView (ListView/RecyclerView).
+   - An adapter responsible for converting each data entry into a View that can then be added to the AdapterView (ListView/RecyclerView).
    
         When you define your adapter, you need to override three key methods:
         - `onCreateViewHolder()`: `RecyclerView` calls this method whenever it needs to create a new `ViewHolder`. The method creates and initializes the `ViewHolder` and its associated `View`, but does not fill in the view's contents—the `ViewHolder` has not yet been bound to specific data.
@@ -546,8 +540,6 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
 
 
 
-</br>
-   
 
 * **How to support different screen sizes?**</br>
    * **Use ConstraintLayout**
@@ -564,6 +556,7 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
       * res/layout/main_activity.xml           # For handsets (smaller than 600dp available width)                      
       * res/layout-sw600dp/main_activity.xml   # For 7” tablets (600dp wide and bigger). 
       * The smallest width qualifier specifies the smallest of the screen's two sides, regardless of the device's current orientation, so it's a simple way to specify the overall screen size available for your layout.
+        
         ```
         MyProject/
             res/
@@ -575,6 +568,7 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
                         main.xml
                     layout-large-land/ # large landscape
                         main.xml    ```
+
 * **How do you support different types of resolutions?** - [Learn more here](https://developer.android.com/training/multiscreen/screensizes)
   
 * **Outline the process of creating custom Views:**</br>
@@ -594,7 +588,9 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
    
    
 * **Bitmap pooling in android?**</br>
-   * Bitmap pooling is a simple technique, that aims to reuse bitmaps instead of creating new ones every time. When you need a bitmap, you check a bitmap stack to see if there are any bitmaps available. If there are not bitmaps available you create a new bitmap otherwise you pop a bitmap from the stack and reuse it. Then when you are done with the bitmap, you can put it on a stack. [Find more info here](https://www.linkedin.com/pulse/performance-improvement-bitmap-pooling-android-ali-muzaffar/)</br>
+   * Bitmap pooling is a simple technique, that aims to reuse bitmaps instead of creating new ones every time. When you need a bitmap, you check a bitmap stack to see if there are any bitmaps available. If there are not bitmaps available you create a new bitmap otherwise you pop a bitmap from the stack and reuse it. Then when you are done with the bitmap, you can put it on a stack. 
+
+    [Find more info here](https://www.linkedin.com/pulse/performance-improvement-bitmap-pooling-android-ali-muzaffar/)</br>
    
    
 
@@ -620,7 +616,8 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
 #### PATERNS DESIGN 
 
 * **What is a singleton class in Android?**</br>
-   : A singleton class is a class which can create only an object that can be shared all other classes.
+    - A singleton class is a class which can create only an object that can be shared all other classes.
+
    ```
    private static volatile RESTService instance;
     protected RESTService(Context context) {
@@ -667,7 +664,7 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
     ```
 
 * **What is DiffUtil?** 
-    : `DiffUtil` is a utility class that calculates the difference between two lists and outputs a list of update operations that converts the first list into the second one. 
+    - `DiffUtil` is a utility class that calculates the difference between two lists and outputs a list of update operations that converts the first list into the second one. 
 
         It can be used to calculate updates for a RecyclerView Adapter.  See [ListAdapter](https://developer.android.com/reference/androidx/recyclerview/widget/ListAdapter) and [AsyncListDiffer](https://developer.android.com/reference/androidx/recyclerview/widget/AsyncListDiffer) which can simplify the use of `DiffUtil` on a background thread.
 
@@ -695,9 +692,8 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
 
 * **What is `Dialog` in Android?** - [Learn more here](https://developer.android.com/guide/topics/ui/dialogs)
 
-
 * **Which dialog boxes are supported by android?**
-    : Android supports 4 dialog boxes:
+    - Android supports 4 dialog boxes:
         - AlertDialog: Alert dialog box supports 0 to 3 buttons and a list of selectable elements which includes check boxes and radio buttons.
 
         - ProgressDialog: This dialog box is an extension of AlertDialog and supports adding buttons. It displays a progress wheel or bar.
@@ -706,22 +702,26 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
 
         - TimePickerDialog: The user can select the time using this dialog box.
 
+
 * **What is `Toast` in Android?** 
-        : Android Toast can be used to display information for the short period of time. A toast contains message to be displayed quickly and disappears after sometime.
-[Learn more here](https://developer.android.com/guide/topics/ui/notifiers/toasts)
+    - Android Toast can be used to display information for the short period of time. A toast contains message to be displayed quickly and disappears after sometime.
+
+    [Learn more here](https://developer.android.com/guide/topics/ui/notifiers/toasts)
 
 * **What are Loaders in Android?**</br>
-   : Loader API was introduced in API level 11 and is used to load data from a data source to display in an activity or fragment. Loaders persist and cache results across configuration changes to prevent duplicate queries.
+   - Loader API was introduced in API level 11 and is used to load data from a data source to display in an activity or fragment. Loaders persist and cache results across configuration changes to prevent duplicate queries.
       
         **Note**: (Loader is Deprecated. We Have to use combination of ViewModels and LiveData instead of using Loaders) A Loader is used to fetch the data from a Content provider and cache the results across the configuration changes to avoid duplicate queries. Few implementations of Loaders like CursorLoader can implement an observer to monitor any data changes and can then trigger a reload.
+       
        [Sample Implementation](https://medium.com/mindorks/a-journey-to-the-world-of-mvp-and-loaders-part-2-e176200e5866) </br>
    
 * **What the difference between `Dialog` and `Dialog Fragment`?** 
    
-     : The `Dialog` class is the base class for dialogs, but you should avoid instantiating `Dialog` directly. Instead, use one of it's subclasses. `Dialogs` are entirely dependent on Activities. If the screen is rotated, the dialog is dismissed. 
+    - The `Dialog` class is the base class for dialogs, but you should avoid instantiating `Dialog` directly. Instead, use one of it's subclasses. `Dialogs` are entirely dependent on Activities. If the screen is rotated, the dialog is dismissed. 
 
         A `DialogFragment` is a fragment that displays a dialog window, floating on top of its activity's window. This fragment contains a `Dialog` object, which it displays as appropriate based on the fragment's state. Using `DialogFragment` to manage the dialog ensures that it correctly handles lifecycle events such as when the user presses the Back button or rotates the screen. 
-[Learn more here](https://stackoverflow.com/questions/7977392/android-dialogfragment-vs-dialog)
+
+    [Learn more here](https://stackoverflow.com/questions/7977392/android-dialogfragment-vs-dialog)
 
 #### Intents and Broadcasting
 
