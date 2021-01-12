@@ -32,6 +32,41 @@
 <br>[Learn more here](https://blog.mindorks.com/understanding-context-in-android-application-330913e32514) or [here](https://github.com/Kirchhoff-/Android-Interview-Questions/blob/master/Android/What's%20Context.md)
 
 
+* **When to call activity context OR application context?**
+`getApplicationContext()` is almost always wrong. [Ms. Hackborn](<https://stackoverflow.com/questions/5228160/what-exactly-does-using-the-application-context-mean/5228494#5228494>) (among others) have been very explicit that you *only* use `getApplicationContext()` when you know *why* you are using `getApplicationContext()` and only when you *need* to use `getApplicationContext()`.
+
+To be blunt, "some programmers" use `getApplicationContext()` (or `getBaseContext()`, to a lesser extent) because their Java experience is limited. They implement an inner class (e.g., an `OnClickListener` for a `Button` in an `Activity`) and need a `Context`. Rather than using `MyActivity.this` to get at the outer class' `this`, they use `getApplicationContext()` or `getBaseContext()` to get a `Context` object.
+
+You *only* use `getApplicationContext()` when you *know* you need a `Context` for something that may live longer than any other likely `Context` you have at your disposal. Scenarios include:
+
+    - Use `getApplicationContext()` if you need something tied to a `Context` that itself will have global scope. I use `getApplicationContext()`, for example, in `WakefulIntentService`, for the static `WakeLock` to be used for the service. Since that `WakeLock` is static, and I need a `Context` to get at `PowerManager` to create it, it is safest to use `getApplicationContext()`.
+
+    - Use `getApplicationContext()` when you bind to a `Service` from an `Activity`, if you wish to pass the `ServiceConnection` (i.e., the handle to the binding) between `Activity` instances via `onRetainNonConfigurationInstance()`. Android internally tracks bindings via these `ServiceConnections` and holds references to the `Contexts` that create the bindings. If you bind from the `Activity`, then the new `Activity` instance will have a reference to the `ServiceConnection` which has an implicit reference to the old `Activity`, and the old `Activity` cannot be garbage collected.
+
+
+Some developers use custom subclasses of `Application` for their own global data, which they retrieve via `getApplicationContext()`. That's certainly possible. I prefer static data members, if for no other reason than you can only have *one* custom `Application` object. I built one app using a custom `Application` object and found it to be painful. [Ms. Hackborn also agrees with this position](<https://stackoverflow.com/questions/3826905/singletons-vs-application-context-in-android/3827166#3827166>).
+
+Here are reasons why *not* to use `getApplicationContext()` wherever you go:
+
+    - It's not a complete `Context`, supporting everything that `Activity` does. Various things you will try to do with this `Context` will fail, [mostly related to the GUI](<http://groups.google.com/group/android-developers/browse_thread/thread/7a648edddccf6f7d>).
+
+    - It can create memory leaks, if the `Context` from `getApplicationContext()` holds onto something created by your calls on it that you don't clean up. With an `Activity`, if it holds onto something, once the `Activity` gets garbage collected, everything else flushes out too. The `Application` object remains for the lifetime of your process.
+
+
+Although in current Android Activity and Service implementations, `getApplication()` and `getApplicationContext()` return the same object, there is no guarantee that this will always be the case (for example, in a specific vendor implementation).
+
+So if you want the Application class you registered in the Manifest, you should **never** call `getApplicationContext()` and cast it to your application, because it may not be the application instance (which you obviously experienced with the test framework).
+
+Why does `getApplicationContext()` exist in the first place ?
+
+`getApplication()` is only available in the Activity class and the Service class, whereas `getApplicationContext()` is declared in the Context class.
+
+That actually means one thing : when writing code in a broadcast receiver, which is not a context but is given a context in its onReceive method, you can only call `getApplicationContext()`. Which also means that you are not guaranteed to have access to your application in a BroadcastReceiver.
+
+
+
+
+
 * **What is AndroidManifest.xml used for? Give examples of what kind of data you would add to it.**
 
     * The `AndroidManifest.xml` file contains information of your package, including components of the application such as activities, services, broadcast receivers, content providers etc. Responsibilities:
@@ -381,6 +416,14 @@ savedInstanceState.Also it won't affect the performance even if there are large 
     - The timing to update is different. Normal view update mechanism is constraint or controlled by the framework: You call `view.invalidate()` in the UI thread or `view.postInvalidate()` in other thread to indicate to the framework that the view should be updated. However, the view won't be updated immediately but wait until next VSYNC event arrived. The easy approach to understand VYSNC is to consider it is as a timer that fire up every 16ms for a 60fps screen. In Android, all the normal view update, is synchronized with VSYNC to achieve better smoothness.
 [Learn more here](https://developer.android.com/reference/android/view/SurfaceView)
 
+* **SurfaceView vs View**
+
+    Views are all drawn on the same GUI thread which is also used for all user interaction.
+
+    So if you need to update GUI rapidly or if the rendering takes too much time and affects user experience then use `SurfaceView`.
+
+
+
 * **Relative Layout vs Linear Layout.** - [Learn more here](https://blog.mindorks.com/android-layout-relative-linear-frame)
 
 * **Tell about Constraint Layout** 
@@ -388,6 +431,15 @@ savedInstanceState.Also it won't affect the performance even if there are large 
 
     Intention of ConstraintLayout is to optimize and flatten the view hierarchy of your layouts by applying some rules to each view to avoid nesting.
 - [Learn more here](https://blog.mindorks.com/using-constraint-layout-in-android-531e68019cd)
+
+
+* **LayoutInflater vs findViewById**
+    When I first started Android programming, I was really confused by `LayoutInflater` and `findViewById`. Sometimes we used one and sometimes the other.
+
+        - `LayoutInflater` is used to create a new `View` (or `Layout`) object from one of your xml layouts.
+        - `findViewById` just gives you a reference to a view than has already been created. You might think that you haven't created any `views` yet, but whenever you call `setContentView` in `onCreate`, the activity's layout along with its subviews gets inflated (created) behind the scenes.
+
+    So if the view already exists, then use `findViewById`. If not, then create it with a `LayoutInflater`.
 
 * **Do you know what is the view tree? How can you optimize its depth?** - [Learn more here](https://developer.android.com/reference/android/view/ViewTreeObserver)
 
@@ -661,7 +713,14 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
 
 #### INTENTS
 
-* Describe three common use cases for using an Intent.
+
+* **What are the ways to pass data between activities?**
+    - Using Static Method: You can use static Method to get data from one activity to another activity.
+    - Using Intents
+    - Bundle Method
+
+
+* **Describe three common use cases for using an Intent**
     - Common use cases for using an Intent include:
 
         - To start an activity: You can start a new instance of an Activity by passing an Intent to startActivity() method.
@@ -674,6 +733,17 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
     * Implicit: Implicit intent is when you call system default intent like send email, send SMS, dial number.</br>
     * Explicit: Explicit intent is when you call an application activity from another activity of the same application.</br>
     [Learn more here](https://blog.mindorks.com/what-are-intents-in-android) or [here](http://developer.android.com/guide/components/intents-filters.html)
+
+* **What is a bundle?**
+
+    Bundles are generally used for passing data between various Android activities. It depends on you what type of values you want to pass, but bundles can hold all types of values and pass them to the new activity.
+
+
+* **Diference Intent vs Bundle**
+
+    Bundle can operate on objects, but Intent can’t. Bundle has more interfaces than Intent and is more flexible to use, but using Bundle also needs Intent to complete data transfer. In a word, Bundle aims to store data, while Intent aims to transfer value.
+
+[More info here](https://developpaper.com/the-difference-between-android-value-passing-intent-and-bundle/)
 
 * **What is an Implicit `Intent`?** - [Learn more here](https://blog.mindorks.com/what-are-intents-in-android) or [here](https://developer.android.com/guide/components/intents-filters.html#ExampleSend)
         
@@ -805,6 +875,13 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
     * Bound Service: A service is bound when an application component binds to it by calling bindService(). A bound service offers a client-server interface that allows components to interact with the service, send requests, receive results. A bound service runs only as long as another application component is bound to it.</br> 
 [Learn more here](https://developer.android.com/guide/components/services)
 
+* **How to make a service persist even after Application killed?**
+    - Activity
+    - A service — we all know what this will be doing
+    - A broadcast Receiver — This will enable us to restart the service whenever the application is killed or the Service itself is being killed or stopped
+
+    [Learn more here](https://codkiller0911.medium.com/a-never-ending-service-android-12ffaf94d6ad)    
+
 * **What is Service Lifecycle?** 
 ![image](assets/service_lifecycle.png)
 
@@ -814,8 +891,6 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
     - `Service` is the base class for Android services that can be extended to create any service. A class that directly extends Service runs on the main thread so it will block the UI (if there is one) and should therefore either be used only for short tasks or should make use of other threads for longer tasks.
 
     `IntentService` is a subclass of Service that handles asynchronous requests (expressed as “Intents”) on demand. Clients send requests through startService(Intent) calls. The service is started as needed, handles each Intent in turn using a worker thread, and stops itself when it runs out of work. Writing an IntentService can be quite simple; just extend the IntentService class and override the onHandleIntent(Intent intent) method where you can manage all incoming requests.
-
-
 
     [Learn more here](https://blog.mindorks.com/service-vs-intentservice-in-android)
 
@@ -1219,7 +1294,16 @@ Serializable uses reflection while for parcelable, developers from android team 
 
 * **How to reduce battery usage in an android application?** - [Learn more here](https://blog.mindorks.com/battery-optimization-for-android-apps-f4ef6170ff70)
 
-* **What is Doze? What about App Standby?** - [Learn more here](https://developer.android.com/training/monitoring-device-state/doze-standby)
+* **What is Doze? What about App Standby?** 
+
+
+    There's a difference between App Standby (where your app goes to sleep because it's lonely) and Doze (where the system went to sleep because users have lives).
+
+    Doze only works when your device remains stationary. If you pick it up or wake the screen, Doze mode is deactivated and the timer resets. It won’t ever turn on when the phone is sitting in your pocket unless you’re sitting remarkably still. Doze simply keeps your phone from burning through the battery while it’s asleep on a desk or table or something.
+
+    An app that goes into Standby loses all network access and all its background sync jobs are suspended. These restrictions are temporarily lifted when your phone is plugged in and for a few minutes every day or two. This gives suspended apps a chance to run any pending sync jobs, but they won’t be allowed to continue running. A high-priority push notification will also be able to wake an app from Standby for a short time.
+
+- [Learn more here](https://developer.android.com/training/monitoring-device-state/doze-standby)
 
 * **What is `overdraw`?** 
 - An app may draw the same pixel more than once within a single frame, an event called overdraw. Overdraw is usually unnecessary, and best eliminated. It manifests itself as a performance problem by wasting GPU time to render pixels that don't contribute to what the user sees on the screen.
@@ -1557,7 +1641,7 @@ Serializable uses reflection while for parcelable, developers from android team 
             - **Data encryption**. Mobile app security involves securing all kinds of stored data on the mobile device. It includes the source code as well as the data transmitted between the application and the back-end server. The execution of certificate pinning helps affirm the backend Web service certificate for the application. High-level data encryption is one of the best android mobile app security practices. It protects the valuable data from hackers.
             - **Regular Updation And Testing**. Hackers detect vulnerabilities in software and exploit, while developers repair the breach, which causes hackers to discover another weakness. Although Google cannot avoid the development of these vulnerabilities, it effectively updates the Android OS to counter the detected problems. However, these measures will not be useful if the software is not up-to-date. Penetration testing is another method for server-side checks.
 
-
+* ****
 
 ### Dagger 2 Related Questions:
 
@@ -1699,7 +1783,17 @@ More additional info to get started with RxJava is available at:
 
 * **What is the best way to update the screen periodically?** - [Learn more here](https://stackoverflow.com/questions/5452394/best-way-to-perform-an-action-periodically-while-an-app-is-running-handler)
 
-* **FlatBuffers vs JSON.** - [Learn more here](https://blog.mindorks.com/why-consider-flatbuffer-over-json-2e4aa8d4ed07)
+* **FlatBuffers vs JSON.** - 
+    - FlatBuffers are an efficient cross platform serialization library for C++, C#, C, Go, Java, JavaScript, PHP, and Python. They were originally created at Google for game development, and other performance-critical applications.
+
+
+    For storing data in DB or in filesystems such as S3, JSON should be the obvious choice. This is because it allows you to query these systems without writing additional code using already available tools. For squeezing more data, you can always use GZIP or LZ4 compression which is supported out of the box in most of the systems these days.
+
+    However for inter-communications between various REST services or streaming systems (e.g. Kafka) , you should prefer protocol buffers or flat buffers. This is because of the significant difference between the serialization/deserialization performance of these two vs JSON which I’ll show later. Also, the memory footprint is much smaller in flatbuffers.
+
+    Flatbuffers should only be used for cases where the object is large and you normally need to extract only one or two entities out of it. This is because the code for making a flatbuffer object is much more than that needed for protobuf and JSON. Even converting from/to JSON is not supported in flatbuffers which is essential for logging in many cases.
+
+[Learn more here](https://blog.mindorks.com/why-consider-flatbuffer-over-json-2e4aa8d4ed07)
 
 * **`HashMap`, `ArrayMap` and `SparseArray`** - [Learn more here](https://blog.mindorks.com/android-app-optimization-using-arraymap-and-sparsearray-f2b4e2e3dc47)
 
@@ -1742,12 +1836,12 @@ More additional info to get started with RxJava is available at:
             - `@BinderThread`
             - `@AnyThread`
 
-            `
+            
             @WorkerThread
             public void doSomething(){
               // this method must be called from the worker thread
             }
-            `
+            
     - **Value constraint annotations**
 
         Sometimes, we have to put some constraints on the parameters, so use the `@IntRange`, `@FloatRange`, and `@Size` annotations to validate the values of passed parameters.
@@ -2654,6 +2748,21 @@ Are SQL Injection attacks valid in Android? How would you prevent them?
             - **Optimization**: Inspects and rewrites your code to further reduce the size of your app’s DEX files. For example, if R8 detects that the `else {}` branch for a given `if/else` statement is never taken, R8 removes the code for the `else {}` branch.
 
         When building the release version of your app, by default, R8 automatically performs the compile-time tasks described above for you. However, you can disable certain tasks or customize R8’s behavior through ProGuard rules files. In fact, R8 works with all of your existing ProGuard rules files, so updating the Android Gradle plugin to use R8 should not require you to change your existing rules.
+
+* **Proguard vs R8**
+    - Let's now compare both R8 and Proguard both and see how it fares,
+
+        - With the Android app using Gradle plugin above 3.4.0 or more the project uses R8 by default and no longer uses the Proguard to perform optimizations. But, it uses Proguard rules only.
+        - R8 effectively inlines the container classes and removes unused class, fields, and methods. Proguard reduces the app size by 8.5% and compared to   - R8 which reduces the code by 10%.
+        - R8 has more Kotlin support compared to Proguard.
+        - R8 gives better outputs than Proguard, and to do so faster than Proguard does, thereby reducing overall build time.
+
+        **Proguard**
+            ![](./assets/proguard.jpeg "Build Type")
+        **R8**
+            ![](./assets/r8.jpeg "Build Type")
+
+
 * **What is Android Slices?**
     Slices are UI templates that can display rich, dynamic, and interactive content from your app from within the Google Search app and also in other places like the Google Assistant. Slices can help users perform tasks faster by enabling engagement outside of the fullscreen app experience. You can build Slices as enhancements to App Actions.
 
