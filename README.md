@@ -119,8 +119,8 @@
 
 #### ACTIVITY
 
-* **What are the four states of the Activity Lifecycle?** 
-    The Android OS uses a priority queue to assist in managing activities running on the device. Based on the state a particular Android activity is in, it will be assigned a certain priority within the OS. This priority system helps Android identify activities that are no longer in use, allowing the OS to reclaim memory and resources.
+* **What are the four states of the Activity Lifecycle?**  
+    : The Android OS uses a priority queue to assist in managing activities running on the device. Based on the state a particular Android activity is in, it will be assigned a certain priority within the OS. This priority system helps Android identify activities that are no longer in use, allowing the OS to reclaim memory and resources.
 
     These states can be broken into three main groups as follows:
 
