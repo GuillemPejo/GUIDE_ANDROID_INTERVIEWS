@@ -309,6 +309,29 @@ savedInstanceState.Also it won't affect the performance even if there are large 
     - `requestLayout()` - At some point, there is a state change in the view. `requestLayout()` is the signal to the view system that it needs to recalculate the Measure and Layout phase of the views (measure → layout → draw).
     - `onDetachedFromWindow()` - This is called when the view is detached from a window. At this point, it no longer has a surface for drawing. This place where you need to stop doing any kind of work that is scheduled or clean up resources that are allocated. This method is called when we call remove view on the `ViewGroup` or when the `Activity` is destroyed etc.
 
+* **What about Guidelines, Barriers, Chains, Groups?**
+    - **Guidelines**:
+        Guidelines are small visual helpers to design layouts with. Views can be aligned to a guideline which can simplify layouts, especially if you have the same margin values duplicated on a lot of elements.
+
+        Guidelines can be specified in dp from start or end of the screen or they can be a percentage of the width of the screen. To cycle through the different guideline modes, you can click the round icon at the top of the guideline.
+    ![image](assets/constraintlayout_guideline_android.gif)
+        
+    - **Barriers**:
+        Barriers are one of my favourite features in ConstraintLayout. A barrier is an invisible view that contains reference to the views that you wish to use to form a “barrier” against. If one of the views grows, the barrier will adjust its size to the largest height or width of the referenced items. Barriers can be vertical or horizontal and can be created to the top, bottom, left or right of the referenced views. Other views can then constrain themselves to the barrier.
+    ![image](assets/Barrier_constraintlayout_bigger.gif)
+
+    - **Chains**:
+        Chains allow you to control the space between elements and how the elements use the space. To create a chain, select the elements that you want to form part of the chain, and then right click – “Chain” – “Create Horizontal/Vertical Chain”.
+        You are then able to cycle through the different chain modes. There are four different modes: spread_inside, packed, spread and weighted.
+    ![image](assets/constraintlayout_android_chains.gif)
+    ![image](assets/constraint_layout_chain_modes.png)
+
+
+    - **Groups**:
+        With groups, you can logically group together certain views. Don’t confuse this with normal ViewGroups in Android though. A group in ConstraintLayout only contains references to the view ids and not nesting the views inside a group. With a group, you can set the visibility of all views in the group, by just setting the groups visibility without needing to set every view’s visibility. This is useful for things such as error screens or loading screens where a few elements need to change their visibility at once.
+    ![image](assets/group_constraintlayout_bigger.gif)
+
+
 * **What is `ViewGroup`?** 
     - A `ViewGroup` is a special view that can contain other views (called children.) The view group is the base class for layouts and views containers. This class also defines the `ViewGroup.LayoutParams` class which serves as the base class for layouts parameters.
 
@@ -770,7 +793,7 @@ on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]
 * **What are the different types of Broadcasts?** - [Learn more here](https://developer.android.com/guide/components/broadcasts)
 
 -   **What is AAPT?**<br/>
-    A) AAPT2 (Android Asset Packaging Tool) is a build tool that Android Studio and Android Gradle Plugin use to compile and package your app’s resources. AAPT2 parses, indexes, and compiles the resources into a binary format that is optimized for the Android platform.
+    A) AAPT2 (Android Asset Packaging Tool) is a build tool that Android Studio and Android Gradle Plugin use to compile and package your app’s resources. AAPT2 parses, indexes, and compiles the resources into a binary format that its optimized for the Android platform.
 
 
 #### Services
@@ -824,14 +847,41 @@ We can also register a Handler and pass data using Handlers. I have detailed a s
 * **What is an AsyncTask?**
     - `AsyncTask` is one of the easiest ways to implement parallelism in Android without having to deal with more complex methods like Threads. Though it offers a basic level of parallelism with the UI thread, it should not be used for longer operations (of, say, not more than 2 seconds).
 
-        AsyncTask has four methods
+    - AsyncTask has four methods: 
+    -**onPreExecute()** --> This method is invoked just before the background thread is created and here we can do some initialisation that we might want to do before the background thread starts the task.
+    It is used to basically setup a task. Ex: showing a Progress Bar,etc.
+    It runs on the main UI thread.
+    - **doInBackground(Params...)** --> This method is invoked on the background thread immediately after onPreExecute has finished executing and is used to perform the task which is supposed to be run on the background thread.This method can also call publishProgress(Progress...) method to puclish progress on the main UI thread which is received by the onProgressUpdate(Progress...) method.
+    Ex: Fetching results from a network request, etc. 
+    It runs on the background thread.
+    - **publishProgress()** --> This method can optionally be called within the doInBackground() method to publish progress to the main UI thread and show that progress to the user.
+    It can be called several times within the doInBackground to keep the user updated about the progress of the task happening.
+    - **onProgressUpdate(Progress...)** --> This method is invoked on the main UI thread just after publishProgress(Progress...) is invoked on the background thread and it receives the current progress and can used to display/update the progress on the main UI. 
+    It runs on the main UI thread.
+    - **onPostExecute(Result)** --> This method is invoked on the main UI thread just after the background thread has finished executing and has returned the result to this method as seen in the method parameter. The result can be then be used to do anything the developer wants to do with that result. 
+    It runs on the main UI thread.
 
-        - `onPreExecute()`
-        - `doInBackground()`
-        - `onProgressUpdate()`
-        - `onPostExecute()`
+    ![image](assets/asynctask.png)
 
-        where `doInBackground()` is the most important as it is where background computations are performed.
+* **Pros and cons of using Async task?**
+
+    - Advantages of AsyncTask
+
+        - Provides generic solution for all network calls
+        - Publish progress to UI while executing.
+        - Run Asynchronously
+        - Easy to maintain and read.
+
+    - Problems in AysncTask
+
+        - When you rotate your screen, Activity gets destroyed, so AsyncTask will not have a valid reference to publish data from onPostExecute(). In order to retain it, you need to usesetRetainState(true) if calling from fragment or onConfigChanges() if calling from activity method of an activity.
+        - If activity gets finished, AsyncTask execution will not cancelled automatically, you need to cancel them else they will keep on running in the background.
+        - If any exception occurs while performing network task, you need to handle them manually.
+
+Whereas AsycTask, Services, IntentService, Threads all run on different threads and all serve different purpose. please read more detail here.
+
+So you need to decide when to use which component while performing non UI operations.
+
   
 * **Difference between AsyncTasks & Threads?**</br>
   * **Thread** should be used to separate long running operations from main thread so that performance is improved. But it can't be cancelled elegantly and it can't handle configuration changes of Android. You can't update UI from Thread.
@@ -1653,7 +1703,72 @@ More additional info to get started with RxJava is available at:
 
 * **`HashMap`, `ArrayMap` and `SparseArray`** - [Learn more here](https://blog.mindorks.com/android-app-optimization-using-arraymap-and-sparsearray-f2b4e2e3dc47)
 
-* **What are Annotations?** - [Learn more here](https://blog.mindorks.com/creating-custom-annotations-in-android-a855c5b43ed9), [Link](https://blog.mindorks.com/improve-your-android-coding-through-annotations-26b3273c137a), [and from video](https://www.youtube.com/watch?v=LEb9if2HHSw)
+* **What are Annotations?** - 
+    Annotations are Metadata. And Metadata is a set of data that gives information about other data.
+    
+    - **Nullness annotations**
+
+        - `@Nullable` and `@NonNull` annotations are used to check the nullness of a given variable, parameter, or even the return value.
+
+        - `@Nullable` : It indicates a variable, parameter, or return value that can a null.
+
+        - `@NonNUll` : It indicates a variable, parameter, or return value that cannot be null.
+
+        Example: 
+
+        `
+        @NonNull
+        public View getView(@Nullable String s1, @NonNull String s2) {
+         // s1 can be null
+         // s2 should not be null
+         // it must return non null view
+        }
+        `
+    - **Resource annotations**
+
+        As we know that Android references to resources, such as drawable and string resources, are passed as integers so we must validate the resource types. Code that expects a parameter to reference a specific type of resource, for example Drawables, can be passed the expected reference type of int, but actually reference a different type of resource, such as an R.string resource. 
+        
+        `
+        public void setText(@StringRes int resId) {
+          // resId must be string resources
+          // resId should not be a normal int
+        }
+        `
+    - **Thread annotations**
+        Thread annotations check if a method is called from a specific type of thread from which it is intended to be called.Supported annotations are
+        `   - @MainThread`
+            - `@UiThread`
+            - `@WorkerThread`
+            - `@BinderThread`
+            - `@AnyThread`
+
+            `
+            @WorkerThread
+            public void doSomething(){
+              // this method must be called from the worker thread
+            }
+            `
+    - **Value constraint annotations**
+
+        Sometimes, we have to put some constraints on the parameters, so use the `@IntRange`, `@FloatRange`, and `@Size` annotations to validate the values of passed parameters.
+
+        These are useful when the caller of the method are likely to pass the wrong value(out of the specified range).
+
+        Here, in the below example, the `@IntRange` annotation ensures that an integer value which will be passed must be in a range of 0 to 255.
+
+        `
+        public void setAlpha(@IntRange(from=0,to=255) int alpha) {}
+        `
+
+    - **Permission annotations**
+
+        Use the `@RequiresPermission` annotation to validate the permissions of the caller of a method.The following example annotates the `setWallpaper()` method to ensure that the caller of the method has the `permission.SET_WALLPAPERS` permission:
+        `
+        @RequiresPermission(Manifest.permission.SET_WALLPAPER)
+        public abstract void setWallpaper(Bitmap bitmap) throws IOException;
+        `
+
+[Learn more here](https://blog.mindorks.com/creating-custom-annotations-in-android-a855c5b43ed9), [Link](https://blog.mindorks.com/improve-your-android-coding-through-annotations-26b3273c137a), [and from video](https://www.youtube.com/watch?v=LEb9if2HHSw)
 
 * **How to create custom Annotation?** - [Learn more here](https://blog.mindorks.com/creating-custom-annotations-in-android-a855c5b43ed9) and [here](https://www.youtube.com/watch?v=LEb9if2HHSw)
 
