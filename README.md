@@ -1,7 +1,7 @@
 
 #### BASE
 * **What is the Android Architecture?** 
-![image](assets/android-architecture.png)
+    ![image](assets/android-architecture.png)
 
 * **Tell all the Android application components.**
     - Android application architecture has the following components:
@@ -11,7 +11,7 @@
         - **Content Providers** − It will share the data between applications
         - Resource Externalization − strings and graphics
         - Notification − light, sound, icon, notification, dialog box and toast
-<br> [Learn more here](https://developer.android.com/guide/components/fundamentals.html#Components)
+    [Learn more here](https://developer.android.com/guide/components/fundamentals.html#Components)
 
 * **Describe Android application components.** 
     - A **Activity** represents a single screen with a user interface, in-short Activity performs actions on the screen. An activity provides the window in which the app draws its UI. This window typically fills the screen, but may be smaller than the screen and float on top of other windows. Generally, one activity implements one screen in an app. For instance, one of an app’s activities may implement a Preferences screen, while another activity implements a Select Photo screen. In new architectural approaches, there is only one activity for the entire application, and it controls the fragments that interact with the user.
@@ -24,9 +24,9 @@
     - A **Content Provider** manages access to a central repository of data. You implement a provider as one or more classes in an Android application, along with elements in the manifest file. One of your classes implements a subclass `ContentProvider`, which is the interface between your provider and other applications. Although content providers are meant to make data available to other applications, you may of course have activities in your application that allow the user to query and modify the data managed by your provider.
 
 * **What is the project structure of an Android Application?** 
-        - To see the actual file structure of the project including all files hidden from the Android view, select **Project** from the dropdown at the top of the **Project** window.
+    - To see the actual file structure of the project including all files hidden from the Android view, select **Project** from the dropdown at the top of the **Project** window.
 
-        : When you select **Project** view, you can see a lot more files and directories. The most important of which are the following:
+    When you select **Project** view, you can see a lot more files and directories. The most important of which are the following:
 
     - `module-name/` 
     
