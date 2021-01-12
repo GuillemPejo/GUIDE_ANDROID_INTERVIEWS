@@ -24,7 +24,7 @@
     - A **Content Provider** manages access to a central repository of data. You implement a provider as one or more classes in an Android application, along with elements in the manifest file. One of your classes implements a subclass `ContentProvider`, which is the interface between your provider and other applications. Although content providers are meant to make data available to other applications, you may of course have activities in your application that allow the user to query and modify the data managed by your provider.
 
 * **What is the project structure of an Android Application?** 
-        : To see the actual file structure of the project including all files hidden from the Android view, select **Project** from the dropdown at the top of the **Project** window.
+        - To see the actual file structure of the project including all files hidden from the Android view, select **Project** from the dropdown at the top of the **Project** window.
 
         : When you select **Project** view, you can see a lot more files and directories. The most important of which are the following:
 
@@ -56,9 +56,9 @@
 
 
 * **When to call activity context OR application context?**
-        : To be blunt, "some programmers" use `getApplicationContext()` (or `getBaseContext()`, to a lesser extent) because their Java experience is limited. They implement an inner class (e.g., an `OnClickListener` for a `Button` in an `Activity`) and need a `Context`. Rather than using `MyActivity.this` to get at the outer class' `this`, they use `getApplicationContext()` or `getBaseContext()` to get a `Context` object.
+        - To be blunt, "some programmers" use `getApplicationContext()` (or `getBaseContext()`, to a lesser extent) because their Java experience is limited. They implement an inner class (e.g., an `OnClickListener` for a `Button` in an `Activity`) and need a `Context`. Rather than using `MyActivity.this` to get at the outer class' `this`, they use `getApplicationContext()` or `getBaseContext()` to get a `Context` object.
 
-        : You *only* use `getApplicationContext()` when you *know* you need a `Context` for something that may live longer than any other likely `Context` you have at your disposal. Scenarios include:
+            You *only* use `getApplicationContext()` when you *know* you need a `Context` for something that may live longer than any other likely `Context` you have at your disposal. Scenarios include:
 
             - Use `getApplicationContext()` if you need something tied to a `Context` that itself will have global scope. I use `getApplicationContext()`, for example, in `WakefulIntentService`, for the static `WakeLock` to be used for the service. Since that `WakeLock` is static, and I need a `Context` to get at `PowerManager` to create it, it is safest to use `getApplicationContext()`.
 
