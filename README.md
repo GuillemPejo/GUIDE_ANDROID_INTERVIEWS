@@ -86,7 +86,7 @@
 
 * **What is AndroidManifest.xml used for? Give examples of what kind of data you would add to it.**
 
-    : The `AndroidManifest.xml` file contains information of your package, including components of the application such as activities, services, broadcast receivers, content providers etc. 
+    - The `AndroidManifest.xml` file contains information of your package, including components of the application such as activities, services, broadcast receivers, content providers etc. 
     Responsibilities:
         - Protect the application to access any protected parts by providing the permissions.
         - Declares the android api that the application is going to use.
