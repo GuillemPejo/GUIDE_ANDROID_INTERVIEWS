@@ -381,19 +381,22 @@ savedInstanceState.Also it won't affect the performance even if there are large 
         
     - **Barriers**
         Barriers are one of my favourite features in ConstraintLayout. A barrier is an invisible view that contains reference to the views that you wish to use to form a “barrier” against. If one of the views grows, the barrier will adjust its size to the largest height or width of the referenced items. Barriers can be vertical or horizontal and can be created to the top, bottom, left or right of the referenced views. Other views can then constrain themselves to the barrier.
-    ![image](assets/Barrier_constraintlayout_bigger.gif)
+        
+        ![image](assets/Barrier_constraintlayout_bigger.gif)
 
     - **Chains**
         Chains allow you to control the space between elements and how the elements use the space. To create a chain, select the elements that you want to form part of the chain, and then right click – “Chain” – “Create Horizontal/Vertical Chain”.
        
        You are then able to cycle through the different chain modes. There are four different modes: spread_inside, packed, spread and weighted.
-    ![image](assets/constraintlayout_android_chains.gif)
-    ![image](assets/constraint_layout_chain_modes.png)
+        
+        ![image](assets/constraintlayout_android_chains.gif)
+        ![image](assets/constraint_layout_chain_modes.png)
 
 
     - **Groups**
         With groups, you can logically group together certain views. Don’t confuse this with normal ViewGroups in Android though. A group in ConstraintLayout only contains references to the view ids and not nesting the views inside a group. With a group, you can set the visibility of all views in the group, by just setting the groups visibility without needing to set every view’s visibility. This is useful for things such as error screens or loading screens where a few elements need to change their visibility at once.
-    ![image](assets/group_constraintlayout_bigger.gif)
+        
+        ![image](assets/group_constraintlayout_bigger.gif)
 
 
 * **What is `ViewGroup`?** 
@@ -443,7 +446,7 @@ savedInstanceState.Also it won't affect the performance even if there are large 
 [Learn more here](https://developer.android.com/reference/android/view/SurfaceView)
 
 * **SurfaceView vs View**
-    : Views are all drawn on the same GUI thread which is also used for all user interaction.
+    - Views are all drawn on the same GUI thread which is also used for all user interaction.
 
        So if you need to update GUI rapidly or if the rendering takes too much time and affects user experience then use `SurfaceView`.
 
@@ -453,7 +456,7 @@ savedInstanceState.Also it won't affect the performance even if there are large 
     [Learn more here](https://blog.mindorks.com/android-layout-relative-linear-frame)
 
 * **What is  Constraint Layout** 
-    : ConstraintLayout allows you to create large and complex layouts with a flat view hierarchy (no nested view groups). It's similar to RelativeLayout in that all views are laid out according to relationships between sibling views and the parent layout, but it's more flexible than RelativeLayout and easier to use with Android Studio's Layout Editor.
+    - ConstraintLayout allows you to create large and complex layouts with a flat view hierarchy (no nested view groups). It's similar to RelativeLayout in that all views are laid out according to relationships between sibling views and the parent layout, but it's more flexible than RelativeLayout and easier to use with Android Studio's Layout Editor.
 
         Intention of ConstraintLayout is to optimize and flatten the view hierarchy of your layouts by applying some rules to each view to avoid nesting.
 [Learn more here](https://blog.mindorks.com/using-constraint-layout-in-android-531e68019cd)
