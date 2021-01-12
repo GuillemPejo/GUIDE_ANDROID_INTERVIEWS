@@ -129,7 +129,8 @@
         * **Paused**: When the device goes to sleep, or an activity is still visible but partially hidden by a new, non-full-sized or transparent activity, the activity is considered paused. Paused activities are still alive, that is, they maintain all state and member information, and remain attached to the window manager. This is considered to be the second highest priority activity in the Android Activity stack and, as such, will only be killed by the OS if killing this activity will satisfy the resource requirements needed to keep the Active/Running Activity stable and responsive.
 
         * **Stopped**: Activities that are completely obscured by another activity are considered stopped or in the background. Stopped activities still try to retain their state and member information for as long as possible, but stopped activities are considered to be the lowest priority of the three states and, as such, the OS will kill activities in this state first to satisfy the resource requirements of higher priority activities.
-            <br>[Learn more here](https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle)
+        
+        [Learn more here](https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle)
 
 * **What is `Activity` and its lifecycle?** 
     - Activities are basically containers or windows to the user interface.
@@ -148,10 +149,12 @@
 * **What is the difference between onCreate() and onStart()** 
     - The `onCreate()` method is called once during the Activity lifecycle, either when the application starts, or when the Activity has been destroyed and then recreated, for example during a configuration change.
     - The `onStart()` method is called whenever the Activity becomes visible to the user, typically after `onCreate()` or `onRestart()`.
-[Learn more here](https://www.youtube.com/watch?v=RiFui-i-s-o)
+
+    [Learn more here](https://www.youtube.com/watch?v=RiFui-i-s-o)
 
 * **When only onDestroy is called for an activity without onPause() and onStop()?** 
     - If `finish()` is called in the OnCreate method of an activity, the system will invoke onDestroy() method directly.
+    
     [Learn more here](https://www.youtube.com/watch?v=QSxcLnZ1-RU)
 
 
@@ -172,7 +175,8 @@
         - onDestroy() 
 * **Why do we need to call setContentView() in onCreate() of Activity class?** 
     - As onCreate() of an Activity is called only once, this is the point where most initialization should go. It is inefficient to set the content in onResume() or onStart() (which are called multiple times) as the setContentView() is a heavy operation.
-[Learn more here](https://www.youtube.com/watch?v=zeYK8JdMOi8)
+    
+    [Learn more here](https://www.youtube.com/watch?v=zeYK8JdMOi8)
 
 * **What is onSavedInstanceState() and onRestoreInstanceState() in activity?**
     - **OnRestoreInstanceState()** - When activity is recreated after it was previously destroyed, we can recover the saved state from the Bundle that the system passes to the activity. Both the onCreate() and onRestoreInstanceState() callback methods receive the same Bundle that contains the instance state information. But because the onCreate() method is called whether the system is creating a new instance of your activity or recreating a previous one, you must check whether the state Bundle is null before you attempt to read it. If it is null, then the system is creating a new instance of the activity, instead of restoring a previous one that was destroyed.
@@ -199,6 +203,7 @@
    * The first approach is to use a **FLAG_ACTIVITY_CLEAR_TOP** flag. The second way is by using **FLAG_ACTIVITY_CLEAR_TASK** and **FLAG_ACTIVITY_NEW_TASK** in conjunction.</br>
   
 
+
 #### CONTENT PROVIDERS
 
 * **Describe content providers**</br>
@@ -209,22 +214,21 @@
 
 
 * **What is ContentProviders typically used for and how works?**
-    : You need to build a content provider if you want to provide one or more of the following features:
+    - You need to build a content provider if you want to provide one or more of the following features:
         - You want to offer complex data or files to other applications.
         - You want to allow users to copy complex data from your app into other apps.
         - You want to provide custom search suggestions using the search framework.
         - You want to expose your application data to widgets.
         - You want to implement the `AbstractThreadedSyncAdapter`, `CursorAdapter`, or `CursorLoader` classes.
-
+    
         You don't need a provider to use databases or other types of persistent storage if the use is entirely within your own application and you don’t need any of the features listed above.
 
         To understand how it works, consider the following diagram:
 
     ![](/assets/content_provider.jpeg "Content provider")
 
-    * **Content URIs**
-
-        Content URIs are the uniform resource identifiers that identify the data in the content providers. A content URI includes two things: *Authority* that is the symbolic name of the Provider and a *Path* that is a name that points towards the data. Every content provider methods have an argument which is URI. URIs for content providers look like this:
+* **Content URIs**
+    - Content URIs are the uniform resource identifiers that identify the data in the content providers. A content URI includes two things: *Authority* that is the symbolic name of the Provider and a *Path* that is a name that points towards the data. Every content provider methods have an argument which is URI. URIs for content providers look like this:
 
         `content://<authority>/<path>/<optional_id>`
 
@@ -233,8 +237,6 @@
         - **path** – It is often used to identify some or the other data of the provider. The path is mostly used to identify individual tables.
         - **optional_id** – id is used to access a single particular record of a file. We use this only in cases where we need to access only a particular record and not the complete file. It’s a numeric identifier to access a particular row of the data table.
 
-  
-  
     * **Access data using Content Provider:**</br>
       * Start by making sure your Android application has the necessary read access permissions. Then, get access to the ContentResolver object by calling getContentResolver() on the Context object, and retrieving the data by constructing a query using ContentResolver.query().</br>
     
@@ -244,17 +246,17 @@
 #### FRAGMENTS
   
 * **Describe fragments:**</br>
-  : Fragment is a UI entity attached to Activity. Fragments can be reused by attaching in different activities. Activity can have multiple fragments attached to it. Fragment must be attached to an activity and its lifecycle will depend on its host activity. 
+  - Fragment is a UI entity attached to Activity. Fragments can be reused by attaching in different activities. Activity can have multiple fragments attached to it. Fragment must be attached to an activity and its lifecycle will depend on its host activity. 
 [Learn more here](https://blog.mindorks.com/android-fragments-and-its-lifecycle) or [here](http://developer.android.com/guide/components/fragments.html)</br>
 
 * **What are the four states of the Activity Lifecycle?** 
-       : Managing the lifecycle of a fragment is a lot like managing the lifecycle of an activity. Like an activity, a fragment can exist in three states:
+    - Managing the lifecycle of a fragment is a lot like managing the lifecycle of an activity. Like an activity, a fragment can exist in three states:
+    
+        * **Resumed**: The fragment is visible in the running activity.
 
-    * **Resumed**: The fragment is visible in the running activity.
+        * **Paused**: Another activity is in the foreground and has focus, but the activity in which this fragment lives is still visible (the foreground activity is partially transparent or doesn't cover the entire screen).
 
-    * **Paused**: Another activity is in the foreground and has focus, but the activity in which this fragment lives is still visible (the foreground activity is partially transparent or doesn't cover the entire screen).
-
-    * **Stopped**: The fragment isn't visible. Either the host activity has been stopped or the fragment has been removed from the activity but added to the back stack. A stopped fragment is still alive (all state and member information is retained by the system). However, it is no longer visible to the user and is killed if the activity is killed.
+        * **Stopped**: The fragment isn't visible. Either the host activity has been stopped or the fragment has been removed from the activity but added to the back stack. A stopped fragment is still alive (all state and member information is retained by the system). However, it is no longer visible to the user and is killed if the activity is killed.
 
  
 * **Describe fragment lifecycle**</br>
@@ -275,11 +277,11 @@
     - `onAttached()`
 
 * **What is the correlation between activity and fragment life cycle?**<br/>
-    :   Here is how Activity's and Fragment's lifecyle are called together:
+    -   Here is how Activity's and Fragment's lifecyle are called together:
 ![image](assets/activity-fragment-lifecycles.png)
 
 * **What is the difference between fragments & activities. Explain the relationship between the two.**</br>
-       : An Activity is an application component that provides a screen, with which users can interact in order to do something whereas a Fragment represents a behavior or a portion of user interface in an Activity (with its own lifecycle and input events, and which can be added or removed at will).
+     - An Activity is an application component that provides a screen, with which users can interact in order to do something whereas a Fragment represents a behavior or a portion of user interface in an Activity (with its own lifecycle and input events, and which can be added or removed at will).
 [Learn more here](https://stackoverflow.com/questions/10478233/why-fragments-and-when-to-use-fragments-instead-of-activities) or [here](https://stackoverflow.com/a/45252253/497132)
   
   
@@ -340,6 +342,7 @@ savedInstanceState.Also it won't affect the performance even if there are large 
         - Call the Interface method from your Activity
         - In your Activity, call your FragmentB to do the required changes 
 [Learn more here](https://blog.mindorks.com/how-to-communicate-between-fragments)
+
 
 
 #### VIEWS AND VIEWGROUPS, AND LAYOUTS
