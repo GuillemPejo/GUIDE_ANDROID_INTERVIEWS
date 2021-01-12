@@ -10,6 +10,7 @@
         - **Content Providers** − It will share the data between applications
         - Resource Externalization − strings and graphics
         - Notification − light, sound, icon, notification, dialog box and toast
+    
     [Learn more here](https://developer.android.com/guide/components/fundamentals.html#Components)
 
 * **Describe Android application components.** 
