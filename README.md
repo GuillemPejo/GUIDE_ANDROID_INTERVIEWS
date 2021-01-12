@@ -4,7 +4,7 @@
 ![image](assets/android-architecture.png)
 
 * **Tell all the Android application components.**
-    : Android application architecture has the following components:
+    - Android application architecture has the following components:
         - **Activities** - Provides the window in which the app draws its UI
         - **Services** − It will perform background functionalities
         - **Intent  & Broadcast Receivers** − It will perform the inter connection between activities and the data passing mechanism
