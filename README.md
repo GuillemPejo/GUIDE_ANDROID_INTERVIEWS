@@ -55,8 +55,8 @@
         [Learn more here](https://blog.mindorks.com/understanding-context-in-android-application-330913e32514) or [here](https://github.com/Kirchhoff-/Android-Interview-Questions/blob/master/Android/What's%20Context.md)
 
 
-* **When to call activity context OR application context?**
-        - To be blunt, "some programmers" use `getApplicationContext()` (or `getBaseContext()`, to a lesser extent) because their Java experience is limited. They implement an inner class (e.g., an `OnClickListener` for a `Button` in an `Activity`) and need a `Context`. Rather than using `MyActivity.this` to get at the outer class' `this`, they use `getApplicationContext()` or `getBaseContext()` to get a `Context` object.
+* **When to call activity context OR application context?**  
+    - To be blunt, "some programmers" use `getApplicationContext()` (or `getBaseContext()`, to a lesser extent) because their Java experience is limited. They implement an inner class (e.g., an `OnClickListener` for a `Button` in an `Activity`) and need a `Context`. Rather than using `MyActivity.this` to get at the outer class' `this`, they use `getApplicationContext()` or `getBaseContext()` to get a `Context` object.
 
             You *only* use `getApplicationContext()` when you *know* you need a `Context` for something that may live longer than any other likely `Context` you have at your disposal. Scenarios include:
 
