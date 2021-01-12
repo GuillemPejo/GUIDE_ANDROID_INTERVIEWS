@@ -209,7 +209,8 @@
 * **Describe content providers**</br>
   * A ContentProvider provides data from one application to another, when requested. It manages access to a structured set of data.  It provides mechanisms for defining data security. ContentProvider is the standard interface that connects data in one process with code running in another process.</br>  
  
-  * When you want to access data in a **ContentProvider**, you must instead use the ContentResolver object in your application’s Context to communicate with the provider as a client. The provider object receives data requests from clients, performs the requested action, and returns the results.</br>
+  * When you want to access data in a **ContentProvider**, you must instead use the ContentResolver object in your application’s Context to communicate with the provider as a client. The provider object receives data requests from clients, performs the requested action, and returns the results.</
+
   [Learn more here](http://developer.android.com/guide/topics/providers/content-providers.html)
 
 
@@ -236,7 +237,7 @@
         - **authority** – It is the unique name of the content provider, like photos, contacts. It’s a string that can identify the whole content provider.
         - **path** – It is often used to identify some or the other data of the provider. The path is mostly used to identify individual tables.
         - **optional_id** – id is used to access a single particular record of a file. We use this only in cases where we need to access only a particular record and not the complete file. It’s a numeric identifier to access a particular row of the data table.
-
+        <br>
     * **Access data using Content Provider:**</br>
       * Start by making sure your Android application has the necessary read access permissions. Then, get access to the ContentResolver object by calling getContentResolver() on the Context object, and retrieving the data by constructing a query using ContentResolver.query().</br>
     
@@ -247,7 +248,8 @@
   
 * **Describe fragments:**</br>
   - Fragment is a UI entity attached to Activity. Fragments can be reused by attaching in different activities. Activity can have multiple fragments attached to it. Fragment must be attached to an activity and its lifecycle will depend on its host activity. 
-[Learn more here](https://blog.mindorks.com/android-fragments-and-its-lifecycle) or [here](http://developer.android.com/guide/components/fragments.html)</br>
+
+    [Learn more here](https://blog.mindorks.com/android-fragments-and-its-lifecycle) or [here](http://developer.android.com/guide/components/fragments.html)</br>
 
 * **What are the four states of the Activity Lifecycle?** 
     - Managing the lifecycle of a fragment is a lot like managing the lifecycle of an activity. Like an activity, a fragment can exist in three states:
@@ -282,7 +284,8 @@
 
 * **What is the difference between fragments & activities. Explain the relationship between the two.**</br>
      - An Activity is an application component that provides a screen, with which users can interact in order to do something whereas a Fragment represents a behavior or a portion of user interface in an Activity (with its own lifecycle and input events, and which can be added or removed at will).
-[Learn more here](https://stackoverflow.com/questions/10478233/why-fragments-and-when-to-use-fragments-instead-of-activities) or [here](https://stackoverflow.com/a/45252253/497132)
+
+    [Learn more here](https://stackoverflow.com/questions/10478233/why-fragments-and-when-to-use-fragments-instead-of-activities) or [here](https://stackoverflow.com/a/45252253/497132)
   
   
 * **When should you use a fragment rather than an activity?**
@@ -295,11 +298,13 @@
   * **replace** removes the existing fragment and adds a new fragment. This means when you press back button the fragment that got replaced will be created with its onCreateView being invoked.
   * **add** retains the existing fragments and adds a new fragment that means existing fragment will be active and they wont be in ‘paused’ state hence when a back button is pressed onCreateView is not called for the existing fragment(the fragment which was there before new fragment was added).
   * In terms of fragment’s life cycle events onPause, onResume, onCreateView and other life cycle events will be invoked in case of replace but they wont be invoked in case of add.</br>
+  
   [Learn more here](https://stackoverflow.com/questions/24466302/basic-difference-between-add-and-replace-method-of-fragment/24466345)
 
   
 * **Why is it recommended to use only the default constructor to create a Fragment?**</br>
   * The reason why you should be passing parameters through bundle is because when the system restores a fragment (e.g on config change), it will automatically restore your bundle. This way you are guaranteed to restore the state of the fragment correctly to the same state the fragment was initialised with.</br>
+  
   [Learn more here](https://www.youtube.com/watch?v=9EdvcycKP9A)
   
   
@@ -341,7 +346,8 @@ savedInstanceState.Also it won't affect the performance even if there are large 
         - Implement the Interface of the FragmentA in your Activity
         - Call the Interface method from your Activity
         - In your Activity, call your FragmentB to do the required changes 
-[Learn more here](https://blog.mindorks.com/how-to-communicate-between-fragments)
+
+    [Learn more here](https://blog.mindorks.com/how-to-communicate-between-fragments)
 
 
 
