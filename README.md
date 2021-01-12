@@ -949,20 +949,19 @@ We can also register a Handler and pass data using Handlers. I have detailed a s
     - `AsyncTask` is one of the easiest ways to implement parallelism in Android without having to deal with more complex methods like Threads. Though it offers a basic level of parallelism with the UI thread, it should not be used for longer operations (of, say, not more than 2 seconds).
 
         AsyncTask has four methods: 
-    - **onPreExecute()** --> This method is invoked just before the background thread is created and here we can do some initialisation that we might want to do before the background thread starts the task.
+        - **onPreExecute()** --> This method is invoked just before the background thread is created and here we can do some initialisation that we might want to do before the background thread starts the task.
     It is used to basically setup a task. Ex: showing a Progress Bar,etc.
     It runs on the main UI thread.
     
-    - **doInBackground(Params...)** --> This method is invoked on the background thread immediately after onPreExecute has finished executing and is used to perform the task which is supposed to be run on the background thread.This method can also call publishProgress(Progress...) method to puclish progress on the main UI thread which is received by the onProgressUpdate(Progress...) method.
+        - **doInBackground(Params...)** --> This method is invoked on the background thread immediately after onPreExecute has finished executing and is used to perform the task which is supposed to be run on the background thread.This method can also call publishProgress(Progress...) method to puclish progress on the main UI thread which is received by the onProgressUpdate(Progress...) method.
     Ex: Fetching results from a network request, etc. 
     It runs on the background thread.
-    - **publishProgress()** --> This method can optionally be called within the doInBackground() method to publish progress to the main UI thread and show that progress to the user.
+        - **publishProgress()** --> This method can optionally be called within the doInBackground() method to publish progress to the main UI thread and show that progress to the user.
     It can be called several times within the doInBackground to keep the user updated about the progress of the task happening.
-    - **onProgressUpdate(Progress...)** --> This method is invoked on the main UI thread just after publishProgress(Progress...) is invoked on the background thread and it receives the current progress and can used to display/update the progress on the main UI. 
+        - **onProgressUpdate(Progress...)** --> This method is invoked on the main UI thread just after publishProgress(Progress...) is invoked on the background thread and it receives the current progress and can used to display/update the progress on the main UI. 
     It runs on the main UI thread.
-    - **onPostExecute(Result)** --> This method is invoked on the main UI thread just after the background thread has finished executing and has returned the result to this method as seen in the method parameter. The result can be then be used to do anything the developer wants to do with that result. 
+        - **onPostExecute(Result)** --> This method is invoked on the main UI thread just after the background thread has finished executing and has returned the result to this method as seen in the method parameter. The result can be then be used to do anything the developer wants to do with that result. 
     It runs on the main UI thread.
-
 
     ![image](assets/asynctask.png)
 
@@ -1000,22 +999,24 @@ We can also register a Handler and pass data using Handlers. I have detailed a s
    
   
 * **What are Handlers?**</br>
-  : Handlers are objects for managing threads. It receives messages and writes code on how to handle the message. They run outside of the activity’s lifecycle, so they need to be cleaned up properly or else you will have thread leaks.
+  - Handlers are objects for managing threads. It receives messages and writes code on how to handle the message. They run outside of the activity’s lifecycle, so they need to be cleaned up properly or else you will have thread leaks.
     
     Handlers allow communicating between the background thread and the main thread.
      
-     A Handler class is preferred when we need to perform a background task repeatedly after every x seconds/minutes.</br>
+    A Handler class is preferred when we need to perform a background task repeatedly after every x seconds/minutes.</br>
   
   
  * **What is a Job Scheduling?**</br>
    * Job Scheduling api, as the name suggests, allows to schedule jobs while letting the system optimize based on memory, power, and connectivity conditions.
-   * The JobScheduler supports batch scheduling of jobs. The Android system can combine jobs so that battery consumption is reduced. JobManager makes handling uploads easier as it handles automatically the unreliability of the network. It also survives application restarts. 
-   * Scenarios:
-     * Tasks that should be done once the device is connect to a power supply
-     * Tasks that require network access or a Wi-Fi connection.
-     * Task that are not critical or user facing
-     * Tasks that should be running on a regular basis as batch where the timing is not critical
-     * [Reference](http://www.vogella.com/tutorials/AndroidTaskScheduling/article.html#schedulingtasks) and  [Learn more here](https://developer.android.com/reference/android/app/job/JobScheduler)</br>
+        The JobScheduler supports batch scheduling of jobs. The Android system can combine jobs so that battery consumption is reduced. JobManager makes handling uploads easier as it handles automatically the unreliability of the network. It also survives application restarts. 
+   
+        * Scenarios:
+            * Tasks that should be done once the device is connect to a power supply
+            * Tasks that require network access or a Wi-Fi connection.
+            * Task that are not critical or user facing
+            * Tasks that should be running on a regular basis as batch where the timing is not critical
+    
+    [Learn more here](https://developer.android.com/reference/android/app/job/JobScheduler) or [here](http://www.vogella.com/tutorials/AndroidTaskScheduling/article.html#schedulingtasks) </br>
 
 * **Timer or Handler?**
 
@@ -1026,7 +1027,7 @@ We can also register a Handler and pass data using Handlers. I have detailed a s
         - **AlarmManager** — Execute any periodic task in the background as a service
         - **TimerTask** — Doesn’t run in UIThread and is not reliable. Consensus is to never use TimerTask
 
-    - `Handler` is better than `TimerTask`.
+    - In fact,`Handler` is better than `TimerTask`:
 
         The Java `TimerTask` and the Android `Handler` both allow you to schedule delayed and repeated tasks on background threads. However, the literature overwhelmingly recommends using `Handler` over `TimerTask` in Android.
 
@@ -1051,7 +1052,8 @@ A bound service is a service that can be used not only by components running in 
   * Service based on Messenger can communicate with other components in different processes, known as Inter Process Communication (IPC), without using AIDL.</br>
   * **A service handler**: this component handles incoming requests from clients that interact with the service itself.</br>
   * **A Messenger**: this class is used to create an object implementing IBinder interface so that a client can interact with the service.</br>
-  * Example Implementation: [Link](https://www.survivingwithandroid.com/2014/01/android-bound-service-ipc-with-messenger-2.html)
+
+    [Example Implementation](https://www.survivingwithandroid.com/2014/01/android-bound-service-ipc-with-messenger-2.html)
   
 
 * **AIDL vs Messenger Queue**</br>
@@ -1065,20 +1067,20 @@ A bound service is a service that can be used not only by components running in 
   * Creating and destroying threads has a high CPU usage, so when we need to perform lots of small, simple tasks concurrently, the overhead of creating our own threads can take up a significant portion of the CPU cycles and severely affect the final response time.</br>
   * ThreadPool consists of a task queue and a group of worker threads, which allows it to run multiple parallel instances of a task.</br>
 
-
 * **Difference between Serializable and Parcelable?**</br>
-  : Serializable is a standard Java interface. Parcelable is an Android specific interface where you implement the serialization yourself. It was created to be far more efficient than Serializable (The problem with this approach is that reflection is used and it is a slow process. This mechanism also tends to create a lot of temporary objects and cause quite a bit of garbage collection.).
+    - Serializable is a standard Java interface. Parcelable is an Android specific interface where you implement the serialization yourself. It was created to be far more efficient than Serializable (The problem with this approach is that reflection is used and it is a slow process. This mechanism also tends to create a lot of temporary objects and cause quite a bit of garbage collection.).
     
-    Serialization is the process of converting an object into a stream of bytes in order to store an object into memory, so that it can be recreated at a later time, while still keeping the object's original state and data.
+        Serialization is the process of converting an object into a stream of bytes in order to store an object into memory, so that it can be recreated at a later time, while still keeping the object's original state and data.
 How to disallow serialization? We can declare the variable as transient.
+    
+        Parcelable is faster than Serializable interface
+        * Parcelable interface takes more time to implement compared to Serializable interface (with Kotlin this is not true)
+        * Serializable interface is easier to implement
+        * Serializable interface creates a lot of temporary objects and causes quite a bit of garbage collection
 
-    Parcelable is faster than Serializable interface
-    * Parcelable interface takes more time to implement compared to Serializable interface (with Kotlin this is not true)
-    * Serializable interface is easier to implement
-    * Serializable interface creates a lot of temporary objects and causes quite a bit of garbage collection
+        Serializable uses reflection while for parcelable, developers from android team wrote custom code that performs manual marshalling(converting data into byte stream) and unmarshalling(converting the byte stream back to their original data). Usually Parcelable is considered faster than Serializable.
 
-    Serializable uses reflection while for parcelable, developers from android team wrote custom code that performs manual marshalling(converting data into byte stream) and unmarshalling(converting the byte stream back to their original data). Usually Parcelable is considered faster than Serializable.
-<br> [Learn more here](https://stackoverflow.com/a/50114007/497132)
+    [Learn more here](https://stackoverflow.com/a/50114007/497132)
 
 
 #### Inter-process Communication
@@ -1087,23 +1089,24 @@ How to disallow serialization? We can declare the variable as transient.
     - You can specify android:process=":remote" in your manifest to have an activity/service run in a seperate process.
 
         The "remote" is just the name of the remote process, and you can call it whatever you want. If you want several activities/services to run in the same process, just give it the same name.
-[Learn more here](https://stackoverflow.com/questions/6567768/how-can-an-android-application-have-more-than-one-process)
+
+    [Learn more here](https://stackoverflow.com/questions/6567768/how-can-an-android-application-have-more-than-one-process)
+
 
 * **What is AIDL? Enumerate the steps in creating a bounded service through AIDL.** 
     - The Android Interface Definition Language (AIDL) is similar to other IDLs you might have worked with. It allows you to define the programming interface that both the client and service agree upon in order to communicate with each other using interprocess communication (IPC). On Android, one process cannot normally access the memory of another process. So to talk, they need to decompose their objects into primitives that the operating system can understand, and marshall the objects across that boundary for you. The code to do that marshalling is tedious to write, so Android handles it for you with AIDL.
 
         To create a bounded service using AIDL, follow these steps:
-
-            - Create the .aidl file
+        - Create the .aidl file
                 This file defines the programming interface with method signatures.
             
-            - Implement the interface
+        - Implement the interface
                 The Android SDK tools generate an interface in the Java programming language, based on your .aidl file. This interface has an inner abstract class named Stub that extends Binder and implements methods from your AIDL interface. You must extend the Stub class and implement the methods.
 
-            - Expose the interface to clients
+        - Expose the interface to clients
                 Implement a Service and override onBind() to return your implementation of the Stub class.
 
-        [Learn more here](https://developer.android.com/guide/components/aidl)
+    [Learn more here](https://developer.android.com/guide/components/aidl)
 
 * **What can you use for background processing in Android?** 
     - The following sections describe recommended solutions for each background task type.
@@ -1116,17 +1119,15 @@ How to disallow serialization? We can declare the variable as transient.
 
             In specific cases, such as with media playback or active navigation, you might want to use foreground Services directly.
 
-            - **Deferred tasks**:
+        - **Deferred tasks**:
             Every task that is not directly connected to a user interaction and can run at any time in the future can be deferred. The recommended solution for deferred tasks is WorkManager.
 
             WorkManager makes it easy to schedule deferrable, asynchronous tasks that are expected to run even if the app exits or the device restarts. See the documentation for WorkManager to learn how to schedule these types of tasks.
             
-            - **Exact tasks**:
-
+        - **Exact tasks**:
             A task that needs to be executed at an exact point in time can use AlarmManager.
 
-
-        [Learn more here](https://developer.android.com/guide/background)
+    [Learn more here](https://developer.android.com/guide/background)
 
 * **What is a `ContentProvider` and what is it typically used for?** - [Learn more here](https://developer.android.com/guide/topics/providers/content-provider-basics) and [here](https://developer.android.com/guide/topics/providers/content-providers)
 
@@ -1146,28 +1147,30 @@ How to disallow serialization? We can declare the variable as transient.
 * **When would you use java thread instead of an AsyncTask?** - [Learn more here](https://stackoverflow.com/questions/18480206/asynctask-vs-thread-in-android)
 
 * **When to use AsyncTask and when to use services?**
-     : Services are useful when you want to run code even when your application's Activity isn't open. AsyncTask is a helper class used to run some code in a separate thread and publish results in main thread. Usually AsyncTask is used for small operations and services are used for long running operations.
+    - Services are useful when you want to run code even when your application's Activity isn't open. AsyncTask is a helper class used to run some code in a separate thread and publish results in main thread. Usually AsyncTask is used for small operations and services are used for long running operations.
      
 * **When to use a service and when to use a thread?**
-    : We will use a Thread when we want to perform background operations when application is running in foreground. We will use a service even when the application is not running.
+    - We will use a Thread when we want to perform background operations when application is running in foreground. We will use a service even when the application is not running.
 
 * **What is a Handler?**
-    : A Handler allows you to send and process Message and Runnable objects associated with a thread's MessageQueue. Each Handler instance is associated with a single thread and that thread's message queue. When you create a new Handler, it is bound to the thread / message queue of the thread that is creating it -- from that point on, it will deliver messages and runnables to that message queue and execute them as they come out of the message queue. We will generally use handler class when we want to repeat task every few seconds.
+    - A Handler allows you to send and process Message and Runnable objects associated with a thread's MessageQueue. Each Handler instance is associated with a single thread and that thread's message queue. When you create a new Handler, it is bound to the thread / message queue of the thread that is creating it -- from that point on, it will deliver messages and runnables to that message queue and execute them as they come out of the message queue. We will generally use handler class when we want to repeat task every few seconds.
 
 -   **How to save password safely in Android?**<br/>
-    : Using Android Keystore. [More info](https://medium.com/@josiassena/using-the-android-keystore-system-to-store-sensitive-information-3a56175a454b)
+    - Using Android Keystore. 
+
+    [Learn more here](https://medium.com/@josiassena/using-the-android-keystore-system-to-store-sensitive-information-3a56175a454b)
 
 -   **String a = “abc”;  String b = new String(“abc”); Will a == b ??**<br/>
-    : It depends. Here with the first statement, i.e, String a = “abc”, JVM will search for a string with “abc” in String constant pool(SCP) and if its not there it will create a new Object.
+    - It depends. Here with the first statement, i.e, String a = “abc”, JVM will search for a string with “abc” in String constant pool(SCP) and if its not there it will create a new Object.
     If we wrote second statement similarly, i.e., String b = “abc”, then b will point to same string from SCP.
     However, String b = new String(“abc”) always creates a new String object.
 
 -  **What is Alarm Manager?**<br/>
-    : AlarmManager is a class which helps scheduling your Application code to run at some point of time or at particular time intervals in future. When an alarm goes off, the Intent that had been registered for it is broadcast by the system, automatically starting the target application if it is not already running. Registered alarms are retained while the device is asleep (and can optionally wake the device up if they go off during that time), but will be cleared if it is turned off and rebooted.
+    - AlarmManager is a class which helps scheduling your Application code to run at some point of time or at particular time intervals in future. When an alarm goes off, the Intent that had been registered for it is broadcast by the system, automatically starting the target application if it is not already running. Registered alarms are retained while the device is asleep (and can optionally wake the device up if they go off during that time), but will be cleared if it is turned off and rebooted.
 
 -   **How can I get continuous location updates in android like in Google Maps?**<br/>
-    : We can use Fused location provider in Android set our interval in that.
-    https://stackoverflow.com/a/41500910/3424919
+    - We can use Fused location provider in Android set our interval in that.
+    [Learn more here](https://stackoverflow.com/a/41500910/3424919)
 
 * **What is a `Loader`? (Deprecated)** - [Learn more here](https://developer.android.com/guide/components/loaders)
 
@@ -1185,7 +1188,7 @@ How to disallow serialization? We can declare the variable as transient.
 * **Explain `Looper`, `Handler` and `HandlerThread`.** - [Learn more here](https://blog.mindorks.com/android-core-looper-handler-and-handlerthread-bd54d69fe91a) and [from video](https://www.youtube.com/watch?v=rfLMwbOKLRk&list=PL6nth5sRD25hVezlyqlBO9dafKMc5fAU2)
 
 -   **How to handle crashing of AsyncTask during screen rotation?**<br/>
-    : The best way to handle AsyncTask crash is to create a RetainFragment, i.e., a fragment without UI as shown in the gist below: https://gist.github.com/vamsitallapudi/26030c15829d7be8118e42b1fcd0fa42
+    - The best way to handle AsyncTask crash is to create a RetainFragment, i.e., a fragment without UI as shown [here](https://gist.github.com/vamsitallapudi/26030c15829d7be8118e42b1fcd0fa42).
     We can also avoid this crash by using RxJava instead of AsyncTask as we will be subscribing and unsubscribing at onResume() and onPause() methods respectively.
 
 * **How does the threading work in Android?** - [Learn more here](https://www.youtube.com/watch?v=zfDYK-xB1Uo)
@@ -1232,8 +1235,7 @@ How to disallow serialization? We can declare the variable as transient.
         - Storing the username and password.
         - Storing the user settings.
 
-
-- [Learn more here](https://blog.mindorks.com/understanding-storage-system-to-store-data-in-android) or [here](https://developer.android.com/guide/topics/data/data-storage.html)
+    [Learn more here](https://blog.mindorks.com/understanding-storage-system-to-store-data-in-android) or [here](https://developer.android.com/guide/topics/data/data-storage.html)
 
 
 * **Explain Scoped Storage in Android.** - [Learn more here](https://blog.mindorks.com/understanding-the-scoped-storage-in-android)
@@ -1241,8 +1243,8 @@ How to disallow serialization? We can declare the variable as transient.
 * **How to encrypt data in Android?** - [Learn more here](https://blog.mindorks.com/how-to-encrypt-data-safely-on-device-and-use-the-androidkeystore)
 
 * **What is commit() and apply() in SharedPreferences?**
-    - commit() returns a boolean value of success or failure immediately by writing data synchronously.
-    - apply() is asynchronous and it won't return any boolean response. If you have an apply() outstanding and you are performing commit(), then the commit() will be blocked until the apply() is not completed.
+    - `commit()` returns a boolean value of success or failure immediately by writing data synchronously.
+    - `apply()` is asynchronous and it won't return any boolean response. If you have an apply() outstanding and you are performing commit(), then the commit() will be blocked until the apply() is not completed.
 
 #### Look and Feel
 
@@ -1253,6 +1255,7 @@ How to disallow serialization? We can declare the variable as transient.
     - Scale text size
     - Draw custom points
     - Change line height
+
     [Learn more here](https://medium.com/androiddevelopers/underspanding-spans-1b91008b97e4)
 
 * **What is a `SpannableString`?**
@@ -1269,7 +1272,7 @@ How to disallow serialization? We can declare the variable as transient.
 
 * **Explain about Density Independence Pixel** - [Learn more here](https://blog.mindorks.com/understanding-density-independent-pixel-sp-dp-dip-in-android)
 
-* **What about fdark theme?**
+* **What about dark theme?**
     - Dark theme is available in Android 10 (API level 29) and higher. It has many benefits.
 
         You might want to allow users to change the app's theme while the app is running. Your app can let the user choose between themes. The recommended options are:
@@ -1284,6 +1287,7 @@ How to disallow serialization? We can declare the variable as transient.
             - 
              * ```onTrimMemory()```: Called when the operating system has determined that it is a good time for a process to trim unneeded memory from its process. This will happen for example when it goes in the background and there is not enough memory to keep as many background processes running as desired.
    * Android can reclaim memory for from your app in several ways or kill your app entirely if necessary to free up memory for critical tasks. To help balance the system memory and avoid the system's need to kill your app process, you can implement the ```ComponentCallbacks2``` interface in your Activity classes. The provided onTrimMemory() callback method allows your app to listen for memory related events when your app is in either the foreground or the background, and then release objects in response to app lifecycle or system events that indicate the system needs to reclaim memory. 
+   
    [Learn more here](https://developer.android.com/topic/performance/memory)
 
 * **How does the OutOfMemory happens?** - [Learn more here](https://blog.mindorks.com/practical-guide-to-solve-out-of-memory-error-in-android-application)
@@ -1315,7 +1319,7 @@ How to disallow serialization? We can declare the variable as transient.
 
 * **What is Doze? What about App Standby?** 
 
-    : There's a difference between App Standby (where your app goes to sleep because it's lonely) and Doze (where the system went to sleep because users have lives).
+    - There's a difference between App Standby (where your app goes to sleep because it's lonely) and Doze (where the system went to sleep because users have lives).
 
         Doze only works when your device remains stationary. If you pick it up or wake the screen, Doze mode is deactivated and the timer resets. It won’t ever turn on when the phone is sitting in your pocket unless you’re sitting remarkably still. Doze simply keeps your phone from burning through the battery while it’s asleep on a desk or table or something.
 
@@ -1324,8 +1328,9 @@ How to disallow serialization? We can declare the variable as transient.
         [Learn more here](https://developer.android.com/training/monitoring-device-state/doze-standby)
 
 * **What is `overdraw`?** 
-    : An app may draw the same pixel more than once within a single frame, an event called overdraw. Overdraw is usually unnecessary, and best eliminated. It manifests itself as a performance problem by wasting GPU time to render pixels that don't contribute to what the user sees on the screen.
-[Learn more here](https://developer.android.com/topic/performance/rendering/overdraw.html)
+    - An app may draw the same pixel more than once within a single frame, an event called overdraw. Overdraw is usually unnecessary, and best eliminated. It manifests itself as a performance problem by wasting GPU time to render pixels that don't contribute to what the user sees on the screen.
+
+    [Learn more here](https://developer.android.com/topic/performance/rendering/overdraw.html)
 
 #### Native Programming
 
@@ -1390,7 +1395,7 @@ How to disallow serialization? We can declare the variable as transient.
         [Learn more here](https://blog.mindorks.com/what-are-the-differences-between-dalvik-and-art)
 
 * **What is the difference JVM, DVM and ART?** 
-    : To maintain the platform independency of the code, JAVA developed JVM i.e. Java Virtual Machine. It developed JVM specific to every platform means JVM is dependency on the platform. The Java compiler converts the .java files into .class files, which is called byte code. This byte code 
+    - To maintain the platform independency of the code, JAVA developed JVM i.e. Java Virtual Machine. It developed JVM specific to every platform means JVM is dependency on the platform. The Java compiler converts the .java files into .class files, which is called byte code. This byte code 
     is given to the JVM which converts it into machine code.
 
         In Android Java classes converted into DEX bytecode. The DEX bytecode format is translated to native machine code via either ART or the Dalvik runtimes. Here DEX bytecode is independent of device architecture.
@@ -1427,7 +1432,7 @@ How to disallow serialization? We can declare the variable as transient.
 
 
 * **What is runtime?**
-    : In a simplest term it is a system used by operating system which takes care of converting the code that you write in a high level language like Java to machine code and understand by CPU/Processor.
+    - In a simplest term it is a system used by operating system which takes care of converting the code that you write in a high level language like Java to machine code and understand by CPU/Processor.
 
         Runtime comprises of software instructions that execute when your program is running, even if they’re not essentially are a part of the code of that piece of software in particular.
 
@@ -1443,7 +1448,7 @@ How to disallow serialization? We can declare the variable as transient.
 
 
 * **Can you manually call the Garbage collector?** 
-    : You can call Garbage collector using:
+    - You can call Garbage collector using:
     
         `System.gc();`
         
@@ -1494,7 +1499,7 @@ How to disallow serialization? We can declare the variable as transient.
 
 
 * **What about LOG**
-    : The Log class allows you to create log messages that are displayed in logcat. In general, you should use the following registration methods, which are ordered from highest to lowest priority (or from most detailed to least detailed).
+    - The Log class allows you to create log messages that are displayed in logcat. In general, you should use the following registration methods, which are ordered from highest to lowest priority (or from most detailed to least detailed).
 
         - Log.e (String, String) (error)
         - Log.w (String, String) (warning)
@@ -1518,7 +1523,7 @@ How to disallow serialization? We can declare the variable as transient.
         [Learn more here](https://blog.mindorks.com/what-is-android-jetpack-and-why-should-we-use-it)
 
 * **What are Android Architecture Components?** 
-   * A collection of libraries that help you design robust, testable, and maintainable apps. [Official documentation](https://developer.android.com/topic/libraries/architecture/)
+   * A collection of libraries that help you design robust, testable, and maintainable apps.
       * **Room**: The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access while harnessing the full power of SQLite.
 
         The library helps you create a cache of your app's data on a device that's running your app. This cache, which serves as your app's single source of truth, allows users to view a consistent copy of key information within your app, regardless of whether users have an internet connection.
@@ -1527,7 +1532,7 @@ How to disallow serialization? We can declare the variable as transient.
         ![image](assets/room.png)
 
 
-        [Official documentation](https://developer.android.com/topic/libraries/architecture/room) or [Article on how to implement Room Db](https://medium.com/@anitaa_1990/5-steps-to-implement-room-persistence-library-in-android-47b10cd47b24)or [Sample  implementation](https://github.com/anitaa1990/RoomDb-Sample)
+        [Official documentation](https://developer.android.com/topic/libraries/architecture/room) or [Article on how to implement Room Db](https://medium.com/@anitaa_1990/5-steps-to-implement-room-persistence-library-in-android-47b10cd47b24) or [Sample  implementation](https://github.com/anitaa1990/RoomDb-Sample)
         
         
       * **Live Data**: LiveData is an observable data holder class. Unlike a regular observable, LiveData is lifecycle-aware, meaning it respects the lifecycle of other app components, such as activities, fragments, or services. This awareness ensures LiveData only updates app component observers that are in an active lifecycle state.
@@ -1552,7 +1557,7 @@ How to disallow serialization? We can declare the variable as transient.
             * `NavHost`: An empty container that displays destinations from your navigation graph. The Navigation component contains a default `NavHost` implementation, `NavHostFragment`, that displays fragment destinations.
             * `NavController`: An object that manages app navigation within a `NavHost`. The `NavController` orchestrates the swapping of destination content in the `NavHost` as users move throughout your app. As you navigate through your app, you tell the `NavController` that you want to navigate either along a specific path in your navigation graph or directly to a specific destination. The `NavController` then shows the appropriate destination in the `NavHost`.
 
-                [Official documentation](https://developer.android.com/guide/navigation) or [here](https://github.com/Kirchhoff-/Android-Interview-Questions/blob/master/Android/What's%20Navigation%20component.md)
+                [Official documentation](https://developer.android.com/guide/navigation) or [More info](https://github.com/Kirchhoff-/Android-Interview-Questions/blob/master/Android/What's%20Navigation%20component.md)
         
       * **ViewModel**: The `ViewModel` class is designed to store and manage UI-related data in a lifecycle conscious way. The `ViewModel` class allows data to survive configuration changes such as screen rotations.
 
@@ -1595,14 +1600,15 @@ How to disallow serialization? We can declare the variable as transient.
 
         Binding components in the layout file lets you remove many UI framework calls in your activities, making them simpler and easier to maintain. This can also improve your app's performance and help prevent memory leaks and null pointer exceptions.
     
-        [Official documentation](https://developer.android.com/topic/libraries/data-binding/)  [Sample  implementation](https://github.com/anitaa1990/DataBindingExample)
+        [Official documentation](https://developer.android.com/topic/libraries/data-binding/) or [Sample  implementation](https://github.com/anitaa1990/DataBindingExample)
 
       * **Paging:** The Paging Library helps you load and display small chunks of data at a time. Loading partial data on demand reduces usage of network bandwidth and system resources.
 
         The Paging Library supports the following data architectures:
         - Served only from a backend server;
         - Stored only in an on-device database;
-        - A combination of the other sources, using the on-device database as a cache. 
+        - A combination of the other sources, using the on-device database as a cache.
+
       [Official documentation](https://developer.android.com/topic/libraries/architecture/lifecycle)        
         
       * **Lifecycles:**  Lifecycle-aware components perform actions in response to a change in the lifecycle status of another component, such as activities and fragments. These components help you produce better-organized, and often lighter-weight code, that is easier to maintain.
@@ -1610,6 +1616,7 @@ How to disallow serialization? We can declare the variable as transient.
         A common pattern is to implement the actions of the dependent components in the lifecycle methods of activities and fragments. However, this pattern leads to a poor organization of the code and to the proliferation of errors. By using lifecycle-aware components, you can move the code of dependent components out of the lifecycle methods and into the components themselves.
 
         The `androidx.lifecycle` package provides classes and interfaces that let you build lifecycle-aware components—which are components that can automatically adjust their behavior based on the current lifecycle state of an activity or fragment. 
+
       [Official documentation](https://developer.android.com/topic/libraries/architecture/lifecycle)
 
     [Learn more here](https://blog.mindorks.com/what-are-android-architecture-components)
@@ -1631,11 +1638,11 @@ How to disallow serialization? We can declare the variable as transient.
 
 ### Android Security Related
 -   **How do you know if the device is rooted?**<br/>
-    : We can check if superUser apk is installed in the device or if it contains su file or xbin folder. Alternatively you can use RootBeer library available in GitHub.
+    - We can check if superUser apk is installed in the device or if it contains su file or xbin folder. Alternatively you can use RootBeer library available in GitHub.
 -   **What is Symmetric Encryption?**<br/>
-    : Symmetric encryption deals with creating a passphrase and encrypting the file with it. Then the server needs to send the key to the client so that the client can decrypt. Here the problem is sending that key to decrypt the file. Hackers can easily access that key and could misuse the data.
+    - Symmetric encryption deals with creating a passphrase and encrypting the file with it. Then the server needs to send the key to the client so that the client can decrypt. Here the problem is sending that key to decrypt the file. Hackers can easily access that key and could misuse the data.
 -   **What is Asymmetric Encryption?**<br/>
-    : Using algorithms like RSA, the server generates 2 keys - public key and private key. The server then gives public key to clients. Client then encrypts the sensitive data with that public key and send it back to server. Now as the server alone has the private key, only it can decrypt the data. This is the most efficient way of sending data across the client and server.
+    - Using algorithms like RSA, the server generates 2 keys - public key and private key. The server then gives public key to clients. Client then encrypts the sensitive data with that public key and send it back to server.-Now as the server alone has the private key, only it can decrypt the data. This is the most efficient way of sending data across the client and server.
 
         Example of this Asymmetric encryption are HTTPS using SSL certificate, Bitcoin, etc.
 
@@ -1659,38 +1666,38 @@ How to disallow serialization? We can declare the variable as transient.
 ### Dagger 2 Related Questions:
 
 -   **What is the use-case of @BindsInstance Annotation?**<br/>
-    : @BindsInstance is used to bind the available data at the time building the Component. Suppose I have user name available before building a component then I can use as shown in the following example:
+    - @BindsInstance is used to bind the available data at the time building the Component. Suppose I have user name available before building a component then I can use as shown in the following example:
     https://google.github.io/dagger/users-guide.html#binding-instances
 
 
 -   **What is the use-case of @Module Annotation?**<br/>
-    : @Module is the Annotation used on the class for the Dagger to look inside it, to provide dependencies. We may be declaring methods inside the module class that are enclosed with @Provides annotation.
+    - @Module is the Annotation used on the class for the Dagger to look inside it, to provide dependencies. We may be declaring methods inside the module class that are enclosed with @Provides annotation.
 
 -   **What is the use-case of @Provides Annotation?**<br/>
-    : @Provides annotation is used on a method in Module class and can return / provide a Dependency object.
+    - @Provides annotation is used on a method in Module class and can return / provide a Dependency object.
 
 -   **What is the use-case of @Component Annotation?**<br/>
-    : @Component is used on Interface or abstract class. Dagger uses this interface to generate an implementation class with fully formed, dependency injected implementation, using the modules declared along with it. This generated class will be preceded by Dagger. For example if i create an interface named ProgramComponent with @Component annotation, Dagger will generate a Class named 'DaggerProgramComponent' implementing the  ProgramComponent interface.
+    - @Component is used on Interface or abstract class. Dagger uses this interface to generate an implementation class with fully formed, dependency injected implementation, using the modules declared along with it. This generated class will be preceded by Dagger. For example if i create an interface named ProgramComponent with @Component annotation, Dagger will generate a Class named 'DaggerProgramComponent' implementing the  ProgramComponent interface.
 
 -   **What is the use-case of @Scope Annotation?**<br/>
-    : @Scope is an annotation used on Interface to create a new Custom Scope. A Scope declaration helps to keep single instance of a class as long as its scope exists. For example, in Android, we can use @ApplicationScope for the object to live as long as the Application is live or @ActivityScope for the object to be available till the activity is killed.
+    - @Scope is an annotation used on Interface to create a new Custom Scope. A Scope declaration helps to keep single instance of a class as long as its scope exists. For example, in Android, we can use @ApplicationScope for the object to live as long as the Application is live or @ActivityScope for the object to be available till the activity is killed.
 
 -   **What is the use of Qualifier in Dagger?**<br/>
-    : We are often in a situation where we will be needing multiple objects with different instance values. For example, we need declare Student("Vamsi") and Student("Krishna"). In such case we can use a Qualifier to tell Dagger that we need multiple instances of same class. The default implementation of Qualifier is using @Named annotation, for eg., @Named("student_vamsi") and @Named("student_krishna")
+    - We are often in a situation where we will be needing multiple objects with different instance values. For example, we need declare Student("Vamsi") and Student("Krishna"). In such case we can use a Qualifier to tell Dagger that we need multiple instances of same class. The default implementation of Qualifier is using @Named annotation, for eg., @Named("student_vamsi") and @Named("student_krishna")
     If we want to create a Custom Qualifier we would be using @Qualifier to declare a custom Qualifier interface.
 
 -   **What is the use-case of @Inject Annotation in Dagger?**<br/>
-    : @Inject annotation is used to request dagger to provide the respective Object. We use @Inject on Constructor, Fields (mostly where constructor is not accessible like Activities, Fragments, etc.) and Methods.
+    - @Inject annotation is used to request dagger to provide the respective Object. We use @Inject on Constructor, Fields (mostly where constructor is not accessible like Activities, Fragments, etc.) and Methods.
 
 -   **What is an Observable in RXJava2?**<br/>
-    : An Observable  simply emits the data to those which subscribed to it. All the emission is done asynchronously to the subscribers. A simple Observable can be created as follows:
+    - An Observable  simply emits the data to those which subscribed to it. All the emission is done asynchronously to the subscribers. A simple Observable can be created as follows:
 
     ```java
     // RxAndroid Tutorial - Adding Observable
     Observable<String> stringObservable = Observable.just("Hello Reactive Programming!");
     ```
 -   **What is an Observer in RXJava2?**
-    : Observer consumes the data emitted by the Observable. To do this, Observer needs to subscribe to the Observable. Example shows how to create an Observable in RxJava2.
+    - Observer consumes the data emitted by the Observable. To do this, Observer needs to subscribe to the Observable. Example shows how to create an Observable in RxJava2.
     ```java
     // RxAndroid Tutorial - Adding observer
     Observer<String> stringObserver = new Observer<String>() {
@@ -1714,7 +1721,7 @@ How to disallow serialization? We can declare the variable as transient.
     ```
 
 -   **How to Subscribe / Unsubscribe in RXJava?**<br/>
-    : We can make an Observer to subscribe to Observable as follows:
+    - We can make an Observer to subscribe to Observable as follows:
     ```java
     // RxAndroid tutorial - observer subscribing to observable
     stringObservable.subscribe(stringObserver);
@@ -1728,30 +1735,28 @@ How to disallow serialization? We can declare the variable as transient.
     - Flowable
 
 -   **What is a Single in RxJava?**<br/>
-    : A Single in RxJava is an Observable which emits only one item if completed or returns error.
+    - A Single in RxJava is an Observable which emits only one item if completed or returns error.
 
 -   **What is Maybe in RxJava?** <br/>
-    : A Maybe in RxJava is used when the Observable needs to emit a value or a no value or an error.
+    - A Maybe in RxJava is used when the Observable needs to emit a value or a no value or an error.
 
 -   **What is Completable in RxJava?** <br/>
-    : A Completable in RxJava is an Observable which just completes the task and does not emit anything if completed. It returns an error if anything fails.
+    - A Completable in RxJava is an Observable which just completes the task and does not emit anything if completed. It returns an error if anything fails.
     It is similar to reactive concept of runnable.
 
 -   **What is Back Pressure in RxJava?**<br/>
-    : Back Pressure is the state where your observable (publisher) is creating more events than your subscriber can handle.
+    - Back Pressure is the state where your observable (publisher) is creating more events than your subscriber can handle.
 
 -   **What is Flowable in RxJava?** <br/>
-    : A Flowable in RxJava is used when the Observable emits more data than the Observer can consume. In Other words, Flowable can handle back pressure where as an Observable cannot.
+    - A Flowable in RxJava is used when the Observable emits more data than the Observer can consume. In Other words, Flowable can handle back pressure where as an Observable cannot.
 
 -   **What is a Cold Observable?**<br/>
-    : A Cold Observable is an Observable that does not emit items until a Subscriber subscribes. If we have more than one Subscriber, then the Cold Observable will emit each sequence of items to all Subscribers one by one.
+    - A Cold Observable is an Observable that does not emit items until a Subscriber subscribes. If we have more than one Subscriber, then the Cold Observable will emit each sequence of items to all Subscribers one by one.
 
 -   **What is a Hot Observable?**<br/>
-    : A Hot observable is an Observer that will emit items
+    - A Hot observable is an Observer that will emit items
 
 -   **Hot Observables vs Cold Observables**<br/>
-
-
 
 -   **Explain about reactive programming?**<br/>
 
@@ -1778,11 +1783,12 @@ How to disallow serialization? We can declare the variable as transient.
 * **How do you troubleshoot a crashing application?** - [Learn more here](https://developer.android.com/topic/performance/vitals/crash)
 
 * **Explain Android notification system?** 
-    :   A notification is a message that Android displays outside your app's UI to provide the user with reminders, communication from other people, or other timely information from your app. Users can tap the notification to open your app or take an action directly from the notification.
+    - A notification is a message that Android displays outside your app's UI to provide the user with reminders, communication from other people, or other timely information from your app. Users can tap the notification to open your app or take an action directly from the notification.
 
         Notifications appear to users in different locations and formats, such as an icon in the status bar, a more detailed entry in the notification drawer, as a badge on the app's icon, and on paired wearables automatically. Beginning with Android 5.0, notifications can appear on the lock screen.
 
         Starting in Android 8.0 (API level 26), all notifications must be assigned to a channel or it will not appear. By categorizing notifications into channels, users can disable specific notification channels for your app (instead of disabling all your notifications), and users can control the visual and auditory options for each channel—all from the Android system settings.
+    
     [Learn more here](https://blog.mindorks.com/how-to-increase-push-notification-delivery-rate-in-android)
 
 * **What is the difference between Serializable and Parcelable? Which is the best approach in Android?** - [Learn more here](https://android.jlelse.eu/parcelable-vs-serializable-6a2556d51538)
@@ -1791,8 +1797,8 @@ How to disallow serialization? We can declare the variable as transient.
 
 * **What is the best way to update the screen periodically?** - [Learn more here](https://stackoverflow.com/questions/5452394/best-way-to-perform-an-action-periodically-while-an-app-is-running-handler)
 
-* **FlatBuffers vs JSON.** - 
-    : FlatBuffers are an efficient cross platform serialization library for C++, C#, C, Go, Java, JavaScript, PHP, and Python. They were originally created at Google for game development, and other performance-critical applications.
+* **FlatBuffers vs JSON.**  
+    - FlatBuffers are an efficient cross platform serialization library for C++, C#, C, Go, Java, JavaScript, PHP, and Python. They were originally created at Google for game development, and other performance-critical applications.
     
         For storing data in DB or in filesystems such as S3, JSON should be the obvious choice. This is because it allows you to query these systems without writing additional code using already available tools. For squeezing more data, you can always use GZIP or LZ4 compression which is supported out of the box in most of the systems these days.
 
@@ -1869,7 +1875,7 @@ How to disallow serialization? We can declare the variable as transient.
         public abstract void setWallpaper(Bitmap bitmap) throws IOException;
         ```
 
-        [Learn more here](https://blog.mindorks.com/creating-custom-annotations-in-android-a855c5b43ed9), [Link](https://blog.mindorks.com/improve-your-android-coding-through-annotations-26b3273c137a), [and from video](https://www.youtube.com/watch?v=LEb9if2HHSw)
+        [Learn more here](https://blog.mindorks.com/creating-custom-annotations-in-android-a855c5b43ed9), or [here](https://blog.mindorks.com/improve-your-android-coding-through-annotations-26b3273c137a), or [from video](https://www.youtube.com/watch?v=LEb9if2HHSw)
 
 * **How to create custom Annotation?** - [Learn more here](https://blog.mindorks.com/creating-custom-annotations-in-android-a855c5b43ed9) and [here](https://www.youtube.com/watch?v=LEb9if2HHSw)
 
@@ -1898,20 +1904,20 @@ How to disallow serialization? We can declare the variable as transient.
 * **Tell me something about RxJava.** - [Learn more here](https://blog.mindorks.com/a-complete-guide-to-learn-rxjava-b55c0cea3631)
 
 * **Advantage of Retrofit over Volley?**<br/>
-    : Retrofit is type-safe. Type safety means that the compiler will validate types while compiling, and throw an error if you try to assign the wrong type to a variable.
+    - Retrofit is type-safe. Type safety means that the compiler will validate types while compiling, and throw an error if you try to assign the wrong type to a variable.
 
 -   **Advantage of Volley over Retrofit?**<br/>
-    : Android Volley has a very elaborate and flexible cache mechanism. When a request is made through Volley, first the cache is checked for Response. If it is found, then it is fetched and parsed, else, it will hit Network to fetch the data. Retrofit does not support cache by default.
+    - Android Volley has a very elaborate and flexible cache mechanism. When a request is made through Volley, first the cache is checked for Response. If it is found, then it is fetched and parsed, else, it will hit Network to fetch the data. Retrofit does not support cache by default.
 
 * **How will you handle error in RxJava?** - [Learn more here](https://blog.mindorks.com/error-handling-in-rxjava)
 
 -   **What is the advantage of using Retrofit over AsyncTask?**<br/>
-    : Retrofit reduces boiler plate code by internally using GSON library which helps parsing the json file automatically.
+    - Retrofit reduces boiler plate code by internally using GSON library which helps parsing the json file automatically.
     Retrofit is a type safe library. This means - it checks if wrong data type is assigned to variables at compilation time itself.
     More use-cases at: https://stackoverflow.com/a/16903205/3424919
 
 -   **How to handle multiple network calls using Retrofit?**<br/>
-      : In Retrofit, we can call the operations asynchronously by using enqueue() method where as to call operations synchronously, we can use execute() method. In addition, we can use zip() operator from RxJava to perform multiple network calls using Retrofit library.
+    - In Retrofit, we can call the operations asynchronously by using enqueue() method where as to call operations synchronously, we can use execute() method. In addition, we can use zip() operator from RxJava to perform multiple network calls using Retrofit library.
 
 
 
@@ -1928,36 +1934,36 @@ How to disallow serialization? We can declare the variable as transient.
 
         Moshi is also great, with plenty of features to cover your parsing needs, some of which I haven’t seen from Jackson (such as allowing for multiple JSON representations for the same data type).
 
-*   **What about Image loading libraries?**
-            : **Glide** is a fast and efficient open source media management and image loading framework for Android that wraps media decoding, memory and disk caching, and resource pooling into a simple and easy to use interface. 
-            
-                Glide supports fetching, decoding, and displaying video stills, images, and animated GIFs. Glide includes a flexible API that allows developers to plug in to almost any network stack. By default Glide uses a custom `HttpUrlConnection` based stack, but also includes utility libraries plug in to Google's Volley project or Square's OkHttp library instead.
 
-                Glide's primary focus is on making scrolling any kind of a list of images as smooth and fast as possible, but Glide is also effective for almost any case where you need to fetch, resize, and display a remote image.
+*   **What about Image loading libraries?**
+    - **Glide** is a fast and efficient open source media management and image loading framework for Android that wraps media decoding, memory and disk caching, and resource pooling into a simple and easy to use interface. 
+    
+        Glide supports fetching, decoding, and displaying video stills, images, and animated GIFs. Glide includes a flexible API that allows developers to plug in to almost any network stack. By default Glide uses a custom `HttpUrlConnection` based stack, but also includes utility libraries plug in to Google's Volley project or Square's OkHttp library instead.
+
+        Glide's primary focus is on making scrolling any kind of a list of images as smooth and fast as possible, but Glide is also effective for almost any case where you need to fetch, resize, and display a remote image.
 
       
-              **Picasso** allows for hassle-free image loading in your application—often in one line of code! Many common pitfalls of image loading on Android are handled automatically by Picasso:
-                - Handling ImageView recycling and download cancelation in an adapter.
-                - Complex image transformations with minimal memory use.
-                - Automatic memory and disk caching.
+    - **Picasso** allows for hassle-free image loading in your application—often in one line of code! Many common pitfalls of image loading on Android are handled automatically by Picasso:
+        - Handling ImageView recycling and download cancelation in an adapter.
+        - Complex image transformations with minimal memory use.
+        - Automatic memory and disk caching.
 
-                **Fresco** is a powerful system for displaying images in Android applications.
+    - **Fresco** is a powerful system for displaying images in Android applications.
 
-                Fresco takes care of image loading and display, so you don't have to. It will load images from the network, local storage, or local resources, and display a placeholder until the image has arrived. It has two levels of cache; one in memory and another in internal storage.
+        Fresco takes care of image loading and display, so you don't have to. It will load images from the network, local storage, or local resources, and display a placeholder until the image has arrived. It has two levels of cache; one in memory and another in internal storage.
+        
+        In Android 4.x and lower, Fresco puts images in a special region of Android memory. This lets your application run faster - and suffer the dreaded `OutOfMemoryError` much less often.
+    
+        Fresco also supports:
+        - streaming of progressive JPEGs
+        - display of animated GIFs and WebPs
+        - extensive customization of image loading and display
 
-                In Android 4.x and lower, Fresco puts images in a special region of Android memory. This lets your application run faster - and suffer the dreaded `OutOfMemoryError` much less often.
-
-                Fresco also supports:
-                    - streaming of progressive JPEGs
-                    - display of animated GIFs and WebPs
-                    - extensive customization of image loading and display
-
-                **Coil** image loading library for Android backed by Kotlin Coroutines. Coil is:
-
-                - **Fast**: Coil performs a number of optimizations including memory and disk caching, downsampling the image in memory, re-using Bitmaps, automatically pausing/cancelling requests, and more.
-                - **Lightweight**: Coil adds ~2000 methods to your APK (for apps that already use OkHttp and Coroutines), which is comparable to Picasso and significantly less than Glide and Fresco.
-                - **Easy to use**: Coil's API leverages Kotlin's language features for simplicity and minimal boilerplate.
-                - **Modern**: Coil is Kotlin-first and uses modern libraries including Coroutines, OkHttp, Okio, and AndroidX Lifecycles.
+    - **Coil** image loading library for Android backed by Kotlin Coroutines. Coil is:
+        - **Fast**: Coil performs a number of optimizations including memory and disk caching, downsampling the image in memory, re-using Bitmaps, automatically pausing/cancelling requests, and more.
+        - **Lightweight**: Coil adds ~2000 methods to your APK (for apps that already use OkHttp and Coroutines), which is comparable to Picasso and significantly less than Glide and Fresco.
+        - **Easy to use**: Coil's API leverages Kotlin's language features for simplicity and minimal boilerplate.
+        - **Modern**: Coil is Kotlin-first and uses modern libraries including Coroutines, OkHttp, Okio, and AndroidX Lifecycles.
 
 
 * **FlatMap Vs Map Operator** - [Learn more here](https://medium.com/mindorks/rxjava-operator-map-vs-flatmap-427c09678784)
@@ -2011,8 +2017,11 @@ How to disallow serialization? We can declare the variable as transient.
  **Difference between MVC & MVP & MVVM?**</br>
    * **MVC** is the Model-View-Controller architecture where model refers to the data model classes. The view refers to the xml files and the controller handles the business logic. The issue with this architecture is unit testing. The model can be easily tested since it is not tied to anything. The controller is tightly coupled with the android apis making it difficult to unit test. Modularity & flexibility is a problem since the view and the controller are tightly coupled. If we change the view, the controller logic should also be changed. Maintenance is also an issues.
    
-   * **MVP architecture**: Model-View-Presenter architecture. The View includes the xml and the activity/fragment classes. So the activity would ideally implement a view interface making it easier for unit testing (since this will work without a view). [Sample Implementation](https://github.com/anitaa1990/Inshorts) 
-   * **MVVM**: Model-View-ViewModel Architecture. The Model comprises data, tools for data processing, business logic.  The View Model is responsible for wrapping the model data and preparing the data for the view. IT also provides a hook to pass events from the view to the model.  [Sample Implementation](https://github.com/anitaa1990/Trailers)</br></br>
+   * **MVP architecture**: Model-View-Presenter architecture. The View includes the xml and the activity/fragment classes. So the activity would ideally implement a view interface making it easier for unit testing (since this will work without a view). 
+        [Sample Implementation](https://github.com/anitaa1990/Inshorts) 
+   * **MVVM**: Model-View-ViewModel Architecture. The Model comprises data, tools for data processing, business logic.  The View Model is responsible for wrapping the model data and preparing the data for the view. IT also provides a hook to pass events from the view to the model.  
+
+        [Sample Implementation](https://github.com/anitaa1990/Trailers)</br></br>
 
 -   **What is the role of Presenter in MVP?**<br/>
     : The Presenter is responsible to act as the middle man between View and Model. It retrieves data from the Model and returns it formatted to the View. But unlike the typical MVC, it also decides what happens when you interact with the View.
@@ -2082,8 +2091,9 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
         -   Medium tests are integration tests that sit in between small tests and large tests. They integrate several components, and they run on emulators or real devices.
         -   Large tests are integration and UI tests that run by completing a UI workflow. They ensure that key end-user tasks work as expected on emulators or real devices.
 
+
 * **What is Espresso?** 
-    : Espresso is an open source android user interface (UI) testing framework developed by Google. Espresso is a simple, efficient and flexible testing framework. Google released the Espresso framework in Oct. 2013. Since its 2.0 release Espresso is part of the Android Support Repository. Espresso tests can be written in both Java and Kotlin, a modern programming language to develop android application.
+    - Espresso is an open source android user interface (UI) testing framework developed by Google. Espresso is a simple, efficient and flexible testing framework. Google released the Espresso framework in Oct. 2013. Since its 2.0 release Espresso is part of the Android Support Repository. Espresso tests can be written in both Java and Kotlin, a modern programming language to develop android application.
 
         Espresso automatically synchronizes your test actions with the user interface of your application. The framework also ensures that your activity is started before the tests run. It also let the test wait until all observed background activities have finished. The Espresso API is simple and easy to learn. You can easily perform Android UI tests without the complexity of multi-threaded testing. Google Drive, Maps and some other applications are currently using Espresso.
 
@@ -2094,11 +2104,13 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
         - `ViewAssertions` – validate a view state
 
         Base Espresso Test
+
         ```
         onView(ViewMatcher)   //1     
          .perform(ViewAction) // 2    
            .check(ViewAssertion);  //3
         ```
+
         1. Finds the view
         2. Performs an action on the view
         3. Validates a assertioin
@@ -2117,11 +2129,13 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
         - Supports testing activities outside application as well.
         - Supports JUnit4
         - UI automation suitable for writing black box tests. 
+    
     [Learn more here](https://developer.android.com/training/testing/ui-testing/espresso-testing.html)
 
 
+
 * **What is Robolectric?** 
-    : Robolectric is the industry-standard unit testing framework for Android. With Robolectric, your tests run in a simulated Android environment inside a JVM, without the overhead of an emulator.
+    - Robolectric is the industry-standard unit testing framework for Android. With Robolectric, your tests run in a simulated Android environment inside a JVM, without the overhead of an emulator.
 
         Unlike traditional emulator-based Android tests, Robolectric tests run inside a sandbox which allows allows the Android environment to be precisely configured to the desired conditions for each test, isolates each test from its neighbors, and extends the Android framework with test APIs which provide minute control over the Android framework’s behavior and visibility of state for assertions.
 
@@ -2132,6 +2146,7 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
         Robolectric allows a test style that is closer to black box testing, making the tests more effective for refactoring and allowing the tests to focus on the behavior of the application instead of the implementation of Android. 
 
         Example of test:
+
     ```
     @RunWith(AndroidJUnit4.class)
     public class MyActivityTest {
@@ -2148,14 +2163,14 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
       }
     }
     ```
+    
     [Learn more here](http://robolectric.org/)
 
 * **What are the disadvantages of using Robolectric?** - [Learn more here](https://stackoverflow.com/questions/18271474/robolectric-vs-android-test-framework) 
 
 * **What is UI-Automator?** - [Learn more here](https://developer.android.com/training/testing/ui-testing/uiautomator-testing.html)
-
 * **Explain unit test.** 
-   : Unit testing is a software testing method by which individual units of source code, sets of one or more computer program modules together with associated control data, usage procedures, and operating procedures, are tested to determine whether they are fit for use. In object-oriented programming, a unit is often an entire interface, such as a class, but could be an individual method. By writing tests first for the smallest testable units, then the compound behaviors between those, one can build up comprehensive tests for complex applications.
+   - Unit testing is a software testing method by which individual units of source code, sets of one or more computer program modules together with associated control data, usage procedures, and operating procedures, are tested to determine whether they are fit for use. In object-oriented programming, a unit is often an entire interface, such as a class, but could be an individual method. By writing tests first for the smallest testable units, then the compound behaviors between those, one can build up comprehensive tests for complex applications.
 
         The goal of unit testing is to isolate each part of the program and show that the individual parts are correct. A unit test provides a strict, written contract that the piece of code must satisfy. Unit testing allows the programmer to refactor code or upgrade system libraries at a later date, and make sure the module still works correctly (e.g., in regression testing). The procedure is to write test cases for all functions and methods so that whenever a change causes a fault, it can be quickly identified. Unit tests detect changes which may break a design contract.
 
@@ -2172,18 +2187,19 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
     - **Fast**. Developers write unit tests so they can repeatedly run them and check that no bugs have been introduced. If unit tests are slow, developers are more likely to skip running them on their own machines. One slow test won’t make a significant difference; add one thousand more and we’re surely stuck waiting for a while. Slow unit tests may also indicate that either the system under test, or the test itself, interacts with external systems, making it environment-dependent.
 
 * **Advantages and disadvantages of unit testing**
-   :  Advantages:
+   -  Advantages:
         - The earlier a problem is identified, the fewer compound errors occur.
         - Costs of fixing a problem early can quickly outweigh the cost of fixing it later.
         - Debugging processes are made easier.
         - Developers can quickly make changes to the code base.
         - Developers can also re-use code, migrating it to new projects.
      
-     Disadvantages:
+     - Disadvantages:
         - Tests will not uncover every bug.
         - Unit tests only test sets of data and its functionality—it will not catch errors in integration.
         - More lines of test code may need to be written to test one line of code—creating a potential time investment.
         - Unit testing may have a steep learning curve, for example, having to learn how to use specific automated software tools.
+        
         [Learn more here](https://developer.android.com/training/testing/unit-testing/local-unit-tests)
 
 * **Explain instrumented test.** - [Learn more here](https://developer.android.com/training/testing/unit-testing/instrumented-unit-tests)
@@ -2191,7 +2207,7 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
 * **Have you done unit testing or automatic testing?**
 
 * **What is Mockito and why is used?** 
-    : Mockito is a popular mock framework which can be used in conjunction with JUnit. If you have minimal Android dependencies and need to test specific interactions between a component and its dependency within your app, use a mocking framework to stub out external dependencies in your code. That way, you can easily test that your component interacts with the dependency in an expected way. By substituting Android dependencies with mock objects, you can isolate your unit test from the rest of the Android system while verifying that the correct methods in those dependencies are called. Mockito allows you to create and configure mock objects. Using Mockito greatly simplifies the development of tests for classes with external dependencies.
+    - Mockito is a popular mock framework which can be used in conjunction with JUnit. If you have minimal Android dependencies and need to test specific interactions between a component and its dependency within your app, use a mocking framework to stub out external dependencies in your code. That way, you can easily test that your component interacts with the dependency in an expected way. By substituting Android dependencies with mock objects, you can isolate your unit test from the rest of the Android system while verifying that the correct methods in those dependencies are called. Mockito allows you to create and configure mock objects. Using Mockito greatly simplifies the development of tests for classes with external dependencies.
 
         If you use Mockito in tests you typically:
         - Mock away external dependencies and insert the mocks into the code under test
@@ -2279,16 +2295,16 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
         ```
 
 - **Advantages & Disadvantages of Mockito:**
-      : Advantages:
+    - Advantages:
         - We can Mock any class or interface as per our need.
         - It supports Test Spies, not just Mocks, thus it can be used for partial mocking as well.
-      : Disadvantages
+    - Disadvantages
         - Mockito cannot test static classes. So, if you’re using Mockito, it’s recommended to change static classes to Singletons.
          - Mockito cannot be used to test a private method.
 [Learn more here](http://site.mockito.org/)
 
 * **Describe JUnit test.** 
-    : JUnit is a unit testing framework for the Java programming language. JUnit has been important in the development of test-driven development, and is one of a family of unit testing frameworks which is collectively known as xUnit that originated with SUnit.
+    - JUnit is a unit testing framework for the Java programming language. JUnit has been important in the development of test-driven development, and is one of a family of unit testing frameworks which is collectively known as xUnit that originated with SUnit.
 
         JUnit promotes the idea of "first testing then coding", which emphasizes on setting up the test data for a piece of code that can be tested first and then implemented. This approach is like "test a little, code a little, test a little, code a little." It increases the productivity of the programmer and the stability of program code, which in turn reduces the stress on the programmer and the time spent on debugging.
 
@@ -2565,9 +2581,9 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
 ### Android Tools And Technologies
 
 * **Why does Android use SQLite?**
-* What libraries have you used for interacting with databases and why did you choose them?
-* What are contract classes? [[info]](https://stackoverflow.com/a/36265603/497132)
-* How do you use the BaseColumns interface to describe your data schema? [[info]](https://stackoverflow.com/a/7900591/497132)
+* **What libraries have you used for interacting with databases and why did you choose them?**
+* **What are contract classes?** [[info]](https://stackoverflow.com/a/36265603/497132)
+* **How do you use the BaseColumns interface to describe your data schema?** [[info]](https://stackoverflow.com/a/7900591/497132)
 
 * **What is Realm?**
     - Realm is a database, which isn’t SQLite-based (it brings its own core)
@@ -2575,31 +2591,32 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
     - Realm not only handles storing your data, but it also keeps queried data up to date, and calls any registered change listeners when your data has been modified, allowing you to keep the UI up to date with minimal effort
     - Most importantly, due to lazy evaluation of RealmResults’ elements, you don’t need to implement pagination logic — just get a RealmResults, throw it in a RealmRecyclerViewAdapter, and it’s good to go — in that case, even the listener that keeps the RecyclerView updated is managed automatically.
 
-    **Why would I use Realm instead of SQLite/DbFlow/Requery/SQLDelight/Room?**
-   : Because Realm requires less knowledge of how relational databases are supposed to be designed, and how to manage your relations.
+* **Why would I use Realm instead of SQLite/DbFlow/Requery/SQLDelight/Room?**
+    - Because Realm requires less knowledge of how relational databases are supposed to be designed, and how to manage your relations.
 
         Even with configuration-based helpers like in Room, relation management can be tricky compared to links in Realm. 
 
 
-
 * **What is ADB?** 
-    : ADB is short for Android Debug Bridge. It allows developers the power to execute remote shell commands. Its basic function is to allow and control communication towards and from the emulator port. 
+    - ADB is short for Android Debug Bridge. It allows developers the power to execute remote shell commands. Its basic function is to allow and control communication towards and from the emulator port. 
+    
     [Learn more here](https://developer.android.com/studio/command-line/adb)
 
 * **What is an Application Not Responding (ANR) error, and how can you prevent them from occurring in an app?**</br>
-   : An ANR dialog appears when your UI has been unresponsive for more than 5 seconds, usually because you’ve blocked the main thread. To avoid encountering ANR errors, you should move as much work off the main thread as possible.
+   - An ANR dialog appears when your UI has been unresponsive for more than 5 seconds, usually because you’ve blocked the main thread. To avoid encountering ANR errors, you should move as much work off the main thread as possible.
 
         The ANR dialog is displayed to the user based on two possible conditions. One is when there is no response to an input event within 5 seconds, and the other is when a broadcast receiver is not done executing within 10 seconds. </br>
 
 * **ANR vs Crash**
-   : An ANR will occur if you are running a process on the UI thread which takes a long time, usually around 5 seconds. During this time the GUI (Graphical User Interface) will lock up which will result in anything the user presses will not be actioned. After the 5 seconds approx has occurred, if the thread still hasn't recovered then an ANR dialogue box is shown informing the user that the application is not responding and will give the user the choice to either wait, in the hope that the app will eventually recover, or to force close the app. 
+   - An ANR will occur if you are running a process on the UI thread which takes a long time, usually around 5 seconds. During this time the GUI (Graphical User Interface) will lock up which will result in anything the user presses will not be actioned. After the 5 seconds approx has occurred, if the thread still hasn't recovered then an ANR dialogue box is shown informing the user that the application is not responding and will give the user the choice to either wait, in the hope that the app will eventually recover, or to force close the app. 
     A crash is when an exception within the app has been thrown which has not been handled. For example, if you try to set the text of an `EditText` component, but the `EditText` is null and there is no try catch statement to catch the exception that your app will crash and will be force closed. The user will not see what caused the crash, they will be shown a dialogue telling that the app has force closed unexpectedly and will give them the option to send a bug report. In this example if you were to look in the bug report you would see the error caused by `java.lang.NullPointerException`. 
 
 * **What is StrictMode?**
-    : StrictMode is a developer tool which detects things you might be doing by accident and brings them to your attention so you can fix them.
+    - StrictMode is a developer tool which detects things you might be doing by accident and brings them to your attention so you can fix them.
 
         StrictMode is most commonly used to catch accidental disk or network access on the application's main thread, where UI operations are received and animations take place. Keeping disk and network operations off the main thread makes for much smoother, more responsive applications. By keeping your application's main thread responsive, you also prevent ANR dialogs from being shown to users. 
-     [Learn more here](https://blog.mindorks.com/use-strictmode-to-find-things-you-did-by-accident-in-android-development-4cf0e7c8d997)
+    
+    [Learn more here](https://blog.mindorks.com/use-strictmode-to-find-things-you-did-by-accident-in-android-development-4cf0e7c8d997)
 
 * **Build Type, Product Flavor, Build Variant**
     * **Build Type:** Build Types controls how to build and package your app, for example whether or not ProGuard is run, how the resulting application package is signed and whether debug symbols are to be included. By default, the build system defines two build types: `debug` and `release`.
@@ -2612,7 +2629,7 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
 
 
 * **Room vs SQLite** 
-    : SQLite is an in-process library that implements a self-contained, serverless, zero-configuration, transactional SQL database engine. 
+    - SQLite is an in-process library that implements a self-contained, serverless, zero-configuration, transactional SQL database engine. 
 
         SQLite is an embedded SQL database engine. Unlike most other SQL databases, SQLite does not have a separate server process. SQLite reads and writes directly to ordinary disk files. A complete SQL database with multiple tables, indices, triggers, and views, is contained in a single disk file. The database file format is cross-platform - you can freely copy a database between 32-bit and 64-bit systems or between big-endian and little-endian architectures
 
@@ -2629,7 +2646,7 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
         - Room is built to work with LiveData and RxJava for data observation, while SQLite does not.
 
 * **What is DDMS and what can you do with it?** 
-    : DDMS is the Dalvik Debug Monitor Server that ships with Android. It provides a wide array of debugging features including:
+    - DDMS is the Dalvik Debug Monitor Server that ships with Android. It provides a wide array of debugging features including:
 
         - port-forwarding services
         - screen capture
@@ -2640,7 +2657,7 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
         - simulating network state, speed, and latency
         - location data spoofing
 
-        [Learn more here](https://developer.android.com/studio/profile/monitor)
+    [Learn more here](https://developer.android.com/studio/profile/monitor)
 
 
 * **What is Lint? What is it used for?** - [Learn more here](https://blog.mindorks.com/what-is-lint-what-is-it-used-for)
@@ -2654,8 +2671,8 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
 * **How to measure method execution time in Android?** - [Learn more here](https://blog.mindorks.com/measure-method-execution-time-in-android-debug-build)
 
 * **Are SQL Injection attacks valid in Android? How would you prevent them?**
-    : Are SQL Injection attacks valid in Android? How would you prevent them?
-         If you are using data and retrieving it from components or network components that at the end perform an SQL query, SQL injections are an issue. Besides using validation in input fields or libraries to avoid SQL injections, another possible solution is to use parameterized queries with ContentProviders, which virtually remove the risk of suffering an SQL Injection.
+    - Are SQL Injection attacks valid in Android? How would you prevent them?
+        If you are using data and retrieving it from components or network components that at the end perform an SQL query, SQL injections are an issue. Besides using validation in input fields or libraries to avoid SQL injections, another possible solution is to use parameterized queries with ContentProviders, which virtually remove the risk of suffering an SQL Injection.
 
 
 * **Can you access your database of SQLite Database for debugging?** - [Learn more here](https://blog.mindorks.com/how-to-access-sqlite-database-in-android-for-debugging)
@@ -2671,7 +2688,7 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
 * **What is Gradle?** - [Learn more here](https://blog.mindorks.com/gradle-for-android-developers-getting-the-most-of-it)
 
 * **What is ProGuard?** 
-    : Proguard is free Java class file shrinker, optimizer, obfuscator, and preverifier. It detects and removes unused classes, fields, methods, and attributes. It optimizes bytecode and removes unused instructions. It renames the remaining classes, fields, and methods using short meaningless names.
+    - Proguard is free Java class file shrinker, optimizer, obfuscator, and preverifier. It detects and removes unused classes, fields, methods, and attributes. It optimizes bytecode and removes unused instructions. It renames the remaining classes, fields, and methods using short meaningless names.
 
         When you build you project using `Android Gradle plugin 3.4.0` or higher, the plugin no longer uses ProGuard to perform compile-time code optimization. Instead, the plugin works with the R8 compiler to handle the following compile-time tasks:
         - **Code shrinking (or tree-shaking)**: detects and safely removes unused classes, fields, methods, and attributes from your app and its library dependencies (making it a valuable tool for working around the 64k reference limit). For example, if you use only a few APIs of a library dependency, shrinking can identify library code that your app is not using and remove only that code from your app.
@@ -2683,7 +2700,7 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
         When building the release version of your app, by default, R8 automatically performs the compile-time tasks described above for you. However, you can disable certain tasks or customize R8’s behavior through ProGuard rules files. In fact, R8 works with all of your existing ProGuard rules files, so updating the Android Gradle plugin to use R8 should not require you to change your existing rules.
 
 * **Proguard vs R8**
-    : Let's now compare both R8 and Proguard both and see how it fares,
+    - Let's now compare both R8 and Proguard both and see how it fares,
 
         - With the Android app using Gradle plugin above 3.4.0 or more the project uses R8 by default and no longer uses the Proguard to perform optimizations. But, it uses Proguard rules only.
         - R8 effectively inlines the container classes and removes unused class, fields, and methods. Proguard reduces the app size by 8.5% and compared to   - R8 which reduces the code by 10%.
@@ -2697,10 +2714,10 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
 
 
 * **What is Android Slices?**
-    : Slices are UI templates that can display rich, dynamic, and interactive content from your app from within the Google Search app and also in other places like the Google Assistant. Slices can help users perform tasks faster by enabling engagement outside of the fullscreen app experience. You can build Slices as enhancements to App Actions.
+    - Slices are UI templates that can display rich, dynamic, and interactive content from your app from within the Google Search app and also in other places like the Google Assistant. Slices can help users perform tasks faster by enabling engagement outside of the fullscreen app experience. You can build Slices as enhancements to App Actions.
 
 * **Why widgets?** 
-    : Home screen widgets are broadcast receivers which provide interactive components. They are primarily used on the Android home screen. They typically display some kind of data and allow the user to perform actions with them.
+    - Home screen widgets are broadcast receivers which provide interactive components. They are primarily used on the Android home screen. They typically display some kind of data and allow the user to perform actions with them.
 
         Widgets typically fall into one of the following categories:
         - **Information widgets**. Typically display a few crucial information elements that are important to a user and track how that information changes over time. Good examples for information widgets are weather widgets, clock widgets or sports score trackers.
@@ -2755,7 +2772,7 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
    * Strip down all the unused locale resources by adding required resources name in “resConfigs”.
    * Convert all the images to the webp or vector drawables.
 
- [Article on the subject](https://medium.com/exploring-code/how-you-can-decrease-application-size-by-60-in-only-5-minutes-47eff3e7874e) OR [Learn more here](https://blog.mindorks.com/how-to-reduce-apk-size-in-android-2f3713d2d662) and [here](https://blog.mindorks.com/using-r8-to-reduce-apk-size-in-android)
+    [Article on the subject](https://medium.com/exploring-code/how-you-can-decrease-application-size-by-60-in-only-5-minutes-47eff3e7874e) or [Learn more here](https://blog.mindorks.com/how-to-reduce-apk-size-in-android-2f3713d2d662) and [here](https://blog.mindorks.com/using-r8-to-reduce-apk-size-in-android)
 
 * **How to reduce build time of an Android app?**</br>
    * Check out this awesome [article](https://medium.com/exploring-code/how-to-decrease-your-gradle-build-time-by-65-310b572b0c43) on it. 
