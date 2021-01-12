@@ -372,19 +372,19 @@ savedInstanceState.Also it won't affect the performance even if there are large 
     - `onDetachedFromWindow()` - This is called when the view is detached from a window. At this point, it no longer has a surface for drawing. This place where you need to stop doing any kind of work that is scheduled or clean up resources that are allocated. This method is called when we call remove view on the `ViewGroup` or when the `Activity` is destroyed etc.
 
 * **What about Guidelines, Barriers, Chains, Groups?**
-    - **Guidelines**
+    - **Guidelines:**
     Guidelines are small visual helpers to design layouts with. Views can be aligned to a guideline which can simplify layouts, especially if you have the same margin values duplicated on a lot of elements. 
         
         Guidelines can be specified in dp from start or end of the screen or they can be a percentage of the width of the screen. To cycle through the different guideline modes, you can click the round icon at the top of the guideline.
 
         ![image](assets/constraintlayout_guideline_android.gif)
         
-    - **Barriers**
+    - **Barriers:**
         Barriers are one of my favourite features in ConstraintLayout. A barrier is an invisible view that contains reference to the views that you wish to use to form a “barrier” against. If one of the views grows, the barrier will adjust its size to the largest height or width of the referenced items. Barriers can be vertical or horizontal and can be created to the top, bottom, left or right of the referenced views. Other views can then constrain themselves to the barrier.
         
         ![image](assets/Barrier_constraintlayout_bigger.gif)
 
-    - **Chains**
+    - **Chains:**
         Chains allow you to control the space between elements and how the elements use the space. To create a chain, select the elements that you want to form part of the chain, and then right click – “Chain” – “Create Horizontal/Vertical Chain”.
        
        You are then able to cycle through the different chain modes. There are four different modes: spread_inside, packed, spread and weighted.
@@ -393,7 +393,7 @@ savedInstanceState.Also it won't affect the performance even if there are large 
         ![image](assets/constraint_layout_chain_modes.png)
 
 
-    - **Groups**
+    - **Groups:**
         With groups, you can logically group together certain views. Don’t confuse this with normal ViewGroups in Android though. A group in ConstraintLayout only contains references to the view ids and not nesting the views inside a group. With a group, you can set the visibility of all views in the group, by just setting the groups visibility without needing to set every view’s visibility. This is useful for things such as error screens or loading screens where a few elements need to change their visibility at once.
         
         ![image](assets/group_constraintlayout_bigger.gif)
@@ -431,7 +431,8 @@ savedInstanceState.Also it won't affect the performance even if there are large 
     *   Canvas API in Android is a drawing framework which helps us to custom design like line, circle or even a rectangle. Using these we can make any shape whichever we want according to design. 
 
          The drawing of canvas happens in Bitmap, where we draw the outline and then the Paint API helps to fill color and whatever style we need. 
-[Learn more here](https://blog.mindorks.com/understanding-canvas-api-in-android)
+
+    [Learn more here](https://blog.mindorks.com/understanding-canvas-api-in-android)
 
 * **What is a `SurfaceView`?** 
     - `SurfaceView` can be updated on the background thread.
@@ -443,7 +444,8 @@ savedInstanceState.Also it won't affect the performance even if there are large 
     - More work should be done to create your customized `SurfaceView`. You need to listener to the surfaceCreated/Destroy Event, create a render thread, more importantly, synchronized the render thread and main thread. 
 
     - The timing to update is different. Normal view update mechanism is constraint or controlled by the framework: You call `view.invalidate()` in the UI thread or `view.postInvalidate()` in other thread to indicate to the framework that the view should be updated. However, the view won't be updated immediately but wait until next VSYNC event arrived. The easy approach to understand VYSNC is to consider it is as a timer that fire up every 16ms for a 60fps screen. In Android, all the normal view update, is synchronized with VSYNC to achieve better smoothness.
-[Learn more here](https://developer.android.com/reference/android/view/SurfaceView)
+
+    [Learn more here](https://developer.android.com/reference/android/view/SurfaceView)
 
 * **SurfaceView vs View**
     - Views are all drawn on the same GUI thread which is also used for all user interaction.
@@ -453,21 +455,23 @@ savedInstanceState.Also it won't affect the performance even if there are large 
 * **Relative Layout vs Linear Layout.** 
    * **Linear Layout** - Arranges elements either vertically or horizontally. i.e. in a row or column. 
    * **Relative Layout** - Arranges elements relative to parent or other elements.</br>
+    
     [Learn more here](https://blog.mindorks.com/android-layout-relative-linear-frame)
 
 * **What is  Constraint Layout** 
     - ConstraintLayout allows you to create large and complex layouts with a flat view hierarchy (no nested view groups). It's similar to RelativeLayout in that all views are laid out according to relationships between sibling views and the parent layout, but it's more flexible than RelativeLayout and easier to use with Android Studio's Layout Editor.
 
         Intention of ConstraintLayout is to optimize and flatten the view hierarchy of your layouts by applying some rules to each view to avoid nesting.
-[Learn more here](https://blog.mindorks.com/using-constraint-layout-in-android-531e68019cd)
+
+    [Learn more here](https://blog.mindorks.com/using-constraint-layout-in-android-531e68019cd)
 
 * **LayoutInflater vs findViewById**
-        : When I first started Android programming, I was really confused by `LayoutInflater` and `findViewById`. Sometimes we used one and sometimes the other.
+    - When I first started Android programming, I was really confused by `LayoutInflater` and `findViewById`. Sometimes we used one and sometimes the other.
 
-            - `LayoutInflater` is used to create a new `View` (or `Layout`) object from one of your xml layouts.
-            - `findViewById` just gives you a reference to a view than has already been created. You might think that you haven't created any `views` yet, but whenever you call `setContentView` in `onCreate`, the activity's layout along with its subviews gets inflated (created) behind the scenes.
+        - `LayoutInflater` is used to create a new `View` (or `Layout`) object from one of your xml layouts.
+        - `findViewById` just gives you a reference to a view than has already been created. You might think that you haven't created any `views` yet, but whenever you call `setContentView` in `onCreate`, the activity's layout along with its subviews gets inflated (created) behind the scenes.
 
-            So if the view already exists, then use `findViewById`. If not, then create it with a `LayoutInflater`.
+    So if the view already exists, then use `findViewById`. If not, then create it with a `LayoutInflater`.
 
 * **Do you know what is the view tree? How can you optimize its depth?** - [Learn more here](https://developer.android.com/reference/android/view/ViewTreeObserver)
 
@@ -491,20 +495,20 @@ savedInstanceState.Also it won't affect the performance even if there are large 
 
 
 * **Raw folder vs Assets folder**
-    : The files in both directories will be stored intact in the APK package after being packaged and will not be compiled into binary systems.
+    - The files in both directories will be stored intact in the APK package after being packaged and will not be compiled into binary systems.
 
         The differences between res/raw and assets:
 
-        Since `raw` is a subfolder of Resources (`res`), Android will automatically generate an ID for any file located inside it. This ID is then stored an the `R` class that will act as a reference to a file, meaning it can be easily accessed from other Android classes and methods and even in Android XML files. Using the automatically generated ID is the fastest way to have access to a file in Android.
+            - Since `raw` is a subfolder of Resources (`res`), Android will automatically generate an ID for any file located inside it. This ID is then stored an the `R` class that will act as a reference to a file, meaning it can be easily accessed from other Android classes and methods and even in Android XML files. Using the automatically generated ID is the fastest way to have access to a file in Android.
 
-        The Assets folder is an “appendix” directory. The `R` class does not generate IDs for the files placed there, so its less compatible with some Android classes and methods. Also, it’s much slower to access a file inside it, since you will need to get a handle to it based on a String. However some operations are more easily done by placing files in this folder, like copying a database file to the system’s memory. There’s no (easy) way to create an Android XML reference to files inside the Assets folder.
+            - The Assets folder is an “appendix” directory. The `R` class does not generate IDs for the files placed there, so its less compatible with some Android classes and methods. Also, it’s much slower to access a file inside it, since you will need to get a handle to it based on a String. However some operations are more easily done by placing files in this folder, like copying a database file to the system’s memory. There’s no (easy) way to create an Android XML reference to files inside the Assets folder.
 
 * **@id vs @+id**</br>
-   : The at-symbol (`@`) at the beginning of the string indicates that the XML parser should parse and expand the rest of the ID string and identify it as an ID resource. The plus-symbol (`+`) means that this is a new resource name that must be created and added to our resources (in the `R.java` file). In other words, the `+` symbol tells Android build tools that you are declaring a new resource, `@id/` you are referring to an existing resource (predefined by `@+id/` and already exists in `R.java`.
+    - The at-symbol (`@`) at the beginning of the string indicates that the XML parser should parse and expand the rest of the ID string and identify it as an ID resource. The plus-symbol (`+`) means that this is a new resource name that must be created and added to our resources (in the `R.java` file). In other words, the `+` symbol tells Android build tools that you are declaring a new resource, `@id/` you are referring to an existing resource (predefined by `@+id/` and already exists in `R.java`.
     
-        * Describe how to implement XML namespaces.
-        * Explain the differences and similarities of List Views and Grid Views.
-        * Explain how to present different styles/drawables for a button depending
+        - Describe how to implement XML namespaces.
+        - Explain the differences and similarities of List Views and Grid Views.
+        -  Explain how to present different styles/drawables for a button depending
 on the state of the button (pressed, selected, etc.) using XML (no Java) [[info]](http://developer.android.com/guide/topics/resources/drawable-resource.html#StateList)
         * for layout\_width and layout\_height, what's the difference between match\_parent and wrap\_content?
         * How do you implement Google's new Material Design in an Android application? [[info]](https://developer.android.com/training/material/get-started.html)
