@@ -136,10 +136,9 @@
         * ```OnCreate()```: This is when the view is first created. This is normally where we create views, get data from bundles etc.</br>
         * ```OnStart()```: Called when the activity is becoming visible to the user. Followed by onResume() if the activity comes to the foreground, or onStop() if it becomes hidden.</br>
         * ```OnResume()```: Called when the activity will start interacting with the user. At this point your activity is at the top of the activity stack, with user input going to it.</br>
-        * ```OnPause()```: Called as part of the activity lifecycle when an activity is going into the background, but has not (yet) been killed.</br>
+        * ```OnPause()```: Called as part of the activity lifecycle when an activity is going into the background, but has not (yet) been killed.
         * ```OnStop()```: Called when you are no longer visible to the user.</br>
         * ```OnDestroy()```: Called when the activity is finishing</br>
-         
         * ```OnRestart()```: Called after your activity has been stopped, prior to it being started again</br>
 
     ![image](assets/activity_lifecycle.png)
