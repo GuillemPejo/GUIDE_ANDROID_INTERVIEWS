@@ -1745,8 +1745,7 @@ How to disallow serialization? We can declare the variable as transient.
         - `@NonNUll` : It indicates a variable, parameter, or return value that cannot be null.
 
         Example: 
-
-        ```
+        ```java
         @NonNull
         public View getView(@Nullable String s1, @NonNull String s2) {
          // s1 can be null
@@ -1758,7 +1757,7 @@ How to disallow serialization? We can declare the variable as transient.
 
         As we know that Android references to resources, such as drawable and string resources, are passed as integers so we must validate the resource types. Code that expects a parameter to reference a specific type of resource, for example Drawables, can be passed the expected reference type of int, but actually reference a different type of resource, such as an R.string resource. 
         
-        ```
+        ```java
         public void setText(@StringRes int resId) {
           // resId must be string resources
           // resId should not be a normal int
@@ -1766,13 +1765,12 @@ How to disallow serialization? We can declare the variable as transient.
         ```
     - **Thread annotations**
         Thread annotations check if a method is called from a specific type of thread from which it is intended to be called.Supported annotations are
-        ```   
             - `@MainThread`
             - `@UiThread`
             - `@WorkerThread`
             - `@BinderThread`
             - `@AnyThread`
-
+        ```java
             @WorkerThread
             public void doSomething(){
               // this method must be called from the worker thread
