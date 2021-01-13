@@ -1445,18 +1445,6 @@ How to disallow serialization? We can declare the variable as transient.
         - As your schema changes, you need to update the affected SQL queries manually. Room solves this problem.
         - Room is built to work with LiveData and RxJava for data observation, while SQLite does not.
 
-* **FlatBuffers vs JSON.**  
-    - FlatBuffers are an efficient cross platform serialization library for C++, C#, C, Go, Java, JavaScript, PHP, and Python. They were originally created at Google for game development, and other performance-critical applications.
-    
-        For storing data in DB or in filesystems such as S3, JSON should be the obvious choice. This is because it allows you to query these systems without writing additional code using already available tools. For squeezing more data, you can always use GZIP or LZ4 compression which is supported out of the box in most of the systems these days.
-
-        However for inter-communications between various REST services or streaming systems (e.g. Kafka) , you should prefer protocol buffers or flat buffers. This is because of the significant difference between the serialization/deserialization performance of these two vs JSON which I’ll show later. Also, the memory footprint is much smaller in flatbuffers.
-
-        Flatbuffers should only be used for cases where the object is large and you normally need to extract only one or two entities out of it. This is because the code for making a flatbuffer object is much more than that needed for protobuf and JSON. Even converting from/to JSON is not supported in flatbuffers which is essential for logging in many cases.
-
-        [Learn more here](https://blog.mindorks.com/why-consider-flatbuffer-over-json-2e4aa8d4ed07)
-
-
 
 #### PERMISIONS
 
@@ -1841,6 +1829,10 @@ How to disallow serialization? We can declare the variable as transient.
 
     [Learn more here](https://blog.mindorks.com/what-are-android-architecture-components)
 
+* **What is Jetpack Compose?**
+    - Jetpack Compose is Android’s modern toolkit for building native UI. It simplifies and accelerates UI development on Android. Quickly bring your app to life with less code, powerful tools, and intuitive Kotlin APIs. 
+
+    Learn more here](https://developer.android.com/jetpack/compose)
 
 * **How LiveData is different from ObservableField?** - [Learn more here](https://blog.mindorks.com/livedata-vs-observable-in-android)
 
@@ -1863,6 +1855,7 @@ How to disallow serialization? We can declare the variable as transient.
    * **MVC** is the Model-View-Controller architecture where model refers to the data model classes. The view refers to the xml files and the controller handles the business logic. The issue with this architecture is unit testing. The model can be easily tested since it is not tied to anything. The controller is tightly coupled with the android apis making it difficult to unit test. Modularity & flexibility is a problem since the view and the controller are tightly coupled. If we change the view, the controller logic should also be changed. Maintenance is also an issues.
    
    * **MVP architecture**: Model-View-Presenter architecture. The View includes the xml and the activity/fragment classes. So the activity would ideally implement a view interface making it easier for unit testing (since this will work without a view). 
+        
         [Sample Implementation](https://github.com/anitaa1990/Inshorts) 
    * **MVVM**: Model-View-ViewModel Architecture. The Model comprises data, tools for data processing, business logic.  The View Model is responsible for wrapping the model data and preparing the data for the view. IT also provides a hook to pass events from the view to the model.  
 
@@ -1888,8 +1881,7 @@ How to disallow serialization? We can declare the variable as transient.
 
 * **Describe MVC.** - [Learn more here](https://blog.mindorks.com/mvc-mvp-mvvm-architecture-in-android)
 
-* **Describe MVI** - [Le
-arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Beginners)
+* **Describe MVI** - [Learn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Beginners)
 
 * **Describe the repository pattern** - [Learn more here](https://blog.mindorks.com/android-mvp-architecture-extension-with-interactors-and-repositories-bd4b51972339)
 
@@ -1926,7 +1918,10 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
 
 * **OkHttp - HTTP Caching - How caching work in Android** - [Learn more here](https://www.youtube.com/watch?v=D6dQn6pUQD0)
 
-* **Tell me something about RxJava.** - [Learn more here](https://blog.mindorks.com/a-complete-guide-to-learn-rxjava-b55c0cea3631)
+* **What is Retrofit?**
+    - Retrofit is a REST Client for Java and Android. It makes it relatively easy to retrieve and upload JSON (or other structured data) via a REST based webservice. In Retrofit you configure which converter is used for the data serialization. Typically for JSON you use GSon, but you can add custom converters to process XML or other protocols. Retrofit uses the OkHttp library for HTTP requests.
+
+    [Learn more here](https://www.vogella.com/tutorials/Retrofit/article.html)
 
 * **Advantage of Retrofit over Volley?**<br/>
     - Retrofit is type-safe. Type safety means that the compiler will validate types while compiling, and throw an error if you try to assign the wrong type to a variable.
@@ -1943,7 +1938,16 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
 -   **How to handle multiple network calls using Retrofit?**<br/>
     - In Retrofit, we can call the operations asynchronously by using enqueue() method where as to call operations synchronously, we can use execute() method. In addition, we can use zip() operator from RxJava to perform multiple network calls using Retrofit library.
 
+* **FlatBuffers vs JSON.**  
+    - FlatBuffers are an efficient cross platform serialization library for C++, C#, C, Go, Java, JavaScript, PHP, and Python. They were originally created at Google for game development, and other performance-critical applications.
+    
+        For storing data in DB or in filesystems such as S3, JSON should be the obvious choice. This is because it allows you to query these systems without writing additional code using already available tools. For squeezing more data, you can always use GZIP or LZ4 compression which is supported out of the box in most of the systems these days.
 
+        However for inter-communications between various REST services or streaming systems (e.g. Kafka) , you should prefer protocol buffers or flat buffers. This is because of the significant difference between the serialization/deserialization performance of these two vs JSON which I’ll show later. Also, the memory footprint is much smaller in flatbuffers.
+
+        Flatbuffers should only be used for cases where the object is large and you normally need to extract only one or two entities out of it. This is because the code for making a flatbuffer object is much more than that needed for protobuf and JSON. Even converting from/to JSON is not supported in flatbuffers which is essential for logging in many cases.
+
+        [Learn more here](https://blog.mindorks.com/why-consider-flatbuffer-over-json-2e4aa8d4ed07)
 
 * **GSON vs Jackson vs Moshi**
     - **Gson** – Google’s own JSON Parser library for Android and the most popular of the bunch (sitting at 18.5k Github stars, vs 5.9k and 6.5k). It is the oldest as well, with its 1.0 version being released in 2008
@@ -1990,6 +1994,10 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
         - **Modern**: Coil is Kotlin-first and uses modern libraries including Coroutines, OkHttp, Okio, and AndroidX Lifecycles.
 
 
+* **What is ANKO?**
+    - Anko is a Kotlin library which makes Android application development faster and easier. It makes your code clean and easy to read, and lets you forget about rough edges of the Android SDK for Java.
+
+    **Note:** Now, Anko is deprecated.
 * **Dependency injection libraries**
 
     - [Dagger 2](https://github.com/google/dagger) - A fast dependency injector for Java and Android. Dagger is a compile-time framework for dependency injection. It uses no reflection or runtime bytecode generation, does all its analysis at compile-time, and generates plain Java source code.
