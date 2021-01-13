@@ -1733,6 +1733,7 @@ How to disallow serialization? We can declare the variable as transient.
 
 * **`HashMap`, `ArrayMap` and `SparseArray`** - [Learn more here](https://blog.mindorks.com/android-app-optimization-using-arraymap-and-sparsearray-f2b4e2e3dc47)
 
+
 * **What are Annotations?** - 
     Annotations are Metadata. And Metadata is a set of data that gives information about other data.
     
@@ -1785,19 +1786,20 @@ How to disallow serialization? We can declare the variable as transient.
 
         Here, in the below example, the `@IntRange` annotation ensures that an integer value which will be passed must be in a range of 0 to 255.
 
-        `
+        ```java
         public void setAlpha(@IntRange(from=0,to=255) int alpha) {}
-        `
+        ```
 
     - **Permission annotations**
 
         Use the `@RequiresPermission` annotation to validate the permissions of the caller of a method.The following example annotates the `setWallpaper()` method to ensure that the caller of the method has the `permission.SET_WALLPAPERS` permission:
-        ```
+        ```java
         @RequiresPermission(Manifest.permission.SET_WALLPAPER)
         public abstract void setWallpaper(Bitmap bitmap) throws IOException;
         ```
 
         [Learn more here](https://blog.mindorks.com/creating-custom-annotations-in-android-a855c5b43ed9), or [here](https://blog.mindorks.com/improve-your-android-coding-through-annotations-26b3273c137a), or [from video](https://www.youtube.com/watch?v=LEb9if2HHSw)
+
 
 * **How to create custom Annotation?** - [Learn more here](https://blog.mindorks.com/creating-custom-annotations-in-android-a855c5b43ed9) and [here](https://www.youtube.com/watch?v=LEb9if2HHSw)
 
