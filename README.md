@@ -379,6 +379,14 @@ savedInstanceState.Also it won't affect the performance even if there are large 
         - `ViewGroup` is the invisible container. It holds `View` and `ViewGroup`
          - `ViewGroup` is the base class for Layouts.
 
+* **What's the difference between match_parent and wrap_content?**
+    - **`match_parent`**
+        Setting the layout of a widget to match_parent will force it to expand to take up as much space as is available within the layout element it's been placed in.
+
+    - **`wrap_content`**
+        Setting a View's size to wrap_content will force it to expand only far enough to contain the values (or child controls) it contains. For controls -- like text boxes (TextView) or images (ImageView) -- this will wrap the text or image being shown. For layout elements it will resize the layout to fit the controls / layouts added as its children.
+
+
 * **Difference between `View.GONE` and `View.INVISIBLE`?** 
     - `View.GONE`: This view is invisible, and it doesn't take any space for layout purposes.
     - `View.INVISIBLE`: This view is invisible, but it still takes up space for layout purposes.
@@ -591,7 +599,16 @@ savedInstanceState.Also it won't affect the performance even if there are large 
   
   [Sample Implementation](https://code.tutsplus.com/tutorials/android-sdk-creating-custom-views--mobile-14548) or [Learn more here](https://blog.mindorks.com/create-your-own-custom-view)
    
-   
+- **Explain how to present different styles/drawables for a button depending
+on the state of the button (pressed, selected, etc.) using XML**
+    - A StateListDrawable is a drawable object defined in XML that uses a several different images to represent the same graphic, depending on the state of the object. For example, a Button widget can exist in one of several different states (pressed, focused, or neither) and, using a state list drawable, you can provide a different background image for each state.
+
+        You can describe the state list in an XML file. Each graphic is represented by an <item> element inside a single <selector> element. Each <item> uses various attributes to describe the state in which it should be used as the graphic for the drawable.
+
+        During each state change, the state list is traversed top to bottom and the first item that matches the current state is used—the selection is not based on the "best match," but simply the first item that meets the minimum criteria of the state.
+
+    [Learn more here](http://developer.android.com/guide/topics/resources/drawable-resource.html#StateList)
+  
 * **Briefly describe some ways that you can optimize View usage**</br>
    * Checking for excessive overdraw: install your app on an Android device, and then enable the "Debug GPU Overview" option.
    * Flattening your view hierarchy: inspect your view hierarchy using Android Studio’s ‘Hierarchy Viewer’ tool.
