@@ -878,7 +878,7 @@ savedInstanceState.Also it won't affect the performance even if there are large 
 
     Here's an example of how to declare Intent Filter in AndroidManifest:
         
-        ```
+ ```
         <activity android:name=".ExampleActivity" android:icon="@drawable/app_icon">
           <intent-filter>
               <action android:name="android.intent.action.SEND" />
@@ -886,8 +886,9 @@ savedInstanceState.Also it won't affect the performance even if there are large 
               <data android:mimeType="text/plain" />
           </intent-filter>
         </activity>
-        ```
-    [Learn more here](https://developer.android.com/reference/android/content/IntentFilter
+```
+
+    [Learn more here](https://developer.android.com/reference/android/content/IntentFilter)
 
 * **Difference between Service & Intent Service**</br>
   * **Service** is the base class for Android services that can be extended to create any service. A class that directly extends Service runs on the main thread so it will block the UI (if there is one) and should therefore either be used only for short tasks or should make use of other threads for longer tasks.</br>  
