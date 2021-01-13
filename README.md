@@ -1,3 +1,15 @@
+* [ANDROID BASICS](#core-android)
+* [ACTIVITIES](#activity)
+* [FRAGMENTS](#android-architecture)
+* [VIEWS AND VIEWGROUPS, AND LAYOUTS](#android-design-problem)
+* [Android Unit Testing](#android-unit-testing)
+* [Android Tools And Technologies](#android-tools-and-technologies)
+* [Java and Kotlin](#java-and-kotlin)
+* [Data Structures And Algorithms](#data-structures-and-algorithms)
+* [Other Topics](#other-topics)
+
+
+
 #### BASE
 * **What is the Android Architecture?** 
     ![image](assets/android-architecture.png)
@@ -204,49 +216,6 @@
    * The first approach is to use a **FLAG_ACTIVITY_CLEAR_TOP** flag. The second way is by using **FLAG_ACTIVITY_CLEAR_TASK** and **FLAG_ACTIVITY_NEW_TASK** in conjunction.</br>
   
 
-
-#### CONTENT PROVIDERS
-
-* **What is a content providers and what is it typically used for?**</br>
-  * A ContentProvider provides data from one application to another, when requested. It manages access to a structured set of data.  It provides mechanisms for defining data security. ContentProvider is the standard interface that connects data in one process with code running in another process.</br>  
- 
-  * When you want to access data in a **ContentProvider**, you must instead use the ContentResolver object in your application’s Context to communicate with the provider as a client. The provider object receives data requests from clients, performs the requested action, and returns the results.
-
-  * ContentProvider is mainly used for access data from one application to another application. For example by using ContentProvider we can get phone contacts,call log from phone to our own application in android. we can also access data which are stored in (sqlite)databases. 
-
-  [Learn more here](http://developer.android.com/guide/topics/providers/content-providers.html)
-
-
-* **What is ContentProviders typically used for and how works?**
-    - You need to build a content provider if you want to provide one or more of the following features:
-        - You want to offer complex data or files to other applications.
-        - You want to allow users to copy complex data from your app into other apps.
-        - You want to provide custom search suggestions using the search framework.
-        - You want to expose your application data to widgets.
-        - You want to implement the `AbstractThreadedSyncAdapter`, `CursorAdapter`, or `CursorLoader` classes.
-    
-        You don't need a provider to use databases or other types of persistent storage if the use is entirely within your own application and you don’t need any of the features listed above.
-
-        To understand how it works, consider the following diagram:
-
-    ![](/assets/content_provider.jpeg "Content provider")
-
-* **Content URIs**
-    - Content URIs are the uniform resource identifiers that identify the data in the content providers. A content URI includes two things: *Authority* that is the symbolic name of the Provider and a *Path* that is a name that points towards the data. Every content provider methods have an argument which is URI. URIs for content providers look like this:
-
-        `content://<authority>/<path>/<optional_id>`
-
-        - **content://** – It’s always present, and is the scheme portion of the URI.
-        - **authority** – It is the unique name of the content provider, like photos, contacts. It’s a string that can identify the whole content provider.
-        - **path** – It is often used to identify some or the other data of the provider. The path is mostly used to identify individual tables.
-        - **optional_id** – id is used to access a single particular record of a file. We use this only in cases where we need to access only a particular record and not the complete file. It’s a numeric identifier to access a particular row of the data table.
-        <br>
-    * **Access data using Content Provider:**</br>
-      * Start by making sure your Android application has the necessary read access permissions. Then, get access to the ContentResolver object by calling getContentResolver() on the Context object, and retrieving the data by constructing a query using ContentResolver.query().</br>
-    
-      * The ContentResolver.query() method returns a Cursor, so you can retrieve data from each column using Cursor methods.</br> 
-  
-
 #### FRAGMENTS
   
 * **Describe fragments:**</br>
@@ -354,7 +323,7 @@ savedInstanceState.Also it won't affect the performance even if there are large 
 
 
 
-#### VIEWS AND VIEWGROUPS, AND LAYOUTS
+#### VIEWS AND LAYOUTS
 
 * **What is `View` in Android and its lifecycle ?** 
     - `View` class represents the basic building block for user interface components. A View occupies a rectangular area on the screen and is responsible for drawing and event handling. View is the base class for *widgets*, which are used to create interactive UI components (buttons, text fields, etc.).
@@ -645,108 +614,6 @@ savedInstanceState.Also it won't affect the performance even if there are large 
 
 * **Explain about Density Independence Pixel** - [Learn more here](https://blog.mindorks.com/understanding-density-independent-pixel-sp-dp-dip-in-android)
   
- 
-
-#### PERMISIONS
-
-* **What are the permission protection levels in Android?**
-   * **Normal** - A lower-risk permission that gives requesting applications access to isolated application-level features, with minimal risk to other applications, the system, or the user. The system automatically grants this type of permission to a requesting application at installation, without asking for the user's explicit approval.
-   
-   * **Dangerous** - A higher-risk permission. Any dangerous permissions requested by an application may be displayed to the user and require confirmation before proceeding, or some other approach may be taken to avoid the user automatically allowing the use of such facilities.
-   * **Signature** - A permission that the system grants only if the requesting application is signed with the same certificate as the application that declared the permission. If the certificates match, the system automatically grants the permission without notifying the user or asking for the user's explicit approval.
-   * **SignatureOrSystem** - A permission that the system grants only to applications that are in the Android system image or that are signed with the same certificate as the application that declared the permission.
-
-        [Learn more here](https://blog.mindorks.com/what-are-the-different-protection-levels-in-android-permission) or [here](https://developer.android.com/guide/topics/manifest/permission-element.html)
-
-### DISPLAYING LIST OF CONTENT
-
-* **What is RecyclerView?**
-    - RecyclerView is a ViewGroup, which populates a list on a collection of data provided with the help of ViewHolder and draws it to the user on-screen.
-        The major components of RecyclerView are:
-            - Adapter
-            - ViewHolder
-            - LayoutManager
-
-
-* **How does RecyclerView work?**
-   * Let's start with some background on RecyclerView which is needed to understand ```onBindViewHolder()``` method inside RecyclerView:
-   
-        RecyclerView is designed to display long lists (or grids) of items. Say you want to display 100 rows of something. A simple approach would be to just create 100 views, one for each row and lay all of them out. But that would be wasteful because at any point of time, only 10 or so items could fit on screen and the remaining items would be off screen. So RecyclerView instead creates only the 10 or so views that are on screen. This way you get 10x better speed and memory usage. 
-   * But what happens when you start scrolling and need to start showing next views?
-    
-        Again a simple approach would be to create a new view for each new row that you need to show. But this way by the time you reach the end of the list you will have created 100 views and your memory usage would be the same as in the first approach. And creating views takes time, so your scrolling most probably wouldn't be smooth. This is why RecyclerView takes advantage of the fact that as you scroll, **new rows come on screen also old rows disappear off screen**. Instead of creating new view for each new row, an old view is recycled and reused by binding new data to it.
-     
-        This happens inside the ```onBindViewHolder()``` method. Initially you will get new unused view holders and you have to fill them with data you want to display. But as you scroll you will start getting view holders that were used for rows that went off screen and you have to replace old data that they held with new data.
-
-    [Learn more here](https://blog.mindorks.com/how-does-recyclerview-work-internally) and [here](https://www.youtube.com/watch?v=60IYWdnHsZI)
-
-* **What is Adapters?**</br>
-   - An adapter responsible for converting each data entry into a View that can then be added to the AdapterView (ListView/RecyclerView).
-   
-        When you define your adapter, you need to override three key methods:
-        - `onCreateViewHolder()`: `RecyclerView` calls this method whenever it needs to create a new `ViewHolder`. The method creates and initializes the `ViewHolder` and its associated `View`, but does not fill in the view's contents—the `ViewHolder` has not yet been bound to specific data.
-            
-        - `onBindViewHolder()`: `RecyclerView` calls this method to associate a `ViewHolder` with data. The method fetches the appropriate data and uses the data to fill in the view holder's layout. For example, if the `RecyclerView` dislays a list of names, the method might find the appropriate name in the list and fill in the view holder's `TextView` widget.
-            
-        - `getItemCount()`: `RecyclerView` calls this method to get the size of the data set. For example, in an address book app, this might be the total number of addresses. `RecyclerView` uses this to determine when there are no more items that can be displayed.
-
-* **What is a ViewHolder Pattern?** 
-    - A ViewHolder object stores each of the component views inside the tag field of the Layout, so you can immediately access them without the need to look them up repeatedly. In ListView, the code might call ```findViewById()``` frequently during the scrolling of ListView, which can slow down performance. Even when the Adapter returns an inflated view for recycling, you still need to look up the elements and update them. A way around repeated use of ```findViewById()``` is to use the "view holder" design pattern.
-
-   * **LayoutManager**: In a ListView, the only type of view available is the vertical ListView.  A RecyclerView decouples list from its container so we can put list items easily at run time in the different containers (linearLayout, gridLayout and staggeredLayout) by setting LayoutManager.
-   * **Item Animator**: ListViews are lacking in support of good animations, but the RecyclerView brings a whole new dimension to it. Using the RecyclerView.ItemAnimator class, animating the views becomes so much easy and intuitive.
-
-    * **Item Decoration**: In case of **ListViews**, dynamically decorating items like adding borders or dividers was never easy. But in case of **RecyclerView**, the **RecyclerView.ItemDecorator** class gives huge control to the developers but makes things a bit more time consuming and complex.
-
-    [Learn more here](https://stackoverflow.com/questions/21501316/what-is-the-benefit-of-viewholder-pattern-in-android)
-
-   
-* **How does RecyclerView differ from ListView?**</br>
-    - RecyclerView was created as a ListView improvement, so yes, you can create an attached list with ListView control, but using RecyclerView is easier as it:
-
-        - Reuses cells while scrolling up/down - this is possible with implementing View Holder in the ListView adapter, but it was an optional thing, while in the RecycleView it's the default way of writing adapter.
-
-        - Decouples list from its container - so you can put list items easily at run time in the different containers (linearLayout, gridLayout) with setting LayoutManager.
-
-        - Animates common list actions - Animations are decoupled and delegated to ItemAnimator.
-
-
-    So, to conclude, RecyclerView is a more flexible control for handling "list data" that follows patterns of delegation of concerns and leaves for itself only one task - recycling items.
-
-    [Learn more here](https://stackoverflow.com/questions/26728651/recyclerview-vs-listview)
-
-
-* **What is DiffUtil?** 
-    - `DiffUtil` is a utility class that calculates the difference between two lists and outputs a list of update operations that converts the first list into the second one. 
-
-        It can be used to calculate updates for a RecyclerView Adapter.  See [ListAdapter](https://developer.android.com/reference/androidx/recyclerview/widget/ListAdapter) and [AsyncListDiffer](https://developer.android.com/reference/androidx/recyclerview/widget/AsyncListDiffer) which can simplify the use of `DiffUtil` on a background thread.
-
-        `DiffUtil` uses Eugene W. Myers's difference algorithm to calculate the minimal number of updates to convert one list into another. Myers's algorithm does not handle items that are moved so DiffUtil runs a second pass on the result to detect items that were moved.
-
-        Note that `DiffUtil`, `ListAdapter`, and `AsyncListDiffer` require the list to not mutate while in use. This generally means that both the lists themselves and their elements (or at least, the properties of elements used in diffing) should not be modified directly. Instead, new lists should be provided any time content changes. It's common for lists passed to `DiffUtil` to share elements that have not mutated, so it is not strictly required to reload all data to use `DiffUtil`.
-
-        If the lists are large, this operation may take significant time so you are advised to run this on a background thread, get the `DiffUtil.DiffResult` then apply it on the `RecyclerView` on the main thread.
-
-
-* **RecyclerView Optimization Techniques** 
-    
-    - Use Image-Loading Library
-    - Set Image Width and Height
-    - Do less in onBindViewHolder method
-    - Use Notify Item RecyclerView API
-    - Avoid a nested view
-    - Use setHasFixedSize
-    - Use setRecycledViewPool for Optimizing Nested RecyclerView
-    - Use setItemViewCacheSize
-
-    [Learn more here](https://blog.mindorks.com/recyclerview-optimization)
-
-* **What is `SnapHelper`?** 
-    - SnapHelper is a helper class that helps in snapping any child view of the RecyclerView. For example, you can snap the firstVisibleItem of the RecyclerView as you must have seen in the play store application that the firstVisibleItem will be always completely visible when scrolling comes to the idle position.
-
-    [Learn more here](https://blog.mindorks.com/using-snaphelper-in-recyclerview-fc616b6833e8)
-
-
 
 #### DIALOGS AND TOAST
 
@@ -786,6 +653,49 @@ savedInstanceState.Also it won't affect the performance even if there are large 
         A `DialogFragment` is a fragment that displays a dialog window, floating on top of its activity's window. This fragment contains a `Dialog` object, which it displays as appropriate based on the fragment's state. Using `DialogFragment` to manage the dialog ensures that it correctly handles lifecycle events such as when the user presses the Back button or rotates the screen. 
 
     [Learn more here](https://stackoverflow.com/questions/7977392/android-dialogfragment-vs-dialog)
+
+
+
+#### CONTENT PROVIDERS
+
+* **What is a content providers and what is it typically used for?**</br>
+  * A ContentProvider provides data from one application to another, when requested. It manages access to a structured set of data.  It provides mechanisms for defining data security. ContentProvider is the standard interface that connects data in one process with code running in another process.</br>  
+ 
+  * When you want to access data in a **ContentProvider**, you must instead use the ContentResolver object in your application’s Context to communicate with the provider as a client. The provider object receives data requests from clients, performs the requested action, and returns the results.
+
+  * ContentProvider is mainly used for access data from one application to another application. For example by using ContentProvider we can get phone contacts,call log from phone to our own application in android. we can also access data which are stored in (sqlite)databases. 
+
+  [Learn more here](http://developer.android.com/guide/topics/providers/content-providers.html)
+
+
+* **What is ContentProviders typically used for and how works?**
+    - You need to build a content provider if you want to provide one or more of the following features:
+        - You want to offer complex data or files to other applications.
+        - You want to allow users to copy complex data from your app into other apps.
+        - You want to provide custom search suggestions using the search framework.
+        - You want to expose your application data to widgets.
+        - You want to implement the `AbstractThreadedSyncAdapter`, `CursorAdapter`, or `CursorLoader` classes.
+    
+        You don't need a provider to use databases or other types of persistent storage if the use is entirely within your own application and you don’t need any of the features listed above.
+
+        To understand how it works, consider the following diagram:
+
+    ![](/assets/content_provider.jpeg "Content provider")
+
+* **Content URIs**
+    - Content URIs are the uniform resource identifiers that identify the data in the content providers. A content URI includes two things: *Authority* that is the symbolic name of the Provider and a *Path* that is a name that points towards the data. Every content provider methods have an argument which is URI. URIs for content providers look like this:
+
+        `content://<authority>/<path>/<optional_id>`
+
+        - **content://** – It’s always present, and is the scheme portion of the URI.
+        - **authority** – It is the unique name of the content provider, like photos, contacts. It’s a string that can identify the whole content provider.
+        - **path** – It is often used to identify some or the other data of the provider. The path is mostly used to identify individual tables.
+        - **optional_id** – id is used to access a single particular record of a file. We use this only in cases where we need to access only a particular record and not the complete file. It’s a numeric identifier to access a particular row of the data table.
+        <br>
+    * **Access data using Content Provider:**</br>
+      * Start by making sure your Android application has the necessary read access permissions. Then, get access to the ContentResolver object by calling getContentResolver() on the Context object, and retrieving the data by constructing a query using ContentResolver.query().</br>
+    
+      * The ContentResolver.query() method returns a Cursor, so you can retrieve data from each column using Cursor methods.</br> 
 
 
 #### INTENTS AND BROADCASTING
@@ -1278,6 +1188,94 @@ How to disallow serialization? We can declare the variable as transient.
 
 * **How do you find memory leaks in Android applications?** - [Learn more here](https://blog.mindorks.com/practical-guide-to-solve-out-of-memory-error-in-android-application) and [here](https://mindorks.com/blog/detecting-and-fixing-memory-leaks-in-android)
 
+### DISPLAYING LIST OF CONTENT
+
+* **What is RecyclerView?**
+    - RecyclerView is a ViewGroup, which populates a list on a collection of data provided with the help of ViewHolder and draws it to the user on-screen.
+        The major components of RecyclerView are:
+            - Adapter
+            - ViewHolder
+            - LayoutManager
+
+
+* **How does RecyclerView work?**
+   * Let's start with some background on RecyclerView which is needed to understand ```onBindViewHolder()``` method inside RecyclerView:
+   
+        RecyclerView is designed to display long lists (or grids) of items. Say you want to display 100 rows of something. A simple approach would be to just create 100 views, one for each row and lay all of them out. But that would be wasteful because at any point of time, only 10 or so items could fit on screen and the remaining items would be off screen. So RecyclerView instead creates only the 10 or so views that are on screen. This way you get 10x better speed and memory usage. 
+   * But what happens when you start scrolling and need to start showing next views?
+    
+        Again a simple approach would be to create a new view for each new row that you need to show. But this way by the time you reach the end of the list you will have created 100 views and your memory usage would be the same as in the first approach. And creating views takes time, so your scrolling most probably wouldn't be smooth. This is why RecyclerView takes advantage of the fact that as you scroll, **new rows come on screen also old rows disappear off screen**. Instead of creating new view for each new row, an old view is recycled and reused by binding new data to it.
+     
+        This happens inside the ```onBindViewHolder()``` method. Initially you will get new unused view holders and you have to fill them with data you want to display. But as you scroll you will start getting view holders that were used for rows that went off screen and you have to replace old data that they held with new data.
+
+    [Learn more here](https://blog.mindorks.com/how-does-recyclerview-work-internally) and [here](https://www.youtube.com/watch?v=60IYWdnHsZI)
+
+* **What is Adapters?**</br>
+   - An adapter responsible for converting each data entry into a View that can then be added to the AdapterView (ListView/RecyclerView).
+   
+        When you define your adapter, you need to override three key methods:
+        - `onCreateViewHolder()`: `RecyclerView` calls this method whenever it needs to create a new `ViewHolder`. The method creates and initializes the `ViewHolder` and its associated `View`, but does not fill in the view's contents—the `ViewHolder` has not yet been bound to specific data.
+            
+        - `onBindViewHolder()`: `RecyclerView` calls this method to associate a `ViewHolder` with data. The method fetches the appropriate data and uses the data to fill in the view holder's layout. For example, if the `RecyclerView` dislays a list of names, the method might find the appropriate name in the list and fill in the view holder's `TextView` widget.
+            
+        - `getItemCount()`: `RecyclerView` calls this method to get the size of the data set. For example, in an address book app, this might be the total number of addresses. `RecyclerView` uses this to determine when there are no more items that can be displayed.
+
+* **What is a ViewHolder Pattern?** 
+    - A ViewHolder object stores each of the component views inside the tag field of the Layout, so you can immediately access them without the need to look them up repeatedly. In ListView, the code might call ```findViewById()``` frequently during the scrolling of ListView, which can slow down performance. Even when the Adapter returns an inflated view for recycling, you still need to look up the elements and update them. A way around repeated use of ```findViewById()``` is to use the "view holder" design pattern.
+
+   * **LayoutManager**: In a ListView, the only type of view available is the vertical ListView.  A RecyclerView decouples list from its container so we can put list items easily at run time in the different containers (linearLayout, gridLayout and staggeredLayout) by setting LayoutManager.
+   * **Item Animator**: ListViews are lacking in support of good animations, but the RecyclerView brings a whole new dimension to it. Using the RecyclerView.ItemAnimator class, animating the views becomes so much easy and intuitive.
+
+    * **Item Decoration**: In case of **ListViews**, dynamically decorating items like adding borders or dividers was never easy. But in case of **RecyclerView**, the **RecyclerView.ItemDecorator** class gives huge control to the developers but makes things a bit more time consuming and complex.
+
+    [Learn more here](https://stackoverflow.com/questions/21501316/what-is-the-benefit-of-viewholder-pattern-in-android)
+
+   
+* **How does RecyclerView differ from ListView?**</br>
+    - RecyclerView was created as a ListView improvement, so yes, you can create an attached list with ListView control, but using RecyclerView is easier as it:
+
+        - Reuses cells while scrolling up/down - this is possible with implementing View Holder in the ListView adapter, but it was an optional thing, while in the RecycleView it's the default way of writing adapter.
+
+        - Decouples list from its container - so you can put list items easily at run time in the different containers (linearLayout, gridLayout) with setting LayoutManager.
+
+        - Animates common list actions - Animations are decoupled and delegated to ItemAnimator.
+
+
+    So, to conclude, RecyclerView is a more flexible control for handling "list data" that follows patterns of delegation of concerns and leaves for itself only one task - recycling items.
+
+    [Learn more here](https://stackoverflow.com/questions/26728651/recyclerview-vs-listview)
+
+
+* **What is DiffUtil?** 
+    - `DiffUtil` is a utility class that calculates the difference between two lists and outputs a list of update operations that converts the first list into the second one. 
+
+        It can be used to calculate updates for a RecyclerView Adapter.  See [ListAdapter](https://developer.android.com/reference/androidx/recyclerview/widget/ListAdapter) and [AsyncListDiffer](https://developer.android.com/reference/androidx/recyclerview/widget/AsyncListDiffer) which can simplify the use of `DiffUtil` on a background thread.
+
+        `DiffUtil` uses Eugene W. Myers's difference algorithm to calculate the minimal number of updates to convert one list into another. Myers's algorithm does not handle items that are moved so DiffUtil runs a second pass on the result to detect items that were moved.
+
+        Note that `DiffUtil`, `ListAdapter`, and `AsyncListDiffer` require the list to not mutate while in use. This generally means that both the lists themselves and their elements (or at least, the properties of elements used in diffing) should not be modified directly. Instead, new lists should be provided any time content changes. It's common for lists passed to `DiffUtil` to share elements that have not mutated, so it is not strictly required to reload all data to use `DiffUtil`.
+
+        If the lists are large, this operation may take significant time so you are advised to run this on a background thread, get the `DiffUtil.DiffResult` then apply it on the `RecyclerView` on the main thread.
+
+
+* **RecyclerView Optimization Techniques** 
+    
+    - Use Image-Loading Library
+    - Set Image Width and Height
+    - Do less in onBindViewHolder method
+    - Use Notify Item RecyclerView API
+    - Avoid a nested view
+    - Use setHasFixedSize
+    - Use setRecycledViewPool for Optimizing Nested RecyclerView
+    - Use setItemViewCacheSize
+
+    [Learn more here](https://blog.mindorks.com/recyclerview-optimization)
+
+* **What is `SnapHelper`?** 
+    - SnapHelper is a helper class that helps in snapping any child view of the RecyclerView. For example, you can snap the firstVisibleItem of the RecyclerView as you must have seen in the play store application that the firstVisibleItem will be always completely visible when scrolling comes to the idle position.
+
+    [Learn more here](https://blog.mindorks.com/using-snaphelper-in-recyclerview-fc616b6833e8)
+
 
 
 #### DATA SAVING
@@ -1324,6 +1322,17 @@ How to disallow serialization? We can declare the variable as transient.
     - `apply()` is asynchronous and it won't return any boolean response. If you have an apply() outstanding and you are performing commit(), then the commit() will be blocked until the apply() is not completed.
 
 * **How to encrypt data in Android?** - [Learn more here](https://blog.mindorks.com/how-to-encrypt-data-safely-on-device-and-use-the-androidkeystore)
+
+#### PERMISIONS
+
+* **What are the permission protection levels in Android?**
+   * **Normal** - A lower-risk permission that gives requesting applications access to isolated application-level features, with minimal risk to other applications, the system, or the user. The system automatically grants this type of permission to a requesting application at installation, without asking for the user's explicit approval.
+   
+   * **Dangerous** - A higher-risk permission. Any dangerous permissions requested by an application may be displayed to the user and require confirmation before proceeding, or some other approach may be taken to avoid the user automatically allowing the use of such facilities.
+   * **Signature** - A permission that the system grants only if the requesting application is signed with the same certificate as the application that declared the permission. If the certificates match, the system automatically grants the permission without notifying the user or asking for the user's explicit approval.
+   * **SignatureOrSystem** - A permission that the system grants only to applications that are in the Android system image or that are signed with the same certificate as the application that declared the permission.
+
+        [Learn more here](https://blog.mindorks.com/what-are-the-different-protection-levels-in-android-permission) or [here](https://developer.android.com/guide/topics/manifest/permission-element.html)
 
 
 #### Android Battery Related
