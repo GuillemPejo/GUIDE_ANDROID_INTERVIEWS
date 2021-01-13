@@ -1,24 +1,24 @@
 * [ANDROID BASICS](#base)
-* [ACTIVITIES](#activity)
+* [ACTIVITIES](#activities)
 * [FRAGMENTS](#fragments)
-* [VIEWS AND LAYOUTS](#views-and-layout)
-* [DIALOGS AND TOAST](#dialog-and-views)
+* [VIEWS AND LAYOUTS](#views-and-layouts)
+* [DIALOGS AND TOAST](#dialogs-and-toast)
 * [CONTENT PROVIDERS](#content-providers)
 * [INTENTS AND BROADCASTING](#intents-and-broadcasting)
-* [TASKS AND INTER-PROCESS COMMUNICATION](#task-and-inter-process-communication)
+* [SERVICES](#services)
+* [TASKS AND INTER-PROCESS COMMUNICATION](#tasks-and-inter-process-communication)
 * [DISPLAYING LIST OF CONTENT](#displaying-list-of-content)
 * [DATA SAVING](#data-saving)
 * [PERMISIONS](#permisions)
 * [ANDROID BATTERY](#android-battery)
 * [ANDROID SYSTEM INTERNAL](#android-system-internal)
 * [ANDROID SECURITY](#android-security)
-* [JETPACK](#jetpack)
+* [JETPACK](#android-jetpack)
 * [ARCHITECTURE](#architecture)
 * [ANDROID LIBRARIES](#android-libraries)
 * [ANDROID TOOLS](#android-tools)
 * [ANDROID TESTING](#android-testing)
 * [ANDROID DESIGN PROBLEMS](#android-design-problems)
-
 
 
 
@@ -143,7 +143,7 @@
     - The Application class in Android is the base class within an Android app that contains all other components such as activities and services. The Application class, or any subclass of the Application class, is instantiated before any other class when the process for your application/package is created.
 
 
-#### ACTIVITY
+#### ACTIVITIES
 
 * **What are the four states of the Activity Lifecycle?**  
     - The Android OS uses a priority queue to assist in managing activities running on the device. Based on the state a particular Android activity is in, it will be assigned a certain priority within the OS. This priority system helps Android identify activities that are no longer in use, allowing the OS to reclaim memory and resources.
