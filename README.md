@@ -1890,29 +1890,6 @@ How to disallow serialization? We can declare the variable as transient.
         - **Modern**: Coil is Kotlin-first and uses modern libraries including Coroutines, OkHttp, Okio, and AndroidX Lifecycles.
 
 
-* **FlatMap Vs Map Operator** - [Learn more here](https://medium.com/mindorks/rxjava-operator-map-vs-flatmap-427c09678784)
-    
-* **When to use `Create` operator and when to use `fromCallable` operator of RxJava?** - [Learn more here](https://blog.mindorks.com/understanding-rxjava-create-and-fromcallable-operator)
-    
-* **When to use `defer` operator of RxJava?** - [Learn more here](https://blog.mindorks.com/understanding-rxjava-defer-operator)
-    
-* **How are Timer, Delay, and Interval operators used in RxJava?** - [Learn more here](https://blog.mindorks.com/understanding-rxjava-timer-delay-and-interval-operators)
-
-* **How to make two network calls in parallel using RxJava?** - [Learn more here](https://blog.mindorks.com/understanding-rxjava-zip-operator-with-example)
-    
-* **Tell the difference between Concat and Merge.** - [Learn more here](https://blog.mindorks.com/rxjava-operator-concat-vs-merge)
-
-* **Explain Subject in RxJava?** - [Learn more here](https://blog.mindorks.com/understanding-rxjava-subject-publish-replay-behavior-and-async-subject-224d663d452f)
-
-* **What are the types of Observables in RxJava?** - [Learn more here](https://blog.mindorks.com/understanding-types-of-observables-in-rxjava-6c3a2d0819c8)
-
-* **How to implement EventBus with RxJava?** - [Learn more here](https://blog.mindorks.com/implementing-eventbus-with-rxjava-rxbus-e6c940a94bd8)
-
-* **How to implement search feature using RxJava in your application?** - [Learn more here](https://blog.mindorks.com/implement-search-using-rxjava-operators-c8882b64fe1d)
-
-* **How The Android Image Loading Library Glide and Fresco Works?** - [Learn more here](https://blog.mindorks.com/how-the-android-image-loading-library-glide-and-fresco-works-962bc9d1cc40)
-
-* **Difference between Schedulers.io() and Schedulers.computation() in RxJava.**
 
 * **What is dependency injection?**
     - Dependency Injection is a design pattern to implement inversion of control, and to resolve dependencies. Dependency Injection (DI) eliminates boilerplate code (for example, by removing listener) and provides a much cleaner and more effective code.
@@ -1921,29 +1898,15 @@ How to disallow serialization? We can declare the variable as transient.
         -   ButterKnife
         -   RoboGuice
 
-* **Why do we use the Dependency Injection Framework like Dagger in Android?** - [Learn more here](https://blog.mindorks.com/why-do-we-use-the-dependency-injection-framework-in-android)
 
-* **How does the Dagger work?** - [Learn more here](https://blog.mindorks.com/android-annotation-processing-tutorial-part-1-a-practical-approach) and [here]((https://www.youtube.com/watch?v=Grzqz-B3NWU))
-
-* **What is Component in Dagger?** - [Learn more here](https://www.youtube.com/watch?v=Grzqz-B3NWU)
-
-* **What is Module in Dagger?** - [Learn more here](https://www.youtube.com/watch?v=Grzqz-B3NWU)
-
-* **How does the custom scope work in Dagger?**
-
-* **When to call dispose and clear on CompositeDisposable in RxJava?** - [Learn more here](https://stackoverflow.com/questions/47057885/when-to-call-dispose-and-clear-on-compositedisposable)
-
-* **What is Multipart Request in Networking?** - [Learn more here](https://www.youtube.com/watch?v=p7SiNT0q1I8)
 
 * **What is Flow in Kotlin?** - [Learn more here](https://blog.mindorks.com/what-is-flow-in-kotlin-and-how-to-use-it-in-android-project)
 
-### Architecture
+### ARCHITECTURE
 
 * **S.O.L.I.D Principles in Android development**</br>
    * [Answer](https://github.com/anitaa1990/Today-I-Learned/blob/master/android/solid_principle.md)</br>  
   
-  </br></br>
-
 
  **Difference between MVC & MVP & MVVM?**</br>
    * **MVC** is the Model-View-Controller architecture where model refers to the data model classes. The view refers to the xml files and the controller handles the business logic. The issue with this architecture is unit testing. The model can be easily tested since it is not tied to anything. The controller is tightly coupled with the android apis making it difficult to unit test. Modularity & flexibility is a problem since the view and the controller are tightly coupled. If we change the view, the controller logic should also be changed. Maintenance is also an issues.
@@ -1986,7 +1949,7 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
 * **What is a singleton class in Android?**</br>
     - A singleton class is a class which can create only an object that can be shared all other classes.
 
-   ```
+   ```java
    private static volatile RESTService instance;
     protected RESTService(Context context) {
         super(context);
@@ -2001,530 +1964,6 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
         return instance;
     }
     ```
-
-### Android Design Problem
-
-* **Design Uber App.** - [Learn more here](https://github.com/MindorksOpenSource/ridesharing-uber-lyft-app)
-
-* **Design Facebook App.**
-
-* **Implement search functionality with debounce operator (If user keeps on typing, then cancel the last network call and hit for the present one, How will you achieve that?)**
-
-* **Design a Location Tracking application**
-
-* **Design Twitter.**
-
-* **Design Bookmyshow.**
-
-* **Design Facebook Near-By Friends App.**
-
-* **Design WhatsApp.**
-
-* **Design SnapChat.**
-
-* **Design problems based on location based app.**
-
-* **How to build offline-first app? Explain the architecture.**
-
-* **Design LRU Cache.**
-
-* **Design File Downloader** - [Lear from here](https://github.com/MindorksOpenSource/PRDownloader)
-
-* **HTTP Request vs HTTP Long-Polling vs WebSockets** - [Lear from here](https://www.youtube.com/watch?v=k56H0DHqu5Y)
-
-### Android Unit Testing
-
-* **What kind of tests can you write to test your Android application?**
-    : Your app should include the three categories of tests: small, medium, and large:
-
-        -   Small tests are unit tests that you can run in isolation from production systems. They typically mock every major component and should run quickly on your machine.
-        -   Medium tests are integration tests that sit in between small tests and large tests. They integrate several components, and they run on emulators or real devices.
-        -   Large tests are integration and UI tests that run by completing a UI workflow. They ensure that key end-user tasks work as expected on emulators or real devices.
-
-
-* **What is Espresso?** 
-    - Espresso is an open source android user interface (UI) testing framework developed by Google. Espresso is a simple, efficient and flexible testing framework. Google released the Espresso framework in Oct. 2013. Since its 2.0 release Espresso is part of the Android Support Repository. Espresso tests can be written in both Java and Kotlin, a modern programming language to develop android application.
-
-        Espresso automatically synchronizes your test actions with the user interface of your application. The framework also ensures that your activity is started before the tests run. It also let the test wait until all observed background activities have finished. The Espresso API is simple and easy to learn. You can easily perform Android UI tests without the complexity of multi-threaded testing. Google Drive, Maps and some other applications are currently using Espresso.
-
-        Espresso Testing works basically in three blocks:
-
-        - `ViewMatchers` – allows you to find an item in the view
-        - `ViewActions` – allows to execute actions on the elements
-        - `ViewAssertions` – validate a view state
-
-        Base Espresso Test
-
-        ```
-        onView(ViewMatcher)   //1     
-         .perform(ViewAction) // 2    
-           .check(ViewAssertion);  //3
-        ```
-
-        1. Finds the view
-        2. Performs an action on the view
-        3. Validates a assertioin
-
-        Features of Espresso:
-        - Very simple API and so, easy to learn.
-        - Highly scalable and flexible.
-        - Provides separate module to test Android WebView component.
-        - Provides separate module to validate as well as mock Android Intents.
-        - Provides automatic synchronization between your application and tests.
-
-        Advantages of Espresso:
-        - Backward compatibility
-        - Easy to setup.
-        - Highly stable test cycle.
-        - Supports testing activities outside application as well.
-        - Supports JUnit4
-        - UI automation suitable for writing black box tests. 
-    
-    [Learn more here](https://developer.android.com/training/testing/ui-testing/espresso-testing.html)
-
-
-
-* **What is Robolectric?** 
-    - Robolectric is the industry-standard unit testing framework for Android. With Robolectric, your tests run in a simulated Android environment inside a JVM, without the overhead of an emulator.
-
-        Unlike traditional emulator-based Android tests, Robolectric tests run inside a sandbox which allows allows the Android environment to be precisely configured to the desired conditions for each test, isolates each test from its neighbors, and extends the Android framework with test APIs which provide minute control over the Android framework’s behavior and visibility of state for assertions.
-
-        While much of the Android framework will work as expected inside a Robolectric test, some Android components’ regular behavior doesn’t translate well to unit tests: hardware sensors need to be simulated, system services need to be loaded with test fixture data. In those cases, Robolectric provides a test double that’s suitable for most unit testing scenarios. Robolectric replaced all Android classes by so-called shadow objects. If a method is implemented by Robolectric, it forwards these method calls to the shadow object. Shadow objects behave similar to the Android implementation. If a method is not implemented by the shadow object, it simply returns a default value, e.g., `null` or 0.
-
-        Robolectric handles inflation of views, resource loading, and lots of other stuff that’s implemented in native C code on Android devices. This allows tests to do most things you could do on a real device. It’s easy to provide your own implementation for specific SDK methods too, so you could simulate error conditions or real-world sensor behavior, for example. 
-
-        Robolectric allows a test style that is closer to black box testing, making the tests more effective for refactoring and allowing the tests to focus on the behavior of the application instead of the implementation of Android. 
-
-        Example of test:
-
-    ```
-    @RunWith(AndroidJUnit4.class)
-    public class MyActivityTest {
-
-      @Test
-      public void clickingButton_shouldChangeResultsViewText() throws Exception {
-        Activity activity = Robolectric.setupActivity(MyActivity.class);
-
-        Button button = (Button) activity.findViewById(R.id.press_me_button);
-        TextView results = (TextView) activity.findViewById(R.id.results_text_view);
-
-        button.performClick();
-        assertThat(results.getText().toString(), equalTo("Testing Android Rocks!"));
-      }
-    }
-    ```
-    
-    [Learn more here](http://robolectric.org/)
-
-* **What are the disadvantages of using Robolectric?** - [Learn more here](https://stackoverflow.com/questions/18271474/robolectric-vs-android-test-framework) 
-
-* **What is UI-Automator?** - [Learn more here](https://developer.android.com/training/testing/ui-testing/uiautomator-testing.html)
-* **Explain unit test.** 
-   - Unit testing is a software testing method by which individual units of source code, sets of one or more computer program modules together with associated control data, usage procedures, and operating procedures, are tested to determine whether they are fit for use. In object-oriented programming, a unit is often an entire interface, such as a class, but could be an individual method. By writing tests first for the smallest testable units, then the compound behaviors between those, one can build up comprehensive tests for complex applications.
-
-        The goal of unit testing is to isolate each part of the program and show that the individual parts are correct. A unit test provides a strict, written contract that the piece of code must satisfy. Unit testing allows the programmer to refactor code or upgrade system libraries at a later date, and make sure the module still works correctly (e.g., in regression testing). The procedure is to write test cases for all functions and methods so that whenever a change causes a fault, it can be quickly identified. Unit tests detect changes which may break a design contract.
-
-        Unit Testing Techniques:
-        - Black Box Testing - Using which the user interface, input and output are tested.
-        - White Box Testing - used to test each one of those functions behaviour is tested.
-        - Gray Box Testing - Used to execute tests, risks and assessment methods.
-
-- **What Makes a Good Unit Test?**
-    - **Easy to write**. Developers typically write lots of unit tests to cover different cases and aspects of the application’s behavior, so it should be easy to code all of those test routines without enormous effort.
-    - **Readable**. The intent of a unit test should be clear. A good unit test tells a story about some behavioral aspect of our application, so it should be easy to understand which scenario is being tested and — if the test fails — easy to detect how to address the problem. With a good unit test, we can fix a bug without actually debugging the code!
-   
-    - **Reliable**. Unit tests should fail only if there’s a bug in the system under test. That seems pretty obvious, but programmers often run into an issue when their tests fail even when no bugs were introduced. For example, tests may pass when running one-by-one, but fail when running the whole test suite, or pass on our development machine and fail on the continuous integration server. These situations are indicative of a design flaw. Good unit tests should be reproducible and independent from external factors such as the environment or running order.
-    - **Fast**. Developers write unit tests so they can repeatedly run them and check that no bugs have been introduced. If unit tests are slow, developers are more likely to skip running them on their own machines. One slow test won’t make a significant difference; add one thousand more and we’re surely stuck waiting for a while. Slow unit tests may also indicate that either the system under test, or the test itself, interacts with external systems, making it environment-dependent.
-
-* **Advantages and disadvantages of unit testing**
-   -  Advantages:
-        - The earlier a problem is identified, the fewer compound errors occur.
-        - Costs of fixing a problem early can quickly outweigh the cost of fixing it later.
-        - Debugging processes are made easier.
-        - Developers can quickly make changes to the code base.
-        - Developers can also re-use code, migrating it to new projects.
-     
-     - Disadvantages:
-        - Tests will not uncover every bug.
-        - Unit tests only test sets of data and its functionality—it will not catch errors in integration.
-        - More lines of test code may need to be written to test one line of code—creating a potential time investment.
-        - Unit testing may have a steep learning curve, for example, having to learn how to use specific automated software tools.
-        
-        [Learn more here](https://developer.android.com/training/testing/unit-testing/local-unit-tests)
-
-* **Explain instrumented test.** - [Learn more here](https://developer.android.com/training/testing/unit-testing/instrumented-unit-tests)
-
-* **Have you done unit testing or automatic testing?**
-
-* **What is Mockito and why is used?** 
-    - Mockito is a popular mock framework which can be used in conjunction with JUnit. If you have minimal Android dependencies and need to test specific interactions between a component and its dependency within your app, use a mocking framework to stub out external dependencies in your code. That way, you can easily test that your component interacts with the dependency in an expected way. By substituting Android dependencies with mock objects, you can isolate your unit test from the rest of the Android system while verifying that the correct methods in those dependencies are called. Mockito allows you to create and configure mock objects. Using Mockito greatly simplifies the development of tests for classes with external dependencies.
-
-        If you use Mockito in tests you typically:
-        - Mock away external dependencies and insert the mocks into the code under test
-        - Execute the code under test
-        - Validate that the code executed correctly
-
-   * **Mock objects**
-       Mockito provides several methods to create mock objects:
-        - Using the static `mock()` method.
-        - Using the `@Mock` annotation.
-
-        If you use the `@Mock` annotation, you must trigger the initialization of the annotated fields. The `MockitoRule` does this by calling the static method `MockitoAnnotations.initMocks(this)`. Alternatively you can use `@RunWith(MockitoJUnitRunner.class)`.
-    
-        ```
-        @RunWith(JUnit4::class)
-        class MainViewModelTest {
-
-            @Mock
-            lateinit var userService: UserService
-            
-            val userRepository = mock(UserRepository::class.java)
-
-            @Before
-            fun setUp() {
-                MockitoAnnotations.initMocks(this)
-                
-                //Here can be used both userService and userRepository
-            }
-          //...
-        }
-        ```
-    
-   * **Mock types**
-    There are two types of mock methods - `mock()` and `spy()`
-
-        `mock()` method creates mock or fake objects. The default behavior of mock methods is to do nothing. `spy()` method, just spy or stub specific methods of a real object. If don't stub some method of mock object, then the real object method is called.
-
-        ```
-            @Test
-            public void testMockMethod(){
-                List mockList = Mockito.mock(ArrayList.class);
-                mockList.add("hello world");
-                Mockito.verify(mockList).add("hello world");
-                assertEquals(0, mockList.size());
-            }
-            @Test
-            public void testSpyMethod(){
-                List spyList = Mockito.spy(new ArrayList());
-                spyList.add("hello world");
-                Mockito.verify(spyList).add("hello world");
-                assertEquals(1, spyList.size());
-            }
-        ```
-
-        In the above example, when we add an object to a mocked list, the object isn't actually added as the actual add method is not called. However, when we call add on a spied list, the object is actually added as the actual method is called.
-
-    
-    
-   * **Mocking Behavior**
-    There are a lot of method for interaction with mock objects. Some of them:
-        - `when()` - is used to configure simple return behavior for a mock or spy object.
-        - `doReturn()` - is used when we want to return a specific value when calling a method on a mock object. The mocked method is called in case of both mock and spy objects. `doReturn()` can also be used with methods that don’t return any value.
-        - `thenReturn()` - is used when we want to return a specific value when calling a method on a mock object. The mocked method is called in case of mock objects, and real method in case of spy objects. `thenReturn()` always expects a return type.
-        - `verify()` - verify calling of specific method on mock/spy object. 
-
-        ```
-        @Test
-            public void testThenReturn(){
-                //Create a mock object of the class Calculator
-                Calculator mockCalculator = Mockito.mock(Calculator.class);
-                //Return the value of 30 when the add method is called with the arguments 10 and 20
-                Mockito.when(mockCalculator.add(10, 20)).thenReturn(30);
-                //Asserts that the return value of add method with arguments 10 and 20 is 30
-                assertEquals(mockCalculator.add(10, 20), 30);
-            }
-            @Test
-            public void testDoReturn(){
-                //Create a spy object of the class Calculator
-                Calculator mockCalculator = Mockito.spy(new Calculator());
-                //Return the value of 30 when the add method is called on the spied object with the arguments 10 and 20
-                Mockito.doReturn(30).when(mockCalculator).add(10, 20);
-                //Asserts that the return value of add method with arguments 10 and 20 is 30
-                assertEquals(mockCalculator.add(10, 20), 30);
-            }
-        ```
-
-- **Advantages & Disadvantages of Mockito:**
-    - Advantages:
-        - We can Mock any class or interface as per our need.
-        - It supports Test Spies, not just Mocks, thus it can be used for partial mocking as well.
-    - Disadvantages
-        - Mockito cannot test static classes. So, if you’re using Mockito, it’s recommended to change static classes to Singletons.
-         - Mockito cannot be used to test a private method.
-[Learn more here](http://site.mockito.org/)
-
-* **Describe JUnit test.** 
-    - JUnit is a unit testing framework for the Java programming language. JUnit has been important in the development of test-driven development, and is one of a family of unit testing frameworks which is collectively known as xUnit that originated with SUnit.
-
-        JUnit promotes the idea of "first testing then coding", which emphasizes on setting up the test data for a piece of code that can be tested first and then implemented. This approach is like "test a little, code a little, test a little, code a little." It increases the productivity of the programmer and the stability of program code, which in turn reduces the stress on the programmer and the time spent on debugging.
-
-        Feature of JUnit:
-        - JUnit is an open source framework, which is used for writing and running tests.
-        - Provides annotations to identify test methods.
-        - Provides assertions for testing expected results.
-        - Provides test runners for running tests.
-        - JUnit tests allow you to write codes faster, which increases quality.
-        - JUnit is elegantly simple. It is less complex and takes less time.
-        - JUnit tests can be run automatically and they check their own results and provide immediate feedback. There's no need to manually comb through a report of test results.
-        - JUnit tests can be organized into test suites containing test cases and even other test suites.
-        - JUnit shows test progress in a bar that is green if the test is running smoothly, and it turns red when a test fails.
-
-        A JUnit test fixture is a Java object. With older versions of JUnit, fixtures had to inherit from `junit.framework.TestCase`, but the new tests using JUnit 4 should not do this. Test methods must be annotated by the `@Test` annotation. If the situation requires it it is also possible to define a method to execute before (or after) each (or all) of the test methods with the `@Before` (or `@After`) and `@BeforeClass` (or `@AfterClass`) annotations.
-    
-        ```
-        import org.junit.*;
-
-        public class FoobarTest {
-            @BeforeClass
-            public static void setUpClass() throws Exception {
-                // Code executed before the first test method
-            }
-
-            @Before
-            public void setUp() throws Exception {
-                // Code executed before each test
-            }
-         
-            @Test
-            public void testOneThing() {
-                // Code that tests one thing
-            }
-
-            @Test
-            public void testAnotherThing() {
-                // Code that tests another thing
-            }
-
-            @Test
-            public void testSomethingElse() {
-                // Code that tests something else
-            }
-
-            @After
-            public void tearDown() throws Exception {
-                // Code executed after each test 
-            }
-         
-            @AfterClass
-            public static void tearDownClass() throws Exception {
-                // Code executed after the last test method 
-            }
-        }
-        ```
-
-        | JUnit 4  | Description  |
-        |---|---|
-        | `@Test` | Identifies a method as a test method.  |
-        | `@Before`  | Executed before each test. It is used to prepare the test environment (e.g., read input data, initialize the class).  |
-        | `@After`  | Executed after each test. It is used to cleanup the test environment (e.g., delete temporary data, restore defaults). It can also save memory by cleaning up expensive memory structures.  |
-        | `@BeforeClass`  | Executed once, before the start of all tests. It is used to perform time intensive activities, for example, to connect to a database. Methods marked with this annotation need to be defined as `static` to work with JUnit.  |
-        | `@AfterClass` | Executed once, after all tests have been finished. It is used to perform clean-up activities, for example, to disconnect from a database. Methods annotated with this annotation need to be defined as `static` to work with JUnit.  |
-        | `@Ignore` or `@Ignore("Why disabled")`  | Marks that the test should be disabled. This is useful when the underlying code has been changed and the test case has not yet been adapted. Or if the execution time of this test is too long to be included. It is best practice to provide the optional description, why the test is disabled.  |
-        | `@Test (expected = Exception.class)`  | Fails if the method does not throw the named exception.  |
-        | `@Test(timeout=100)`  | Fails if the method takes longer than 100 milliseconds  |
-        [Learn more here](https://en.wikipedia.org/wiki/JUnit)
-
-
-
-* **Describe code coverage.** - [Learn more here](https://blog.mindorks.com/generate-global-code-coverage-report-in-android-development-using-jacoco-plugin)
-* **JUnit 4 vs JUnit 5**
-  : JUnit 5 aims to adapt Java 8 style of coding and to be more robust and flexible than JUnit 4. One of the main ideas behind the new JUnit version is utilizing the features Java 8 brought to the table (mainly lambdas) to make everybody's life easier. 
-
-    JUnit 4 has everything bundled into single jar file.
-    Junit 5 is composed of 3 sub-projects i.e. JUnit Platform, JUnit Jupiter and JUnit Vintage.
-
-    - **JUnit Platform**. It defines the `TestEngine` API for developing new testing frameworks that runs on the platform.
-    - **JUnit Jupiter**.  It has all new junit annotations and `TestEngine` implementation to run tests written with these annotations.
-    - **JUnit Vintage**. To support running JUnit 3 and JUnit 4 written tests on the JUnit 5 platform.
-
-    Junit 4 requires Java 5 or higher.
-    Junit 5 requires Java 8 or higher.
-
-    A few annotation was changed:
-
-    | Feature | JUnit 4 | JUnit 5 |
-    |---|---|---|
-    | Execute before all test methods in the current class  | `@BeforeClass`  | `@BeforeAll`  |
-    | Execute after all test methods in the current class  | `@AfterClass`  | `@AfterAll`  |
-    | Execute before each test method  | `@Before`  | `@BeforeEach`  |
-    | Execute after each test method  | `@After` | `@AfterEach`  |
-    | Disable a test method / class  | `@Ignore`  | `@Disabled`  |
-    | Tagging and filtering  | `@Category`  | `@Tag`  |
-
-    The most important one is that we can no longer use `@Test` annotation for specifying expectations.
-    The *expected* parameter in JUnit 4:
-    ```
-    @Test(expected = Exception.class)
-    public void shouldRaiseAnException() throws Exception {
-        // ...
-    }
-    ```
-
-    Now, we can use a method *assertThrows*:
-    ```
-    public void shouldRaiseAnException() throws Exception {
-        Assertions.assertThrows(Exception.class, () -> {
-            //...
-        });
-    }
-    ```
-
-    The *timeout* attribute in JUnit 4:
-    ```
-    @Test(timeout = 1)
-    public void shouldFailBecauseTimeout() throws InterruptedException {
-        Thread.sleep(10);
-    }
-    ```
-
-    Now, the *assertTimeout* method in JUnit 5:
-    ```
-    @Test
-    public void shouldFailBecauseTimeout() throws InterruptedException {
-        Assertions.assertTimeout(Duration.ofMillis(1), () -> Thread.sleep(10));
-    }
-    ```
-
-    ## Assertions
-    We can now write assertion messages in a lambda in JUnit 5, allowing the lazy evaluation to skip complex message construction until needed:
-    ```
-    @Test
-    public void shouldFailBecauseTheNumbersAreNotEqual_lazyEvaluation() {
-        Assertions.assertTrue(
-          2 == 3, 
-          () -> "Numbers " + 2 + " and " + 3 + " are not equal!");
-    }
-    ```
-    We can also group assertions in JUnit 5:
-    ```
-    @Test
-    public void shouldAssertAllTheGroup() {
-        List<Integer> list = Arrays.asList(1, 2, 4);
-        Assertions.assertAll("List is not incremental",
-            () -> Assertions.assertEquals(list.get(0).intValue(), 1),
-            () -> Assertions.assertEquals(list.get(1).intValue(), 2),
-            () -> Assertions.assertEquals(list.get(2).intValue(), 3));
-    }
-    ```
-
-    ## New Annotations for Running Tests
-    The `@RunWith` was used to integrate the test context with other frameworks or to change the overall execution flow in the test cases in JUnit 4.
-
-    With JUnit 5, we can now use the `@ExtendWith` annotation to provide similar functionality.
-
-    As an example, to use the Spring features in JUnit 4:
-    ```
-    @RunWith(SpringJUnit4ClassRunner.class)
-    @ContextConfiguration(
-      {"/app-config.xml", "/test-data-access-config.xml"})
-    public class SpringExtensionTest {
-        /*...*/
-    }
-    ```
-
-    Now, in JUnit 5 it is a simple extension:
-    ```
-    @ExtendWith(SpringExtension.class)
-    @ContextConfiguration(
-      { "/app-config.xml", "/test-data-access-config.xml" })
-    public class SpringExtensionTest {
-        /*...*/
-    }
-    ```
-
-    ## @Nested
-    This annotation lets us group tests where it makes sense to do so. We might want to separate tests that deal with addition from tests that deal with division, multiplication, etc; and it provides us with an easy way to `@Disable` certain groups entirely. It also lets us try and make full English sentences as our test output, making it extremely readable.
-
-    ```
-    @DisplayName("The calculator class: ")
-    class CalculatorTest {
-        Calculator calc;
-
-        @BeforeEach
-        void init() {
-            calc = new Calculator();
-        }
-
-        @Nested
-        @DisplayName("when testing addition, ")
-        class Addition {
-            @Test
-            @DisplayName("with positive numbers ")
-            void positive() {
-                assertEquals(100, calc.add(1,1), "the result should be the sum of the arguments");
-            }
-
-            @Test
-            @DisplayName("with negative numbers ")
-            void negative() {
-                assertEquals(100, calc.add(-1,-1), "the result should be the sum of the arguments");
-            }
-        }
-
-        @Nested
-        @DisplayName("when testing division, ")
-        class Division {
-            @Test
-            @DisplayName("with 0 as the divisor ")
-            void throwsAtZero() {
-                assertThrows(ArithmeticException.class, () -> calc.divide(2,0), "the method should throw and ArithmeticException");
-            }
-        }
-    }
-    ```
-
-
-# Test pyramid
-
-    A test pyramid is a pyramid of where all the different types of tests fits. Mike Cohn came up with this concept in his book *Succeeding with Agile*. It's a great visual metaphor telling you to think about different layers of testing. It also tells you how much testing to do on each layer. Agile testing relies more on automation. It requires a much greater contribution from developers. And it has a different basic philosophy – to prevent bugs.
-
-    ![](assets/test_pyramid.png "test_pyramid")
-
-    Original test pyramid consists of three layers:
-    - Unit Test
-    - Service/Integration Test
-    - UI/GUI Test
-
-    **Unit Test** 
-
-    Unit testing is a software testing method by which individual units of source code, sets of one or more computer program modules together with associated control data, usage procedures, and operating procedures, are tested to determine whether they are fit for use. In object-oriented programming, a unit is often an entire interface, such as a class, but could be an individual method. By writing tests first for the smallest testable units, then the compound behaviors between those, one can build up comprehensive tests for complex applications.
-
-    The goal of unit testing is to isolate each part of the program and show that the individual parts are correct. A unit test provides a strict, written contract that the piece of code must satisfy. Unit testing allows the programmer to refactor code or upgrade system libraries at a later date, and make sure the module still works correctly (e.g., in regression testing). The procedure is to write test cases for all functions and methods so that whenever a change causes a fault, it can be quickly identified. Unit tests detect changes which may break a design contract.
-
-    **Integration Test**
-
-    Integration testing is the phase in software testing  in which individual software modules are combined and tested as a group. Integration testing is conducted to evaluate the compliance of a system or component with specified functional requirements. It occurs after unit testing and before validation testing. Integration testing takes as its input modules that have been unit tested, groups them in larger aggregates, applies tests defined in an integration test plan to those aggregates, and delivers as its output the integrated system ready for system testing.
-
-    **GUI Test**
-
-    GUI testing is a software testing type that checks the Graphical User Interface of the Application Under Test. GUI testing involves checking the screens with the controls like menus, buttons, icons, and all types of bars - toolbar, menu bar, dialog boxes, and windows, etc. The purpose of Graphical User Interface (GUI) Testing is to ensure UI functionality works as per the specification.
-
-
-* **Unit testing vs Functional testing**
-
-    Unit testing is a software testing method by which individual units of source code, sets of one or more computer program modules together with associated control data, usage procedures, and operating procedures, are tested to determine whether they are fit for use. In object-oriented programming, a unit is often an entire interface, such as a class, but could be an individual method. By writing tests first for the smallest testable units, then the compound behaviors between those, one can build up comprehensive tests for complex applications.
-
-    The goal of unit testing is to isolate each part of the program and show that the individual parts are correct. A unit test provides a strict, written contract that the piece of code must satisfy. Unit testing allows the programmer to refactor code or upgrade system libraries at a later date, and make sure the module still works correctly (e.g., in regression testing). The procedure is to write test cases for all functions and methods so that whenever a change causes a fault, it can be quickly identified. Unit tests detect changes which may break a design contract.
-
-    Functional testing is a quality assurance (QA) process and a type of black-box testing that bases its test cases on the specifications of the software component under test. Functions are tested by feeding them input and examining the output, and internal program structure is rarely considered (unlike white-box testing). Functional testing is conducted to evaluate the compliance of a system or component with specified functional requirements. Functional testing usually describes what the system does.
-
-    Functional testing does not imply that you are testing a function (method) of your module or class. Functional testing tests a slice of functionality of the whole system.
-
-    | Unit Testing  |  Functional Testing  |
-    |---|---|
-    | It tests the Structure.  |  It tests the Functionality.  |
-    | This is performed by the developer while he codes.  | This is performed by Functional tester in line with User/business documents.  |
-    | Test happens while coding, one code at a time, ensuring the code correctness.  | Test happens after the development is complete and the software reaches the Acceptance testing phase.  |
-    | The cost to quality is low as it impacts just one code/function.  | Cost to correct is much higher as it impacts a set of codes that are interdependent.  |
-    | Testing happens within System Structure.  |  No System Structure Assumptions.  |
-    | White Box Testing Method.  | Black Box testing Method.  |
-    | Third-party tool or created within the development group.  | Test conditions created from Business requirements.  |
-    | Helps in Debugging-process simplification by isolation the code that’s bad.  | It helps in eliminating Functional errors.  |
-    | Mostly, this is Automation testing.  | It’s a Manual Testing process.  |
-
-    Unit testing is fast and helps writing clean code, but doesn’t provide confidence that the system will work as expected. Basically, it tells us where is the problem in the code.
-
-    Functional testing is slow and complex but it ensures that the system will work according to the requirements. Basically, it tells us that what is the problem in the functionality.
 
 
 
@@ -2876,3 +2315,549 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
     - It depends. Here with the first statement, i.e, String a = “abc”, JVM will search for a string with “abc” in String constant pool(SCP) and if its not there it will create a new Object.
     If we wrote second statement similarly, i.e., String b = “abc”, then b will point to same string from SCP.
     However, String b = new String(“abc”) always creates a new String object.
+
+
+### ANDROID TESTING
+
+* **What kind of tests can you write to test your Android application?**
+    - Your app should include the three categories of tests: small, medium, and large:
+
+        - Small tests are unit tests that you can run in isolation from production systems. They typically mock every major component and should run quickly on your machine.
+        - Medium tests are integration tests that sit in between small tests and large tests. They integrate several components, and they run on emulators or real devices.
+        - Large tests are integration and UI tests that run by completing a UI workflow. They ensure that key end-user tasks work as expected on emulators or real devices.
+
+
+* **What is Espresso?** 
+    - Espresso is an open source android user interface (UI) testing framework developed by Google. Espresso is a simple, efficient and flexible testing framework. Google released the Espresso framework in Oct. 2013. Since its 2.0 release Espresso is part of the Android Support Repository. Espresso tests can be written in both Java and Kotlin, a modern programming language to develop android application.
+
+        Espresso automatically synchronizes your test actions with the user interface of your application. The framework also ensures that your activity is started before the tests run. It also let the test wait until all observed background activities have finished. The Espresso API is simple and easy to learn. You can easily perform Android UI tests without the complexity of multi-threaded testing. Google Drive, Maps and some other applications are currently using Espresso.
+
+        Espresso Testing works basically in three blocks:
+
+        - `ViewMatchers` – allows you to find an item in the view
+        - `ViewActions` – allows to execute actions on the elements
+        - `ViewAssertions` – validate a view state
+
+        Base Espresso Test
+
+        ```java
+        onView(ViewMatcher)   //1     
+         .perform(ViewAction) // 2    
+           .check(ViewAssertion);  //3
+        ```
+
+        1. Finds the view
+        2. Performs an action on the view
+        3. Validates a assertioin
+
+        Features of Espresso:
+        - Very simple API and so, easy to learn.
+        - Highly scalable and flexible.
+        - Provides separate module to test Android WebView component.
+        - Provides separate module to validate as well as mock Android Intents.
+        - Provides automatic synchronization between your application and tests.
+
+        Advantages of Espresso:
+        - Backward compatibility
+        - Easy to setup.
+        - Highly stable test cycle.
+        - Supports testing activities outside application as well.
+        - Supports JUnit4
+        - UI automation suitable for writing black box tests. 
+    
+    [Learn more here](https://developer.android.com/training/testing/ui-testing/espresso-testing.html)
+
+
+
+* **What is Robolectric?** 
+    - Robolectric is the industry-standard unit testing framework for Android. With Robolectric, your tests run in a simulated Android environment inside a JVM, without the overhead of an emulator.
+
+        Unlike traditional emulator-based Android tests, Robolectric tests run inside a sandbox which allows allows the Android environment to be precisely configured to the desired conditions for each test, isolates each test from its neighbors, and extends the Android framework with test APIs which provide minute control over the Android framework’s behavior and visibility of state for assertions.
+
+        While much of the Android framework will work as expected inside a Robolectric test, some Android components’ regular behavior doesn’t translate well to unit tests: hardware sensors need to be simulated, system services need to be loaded with test fixture data. In those cases, Robolectric provides a test double that’s suitable for most unit testing scenarios. Robolectric replaced all Android classes by so-called shadow objects. If a method is implemented by Robolectric, it forwards these method calls to the shadow object. Shadow objects behave similar to the Android implementation. If a method is not implemented by the shadow object, it simply returns a default value, e.g., `null` or 0.
+
+        Robolectric handles inflation of views, resource loading, and lots of other stuff that’s implemented in native C code on Android devices. This allows tests to do most things you could do on a real device. It’s easy to provide your own implementation for specific SDK methods too, so you could simulate error conditions or real-world sensor behavior, for example. 
+
+        Robolectric allows a test style that is closer to black box testing, making the tests more effective for refactoring and allowing the tests to focus on the behavior of the application instead of the implementation of Android. 
+
+        Example of test:
+
+    ```java
+    @RunWith(AndroidJUnit4.class)
+    public class MyActivityTest {
+
+      @Test
+      public void clickingButton_shouldChangeResultsViewText() throws Exception {
+        Activity activity = Robolectric.setupActivity(MyActivity.class);
+
+        Button button = (Button) activity.findViewById(R.id.press_me_button);
+        TextView results = (TextView) activity.findViewById(R.id.results_text_view);
+
+        button.performClick();
+        assertThat(results.getText().toString(), equalTo("Testing Android Rocks!"));
+      }
+    }
+    ```
+    
+    [Learn more here](http://robolectric.org/)
+
+* **What are the disadvantages of using Robolectric?** 
+    - Robolectric excels at aiding Unit testing, but does not cover all the functionality a real device or emulator can offer. For example sensors, gps, open-gl etc etc.
+
+        - You'll need an emulator or real device when doing integration or UI testing, so that Activities and services can interact with full android environment (other apps, like using camera app to get a picture for your app), not a limited one. Here you'll need to use the default test framework as it has functions to test UI as well.
+
+        - JNI loading seems not to be supported. So code with native dependency can't be tested.
+
+        - As of now, Robolectric has a hard wired dependency on google maps jar to work. And will download another android.jar from maven. So, project setup may require a bit of a tinkering. Update: as of v3 it seems to pull all dependencies via Gradle without much fuss.
+
+        - Newer Android tools support coverage and reports generation etc, but only when test are run on a device. So with Robolectric you'll have to create extra Gradle tasks (run Jacoco) to do it for you. Update: Gradle 2.9 + ships with jacoco plugin.
+
+        - As both gradle and android build tools are shipping out newer build versions at a fast rate, stable Robolectric versions will sometimes start having problems with the changed build tooling. Most typical problems include: sdk version incompatible, manifest not found, build output paths mismatch, resources not loading, build config issues etc. Some issues are also related to bugs in android tools. At times you may even have to write your own custom test runner or apply workarounds till next version fixes those issues. Check out open issues and configure tests accordingly.
+
+    [Learn more here](https://stackoverflow.com/questions/18271474/robolectric-vs-android-test-framework) 
+
+* **What is UI-Automator?** 
+    - A user interface (UI) test that involves user interactions across multiple apps lets you verify that your app behaves correctly when the user flow crosses into other apps or into the system UI. 
+
+    [Learn more here](https://developer.android.com/training/testing/ui-testing/uiautomator-testing.html)
+
+* **Explain unit test.** 
+   - Unit testing is a software testing method by which individual units of source code, sets of one or more computer program modules together with associated control data, usage procedures, and operating procedures, are tested to determine whether they are fit for use. In object-oriented programming, a unit is often an entire interface, such as a class, but could be an individual method. By writing tests first for the smallest testable units, then the compound behaviors between those, one can build up comprehensive tests for complex applications.
+
+        The goal of unit testing is to isolate each part of the program and show that the individual parts are correct. A unit test provides a strict, written contract that the piece of code must satisfy. Unit testing allows the programmer to refactor code or upgrade system libraries at a later date, and make sure the module still works correctly (e.g., in regression testing). The procedure is to write test cases for all functions and methods so that whenever a change causes a fault, it can be quickly identified. Unit tests detect changes which may break a design contract.
+
+        Unit Testing Techniques:
+        - Black Box Testing - Using which the user interface, input and output are tested.
+        - White Box Testing - used to test each one of those functions behaviour is tested.
+        - Gray Box Testing - Used to execute tests, risks and assessment methods.
+
+- **What Makes a Good Unit Test?**
+    - **Easy to write**. Developers typically write lots of unit tests to cover different cases and aspects of the application’s behavior, so it should be easy to code all of those test routines without enormous effort.
+    - **Readable**. The intent of a unit test should be clear. A good unit test tells a story about some behavioral aspect of our application, so it should be easy to understand which scenario is being tested and — if the test fails — easy to detect how to address the problem. With a good unit test, we can fix a bug without actually debugging the code!
+   
+    - **Reliable**. Unit tests should fail only if there’s a bug in the system under test. That seems pretty obvious, but programmers often run into an issue when their tests fail even when no bugs were introduced. For example, tests may pass when running one-by-one, but fail when running the whole test suite, or pass on our development machine and fail on the continuous integration server. These situations are indicative of a design flaw. Good unit tests should be reproducible and independent from external factors such as the environment or running order.
+    - **Fast**. Developers write unit tests so they can repeatedly run them and check that no bugs have been introduced. If unit tests are slow, developers are more likely to skip running them on their own machines. One slow test won’t make a significant difference; add one thousand more and we’re surely stuck waiting for a while. Slow unit tests may also indicate that either the system under test, or the test itself, interacts with external systems, making it environment-dependent.
+
+* **Advantages and disadvantages of unit testing**
+   -  Advantages:
+        - The earlier a problem is identified, the fewer compound errors occur.
+        - Costs of fixing a problem early can quickly outweigh the cost of fixing it later.
+        - Debugging processes are made easier.
+        - Developers can quickly make changes to the code base.
+        - Developers can also re-use code, migrating it to new projects.
+     
+     - Disadvantages:
+        - Tests will not uncover every bug.
+        - Unit tests only test sets of data and its functionality—it will not catch errors in integration.
+        - More lines of test code may need to be written to test one line of code—creating a potential time investment.
+        - Unit testing may have a steep learning curve, for example, having to learn how to use specific automated software tools.
+        
+        [Learn more here](https://developer.android.com/training/testing/unit-testing/local-unit-tests)
+
+* **Explain instrumented test.** 
+    - Instrumented unit tests are tests that run on physical devices and emulators, and they can take advantage of the Android framework APIs and supporting APIs, such as AndroidX Test. Instrumented tests provide more fidelity than local unit tests, but they run much more slowly. Therefore, we recommend using instrumented unit tests only in cases where you must test against the behavior of a real device. AndroidX Test provides several libraries that make it easier to write instrumented unit tests when necessary. For example, Android Builder classes make it easier to create Android data objects that would otherwise be difficult to build.
+
+    [Learn more here](https://developer.android.com/training/testing/unit-testing/instrumented-unit-tests)
+
+* **What is Mockito and why is used?** 
+    - Mockito is a popular mock framework which can be used in conjunction with JUnit. If you have minimal Android dependencies and need to test specific interactions between a component and its dependency within your app, use a mocking framework to stub out external dependencies in your code. That way, you can easily test that your component interacts with the dependency in an expected way. By substituting Android dependencies with mock objects, you can isolate your unit test from the rest of the Android system while verifying that the correct methods in those dependencies are called. Mockito allows you to create and configure mock objects. Using Mockito greatly simplifies the development of tests for classes with external dependencies.
+
+        If you use Mockito in tests you typically:
+        - Mock away external dependencies and insert the mocks into the code under test
+        - Execute the code under test
+        - Validate that the code executed correctly
+
+   * **Mock objects**
+       Mockito provides several methods to create mock objects:
+        - Using the static `mock()` method.
+        - Using the `@Mock` annotation.
+
+        If you use the `@Mock` annotation, you must trigger the initialization of the annotated fields. The `MockitoRule` does this by calling the static method `MockitoAnnotations.initMocks(this)`. Alternatively you can use `@RunWith(MockitoJUnitRunner.class)`.
+    
+        ```java
+        @RunWith(JUnit4::class)
+        class MainViewModelTest {
+
+            @Mock
+            lateinit var userService: UserService
+            
+            val userRepository = mock(UserRepository::class.java)
+
+            @Before
+            fun setUp() {
+                MockitoAnnotations.initMocks(this)
+                
+                //Here can be used both userService and userRepository
+            }
+          //...
+        }
+        ```
+    
+   * **Mock types**
+    There are two types of mock methods - `mock()` and `spy()`
+
+        `mock()` method creates mock or fake objects. The default behavior of mock methods is to do nothing. `spy()` method, just spy or stub specific methods of a real object. If don't stub some method of mock object, then the real object method is called.
+
+        ```java
+            @Test
+            public void testMockMethod(){
+                List mockList = Mockito.mock(ArrayList.class);
+                mockList.add("hello world");
+                Mockito.verify(mockList).add("hello world");
+                assertEquals(0, mockList.size());
+            }
+            @Test
+            public void testSpyMethod(){
+                List spyList = Mockito.spy(new ArrayList());
+                spyList.add("hello world");
+                Mockito.verify(spyList).add("hello world");
+                assertEquals(1, spyList.size());
+            }
+        ```
+
+        In the above example, when we add an object to a mocked list, the object isn't actually added as the actual add method is not called. However, when we call add on a spied list, the object is actually added as the actual method is called.
+
+    
+    
+   * **Mocking Behavior**
+    There are a lot of method for interaction with mock objects. Some of them:
+        - `when()` - is used to configure simple return behavior for a mock or spy object.
+        - `doReturn()` - is used when we want to return a specific value when calling a method on a mock object. The mocked method is called in case of both mock and spy objects. `doReturn()` can also be used with methods that don’t return any value.
+        - `thenReturn()` - is used when we want to return a specific value when calling a method on a mock object. The mocked method is called in case of mock objects, and real method in case of spy objects. `thenReturn()` always expects a return type.
+        - `verify()` - verify calling of specific method on mock/spy object. 
+
+        ```java
+        @Test
+            public void testThenReturn(){
+                //Create a mock object of the class Calculator
+                Calculator mockCalculator = Mockito.mock(Calculator.class);
+                //Return the value of 30 when the add method is called with the arguments 10 and 20
+                Mockito.when(mockCalculator.add(10, 20)).thenReturn(30);
+                //Asserts that the return value of add method with arguments 10 and 20 is 30
+                assertEquals(mockCalculator.add(10, 20), 30);
+            }
+            @Test
+            public void testDoReturn(){
+                //Create a spy object of the class Calculator
+                Calculator mockCalculator = Mockito.spy(new Calculator());
+                //Return the value of 30 when the add method is called on the spied object with the arguments 10 and 20
+                Mockito.doReturn(30).when(mockCalculator).add(10, 20);
+                //Asserts that the return value of add method with arguments 10 and 20 is 30
+                assertEquals(mockCalculator.add(10, 20), 30);
+            }
+        ```
+
+- **Advantages & Disadvantages of Mockito:**
+    - Advantages:
+        - We can Mock any class or interface as per our need.
+        - It supports Test Spies, not just Mocks, thus it can be used for partial mocking as well.
+    - Disadvantages
+        - Mockito cannot test static classes. So, if you’re using Mockito, it’s recommended to change static classes to Singletons.
+         - Mockito cannot be used to test a private method.
+
+    [Learn more here](http://site.mockito.org/)
+
+* **Describe JUnit test.** 
+    - JUnit is a unit testing framework for the Java programming language. JUnit has been important in the development of test-driven development, and is one of a family of unit testing frameworks which is collectively known as xUnit that originated with SUnit.
+
+        JUnit promotes the idea of "first testing then coding", which emphasizes on setting up the test data for a piece of code that can be tested first and then implemented. This approach is like "test a little, code a little, test a little, code a little." It increases the productivity of the programmer and the stability of program code, which in turn reduces the stress on the programmer and the time spent on debugging.
+
+        Feature of JUnit:
+        - JUnit is an open source framework, which is used for writing and running tests.
+        - Provides annotations to identify test methods.
+        - Provides assertions for testing expected results.
+        - Provides test runners for running tests.
+        - JUnit tests allow you to write codes faster, which increases quality.
+        - JUnit is elegantly simple. It is less complex and takes less time.
+        - JUnit tests can be run automatically and they check their own results and provide immediate feedback. There's no need to manually comb through a report of test results.
+        - JUnit tests can be organized into test suites containing test cases and even other test suites.
+        - JUnit shows test progress in a bar that is green if the test is running smoothly, and it turns red when a test fails.
+
+        A JUnit test fixture is a Java object. With older versions of JUnit, fixtures had to inherit from `junit.framework.TestCase`, but the new tests using JUnit 4 should not do this. Test methods must be annotated by the `@Test` annotation. If the situation requires it it is also possible to define a method to execute before (or after) each (or all) of the test methods with the `@Before` (or `@After`) and `@BeforeClass` (or `@AfterClass`) annotations.
+    
+        ```java
+        import org.junit.*;
+
+        public class FoobarTest {
+            @BeforeClass
+            public static void setUpClass() throws Exception {
+                // Code executed before the first test method
+            }
+
+            @Before
+            public void setUp() throws Exception {
+                // Code executed before each test
+            }
+         
+            @Test
+            public void testOneThing() {
+                // Code that tests one thing
+            }
+
+            @Test
+            public void testAnotherThing() {
+                // Code that tests another thing
+            }
+
+            @Test
+            public void testSomethingElse() {
+                // Code that tests something else
+            }
+
+            @After
+            public void tearDown() throws Exception {
+                // Code executed after each test 
+            }
+         
+            @AfterClass
+            public static void tearDownClass() throws Exception {
+                // Code executed after the last test method 
+            }
+        }
+        ```
+
+        | JUnit 4  | Description  |
+        |---|---|
+        | `@Test` | Identifies a method as a test method.  |
+        | `@Before`  | Executed before each test. It is used to prepare the test environment (e.g., read input data, initialize the class).  |
+        | `@After`  | Executed after each test. It is used to cleanup the test environment (e.g., delete temporary data, restore defaults). It can also save memory by cleaning up expensive memory structures.  |
+        | `@BeforeClass`  | Executed once, before the start of all tests. It is used to perform time intensive activities, for example, to connect to a database. Methods marked with this annotation need to be defined as `static` to work with JUnit.  |
+        | `@AfterClass` | Executed once, after all tests have been finished. It is used to perform clean-up activities, for example, to disconnect from a database. Methods annotated with this annotation need to be defined as `static` to work with JUnit.  |
+        | `@Ignore` or `@Ignore("Why disabled")`  | Marks that the test should be disabled. This is useful when the underlying code has been changed and the test case has not yet been adapted. Or if the execution time of this test is too long to be included. It is best practice to provide the optional description, why the test is disabled.  |
+        | `@Test (expected = Exception.class)`  | Fails if the method does not throw the named exception.  |
+        | `@Test(timeout=100)`  | Fails if the method takes longer than 100 milliseconds  |
+
+    [Learn more here](https://en.wikipedia.org/wiki/JUnit)
+
+
+* **Describe code coverage.** - [Learn more here](https://blog.mindorks.com/generate-global-code-coverage-report-in-android-development-using-jacoco-plugin)
+
+* **JUnit 4 vs JUnit 5**
+    - JUnit 5 aims to adapt Java 8 style of coding and to be more robust and flexible than JUnit 4. One of the main ideas behind the new JUnit version is utilizing the features Java 8 brought to the table (mainly lambdas) to make everybody's life easier. 
+
+    JUnit 4 has everything bundled into single jar file.
+    Junit 5 is composed of 3 sub-projects i.e. JUnit Platform, JUnit Jupiter and JUnit Vintage.
+
+    - **JUnit Platform**. It defines the `TestEngine` API for developing new testing frameworks that runs on the platform.
+    - **JUnit Jupiter**.  It has all new junit annotations and `TestEngine` implementation to run tests written with these annotations.
+    - **JUnit Vintage**. To support running JUnit 3 and JUnit 4 written tests on the JUnit 5 platform.
+
+    Junit 4 requires Java 5 or higher.
+    Junit 5 requires Java 8 or higher.
+
+    A few annotation was changed:
+
+    | Feature | JUnit 4 | JUnit 5 |
+    |---|---|---|
+    | Execute before all test methods in the current class  | `@BeforeClass`  | `@BeforeAll`  |
+    | Execute after all test methods in the current class  | `@AfterClass`  | `@AfterAll`  |
+    | Execute before each test method  | `@Before`  | `@BeforeEach`  |
+    | Execute after each test method  | `@After` | `@AfterEach`  |
+    | Disable a test method / class  | `@Ignore`  | `@Disabled`  |
+    | Tagging and filtering  | `@Category`  | `@Tag`  |
+
+    The most important one is that we can no longer use `@Test` annotation for specifying expectations.
+    The *expected* parameter in JUnit 4:
+    ```
+    @Test(expected = Exception.class)
+    public void shouldRaiseAnException() throws Exception {
+        // ...
+    }
+    ```
+
+    Now, we can use a method *assertThrows*:
+    ```
+    public void shouldRaiseAnException() throws Exception {
+        Assertions.assertThrows(Exception.class, () -> {
+            //...
+        });
+    }
+    ```
+
+    The *timeout* attribute in JUnit 4:
+    ```java
+    @Test(timeout = 1)
+    public void shouldFailBecauseTimeout() throws InterruptedException {
+        Thread.sleep(10);
+    }
+    ```
+
+    Now, the *assertTimeout* method in JUnit 5:
+    ```java
+    @Test
+    public void shouldFailBecauseTimeout() throws InterruptedException {
+        Assertions.assertTimeout(Duration.ofMillis(1), () -> Thread.sleep(10));
+    }
+    ```
+
+    ## Assertions
+    We can now write assertion messages in a lambda in JUnit 5, allowing the lazy evaluation to skip complex message construction until needed:
+    ```java
+    @Test
+    public void shouldFailBecauseTheNumbersAreNotEqual_lazyEvaluation() {
+        Assertions.assertTrue(
+          2 == 3, 
+          () -> "Numbers " + 2 + " and " + 3 + " are not equal!");
+    }
+    ```
+    We can also group assertions in JUnit 5:
+    ```java
+    @Test
+    public void shouldAssertAllTheGroup() {
+        List<Integer> list = Arrays.asList(1, 2, 4);
+        Assertions.assertAll("List is not incremental",
+            () -> Assertions.assertEquals(list.get(0).intValue(), 1),
+            () -> Assertions.assertEquals(list.get(1).intValue(), 2),
+            () -> Assertions.assertEquals(list.get(2).intValue(), 3));
+    }
+    ```
+
+    ## New Annotations for Running Tests
+    The `@RunWith` was used to integrate the test context with other frameworks or to change the overall execution flow in the test cases in JUnit 4.
+
+    With JUnit 5, we can now use the `@ExtendWith` annotation to provide similar functionality.
+
+    As an example, to use the Spring features in JUnit 4:
+    ```java
+    @RunWith(SpringJUnit4ClassRunner.class)
+    @ContextConfiguration(
+      {"/app-config.xml", "/test-data-access-config.xml"})
+    public class SpringExtensionTest {
+        /*...*/
+    }
+    ```
+
+    Now, in JUnit 5 it is a simple extension:
+    ```java
+    @ExtendWith(SpringExtension.class)
+    @ContextConfiguration(
+      { "/app-config.xml", "/test-data-access-config.xml" })
+    public class SpringExtensionTest {
+        /*...*/
+    }
+    ```
+
+    ## @Nested
+    This annotation lets us group tests where it makes sense to do so. We might want to separate tests that deal with addition from tests that deal with division, multiplication, etc; and it provides us with an easy way to `@Disable` certain groups entirely. It also lets us try and make full English sentences as our test output, making it extremely readable.
+
+    ```java
+    @DisplayName("The calculator class: ")
+    class CalculatorTest {
+        Calculator calc;
+
+        @BeforeEach
+        void init() {
+            calc = new Calculator();
+        }
+
+        @Nested
+        @DisplayName("when testing addition, ")
+        class Addition {
+            @Test
+            @DisplayName("with positive numbers ")
+            void positive() {
+                assertEquals(100, calc.add(1,1), "the result should be the sum of the arguments");
+            }
+
+            @Test
+            @DisplayName("with negative numbers ")
+            void negative() {
+                assertEquals(100, calc.add(-1,-1), "the result should be the sum of the arguments");
+            }
+        }
+
+        @Nested
+        @DisplayName("when testing division, ")
+        class Division {
+            @Test
+            @DisplayName("with 0 as the divisor ")
+            void throwsAtZero() {
+                assertThrows(ArithmeticException.class, () -> calc.divide(2,0), "the method should throw and ArithmeticException");
+            }
+        }
+    }
+    ```
+
+
+* **Whats is Test pyramid?**
+    - A test pyramid is a pyramid of where all the different types of tests fits. Mike Cohn came up with this concept in his book *Succeeding with Agile*. It's a great visual metaphor telling you to think about different layers of testing. It also tells you how much testing to do on each layer. Agile testing relies more on automation. It requires a much greater contribution from developers. And it has a different basic philosophy – to prevent bugs.
+
+    ![](assets/test_pyramid.png "test_pyramid")
+
+    Original test pyramid consists of three layers:
+    - Unit Test
+    - Service/Integration Test
+    - UI/GUI Test
+
+    **Unit Test** 
+
+    Unit testing is a software testing method by which individual units of source code, sets of one or more computer program modules together with associated control data, usage procedures, and operating procedures, are tested to determine whether they are fit for use. In object-oriented programming, a unit is often an entire interface, such as a class, but could be an individual method. By writing tests first for the smallest testable units, then the compound behaviors between those, one can build up comprehensive tests for complex applications.
+
+    The goal of unit testing is to isolate each part of the program and show that the individual parts are correct. A unit test provides a strict, written contract that the piece of code must satisfy. Unit testing allows the programmer to refactor code or upgrade system libraries at a later date, and make sure the module still works correctly (e.g., in regression testing). The procedure is to write test cases for all functions and methods so that whenever a change causes a fault, it can be quickly identified. Unit tests detect changes which may break a design contract.
+
+    **Integration Test**
+
+    Integration testing is the phase in software testing  in which individual software modules are combined and tested as a group. Integration testing is conducted to evaluate the compliance of a system or component with specified functional requirements. It occurs after unit testing and before validation testing. Integration testing takes as its input modules that have been unit tested, groups them in larger aggregates, applies tests defined in an integration test plan to those aggregates, and delivers as its output the integrated system ready for system testing.
+
+    **GUI Test**
+
+    GUI testing is a software testing type that checks the Graphical User Interface of the Application Under Test. GUI testing involves checking the screens with the controls like menus, buttons, icons, and all types of bars - toolbar, menu bar, dialog boxes, and windows, etc. The purpose of Graphical User Interface (GUI) Testing is to ensure UI functionality works as per the specification.
+
+* **Unit testing vs Functional testing**
+
+    Unit testing is a software testing method by which individual units of source code, sets of one or more computer program modules together with associated control data, usage procedures, and operating procedures, are tested to determine whether they are fit for use. In object-oriented programming, a unit is often an entire interface, such as a class, but could be an individual method. By writing tests first for the smallest testable units, then the compound behaviors between those, one can build up comprehensive tests for complex applications.
+
+    The goal of unit testing is to isolate each part of the program and show that the individual parts are correct. A unit test provides a strict, written contract that the piece of code must satisfy. Unit testing allows the programmer to refactor code or upgrade system libraries at a later date, and make sure the module still works correctly (e.g., in regression testing). The procedure is to write test cases for all functions and methods so that whenever a change causes a fault, it can be quickly identified. Unit tests detect changes which may break a design contract.
+
+    Functional testing is a quality assurance (QA) process and a type of black-box testing that bases its test cases on the specifications of the software component under test. Functions are tested by feeding them input and examining the output, and internal program structure is rarely considered (unlike white-box testing). Functional testing is conducted to evaluate the compliance of a system or component with specified functional requirements. Functional testing usually describes what the system does.
+
+    Functional testing does not imply that you are testing a function (method) of your module or class. Functional testing tests a slice of functionality of the whole system.
+
+    | Unit Testing  |  Functional Testing  |
+    |---|---|
+    | It tests the Structure.  |  It tests the Functionality.  |
+    | This is performed by the developer while he codes.  | This is performed by Functional tester in line with User/business documents.  |
+    | Test happens while coding, one code at a time, ensuring the code correctness.  | Test happens after the development is complete and the software reaches the Acceptance testing phase.  |
+    | The cost to quality is low as it impacts just one code/function.  | Cost to correct is much higher as it impacts a set of codes that are interdependent.  |
+    | Testing happens within System Structure.  |  No System Structure Assumptions.  |
+    | White Box Testing Method.  | Black Box testing Method.  |
+    | Third-party tool or created within the development group.  | Test conditions created from Business requirements.  |
+    | Helps in Debugging-process simplification by isolation the code that’s bad.  | It helps in eliminating Functional errors.  |
+    | Mostly, this is Automation testing.  | It’s a Manual Testing process.  |
+
+    Unit testing is fast and helps writing clean code, but doesn’t provide confidence that the system will work as expected. Basically, it tells us where is the problem in the code.
+
+    Functional testing is slow and complex but it ensures that the system will work according to the requirements. Basically, it tells us that what is the problem in the functionality.
+
+
+
+
+### Android Design Problem
+
+* **Design Uber App.** - [Learn more here](https://github.com/MindorksOpenSource/ridesharing-uber-lyft-app)
+
+* **Design Facebook App.**
+
+* **Implement search functionality with debounce operator (If user keeps on typing, then cancel the last network call and hit for the present one, How will you achieve that?)**
+
+* **Design a Location Tracking application**
+
+* **Design Twitter.**
+
+* **Design Bookmyshow.**
+
+* **Design Facebook Near-By Friends App.**
+
+* **Design WhatsApp.**
+
+* **Design SnapChat.**
+
+* **Design problems based on location based app.**
+
+* **How to build offline-first app? Explain the architecture.**
+
+* **Design LRU Cache.**
+
+* **Design File Downloader** - [Lear from here](https://github.com/MindorksOpenSource/PRDownloader)
+
+* **HTTP Request vs HTTP Long-Polling vs WebSockets** - [Lear from here](https://www.youtube.com/watch?v=k56H0DHqu5Y)
