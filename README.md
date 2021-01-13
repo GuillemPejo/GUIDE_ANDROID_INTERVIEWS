@@ -1,4 +1,4 @@
-# ANDROID INTERVIEW QUESTIONS
+# 🤖 ANDROID INTERVIEW QUESTIONS
 
 
 This document is a cheat sheet for Android interviews, and I created this because wanted to have repo, where I can prepare for android job interview, without searching question and answers all around the internet and have everything organized in a single document. In almost all answers you can find the links with the source of the answer, where you may read more detailed information on the question. The most of the content is a mixture of different guides found on github, so I want to thank all the contributors for the great effort and time spend, like:
@@ -13,7 +13,7 @@ This document is a cheat sheet for Android interviews, and I created this becaus
 
 ## CONTRIBUTING
 
-Pull Request are highly appreciated. If possible, include a link to the solution/topic. Questions should be fairly straightforward and technical Feel free to create a pull request if you find any mistakes or have better answers. 
+Pull Request are highly appreciated. If possible, include a link to the solution/topic. Questions should be fairly straightforward and technical. Feel free to create a pull request if you find any mistakes or have better answers. 
 Hope this is useful, and thanks!
 
 
