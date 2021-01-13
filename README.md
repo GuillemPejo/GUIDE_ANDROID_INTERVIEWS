@@ -1,12 +1,25 @@
-* [ANDROID BASICS](#core-android)
+* [ANDROID BASICS](#base)
 * [ACTIVITIES](#activity)
-* [FRAGMENTS](#android-architecture)
-* [VIEWS AND VIEWGROUPS, AND LAYOUTS](#android-design-problem)
-* [Android Unit Testing](#android-unit-testing)
-* [Android Tools And Technologies](#android-tools-and-technologies)
-* [Java and Kotlin](#java-and-kotlin)
-* [Data Structures And Algorithms](#data-structures-and-algorithms)
-* [Other Topics](#other-topics)
+* [FRAGMENTS](#fragments)
+* [VIEWS AND LAYOUTS](#views-and-layout)
+* [DIALOGS AND TOAST](#dialog-and-views)
+* [CONTENT PROVIDERS](#content-providers)
+* [INTENTS AND BROADCASTING](#intents-and-broadcasting)
+* [TASKS AND INTER-PROCESS COMMUNICATION](#task-and-inter-process-communication)
+* [DISPLAYING LIST OF CONTENT](#displaying-list-of-content)
+* [DATA SAVING](#data-saving)
+* [PERMISIONS](#permisions)
+* [ANDROID BATTERY](#android-battery)
+* [ANDROID SYSTEM INTERNAL](#android-system-internal)
+* [ANDROID SECURITY](#android-security)
+* [JETPACK](#jetpack)
+* [ARCHITECTURE](#architecture)
+* [ANDROID LIBRARIES](#android-libraries)
+* [ANDROID TOOLS](#android-tools)
+* [ANDROID TESTING](#android-testing)
+* [ANDROID DESIGN PROBLEMS](#android-design-problems)
+
+
 
 
 
@@ -849,7 +862,7 @@ savedInstanceState.Also it won't affect the performance even if there are large 
 
 
 * **Describe how broadcasts and intents work to be able to pass messages around your app?** 
-    - 
+    - a
 
     [Learn more here](https://stackoverflow.com/questions/7276537/using-a-broadcast-intent-broadcast-receiver-to-send-messages-from-a-service-to-a) or [here](http://www.techotopia.com/index.php/Android\_Broadcast\_Intents\_and\_Broadcast\_Receivers)
 
@@ -1129,7 +1142,7 @@ How to disallow serialization? We can declare the variable as transient.
     [Learn more here](https://stackoverflow.com/a/50114007/497132)
 
 
-#### Inter-process Communication
+#### TASKS AND INTER-PROCESS COMMUNICATION
 
 * **Is it possible to run an Android app in multiple processes? How?** 
     - You can specify android:process=":remote" in your manifest to have an activity/service run in a seperate process.
@@ -1188,7 +1201,7 @@ How to disallow serialization? We can declare the variable as transient.
 
 * **How do you find memory leaks in Android applications?** - [Learn more here](https://blog.mindorks.com/practical-guide-to-solve-out-of-memory-error-in-android-application) and [here](https://mindorks.com/blog/detecting-and-fixing-memory-leaks-in-android)
 
-### DISPLAYING LIST OF CONTENT
+#### DISPLAYING LIST OF CONTENT
 
 * **What is RecyclerView?**
     - RecyclerView is a ViewGroup, which populates a list on a collection of data provided with the help of ViewHolder and draws it to the user on-screen.
@@ -1335,7 +1348,7 @@ How to disallow serialization? We can declare the variable as transient.
         [Learn more here](https://blog.mindorks.com/what-are-the-different-protection-levels-in-android-permission) or [here](https://developer.android.com/guide/topics/manifest/permission-element.html)
 
 
-#### Android Battery Related
+#### ANDROID BATTERY
 
 -   **How do you reduce battery consumption?**
     - **Reduce network calls as much as you can:** Cache your data and retrieve it from the cache when required next time.
@@ -1372,7 +1385,7 @@ How to disallow serialization? We can declare the variable as transient.
 
     [Learn more here](https://developer.android.com/topic/performance/rendering/overdraw.html)
 
-#### Android System Internal
+#### ANDROID SYSTEM INTERNAL
 
 
 * **What is the NDK and why is it useful?** 
@@ -1554,6 +1567,34 @@ How to disallow serialization? We can declare the variable as transient.
         - Log.d (String, String) (debug)
         - Log.v (String, String) (verbose log)
 
+#### ANDROID SECURITY
+-   **How do you know if the device is rooted?**<br/>
+    - We can check if superUser apk is installed in the device or if it contains su file or xbin folder. Alternatively you can use RootBeer library available in GitHub.
+
+-   **What is Symmetric Encryption?**<br/>
+    - Symmetric encryption deals with creating a passphrase and encrypting the file with it. Then the server needs to send the key to the client so that the client can decrypt. Here the problem is sending that key to decrypt the file. Hackers can easily access that key and could misuse the data.
+
+-   **What is Asymmetric Encryption?**<br/>
+    - Using algorithms like RSA, the server generates 2 keys - public key and private key. The server then gives public key to clients. Client then encrypts the sensitive data with that public key and send it back to server.-Now as the server alone has the private key, only it can decrypt the data. This is the most efficient way of sending data across the client and server.
+
+        Example of this Asymmetric encryption are HTTPS using SSL certificate, Bitcoin, etc.
+
+    * **Some security tips**
+        - **User data**
+            - **Store private data within internal storage**. Store all private user data within the device's internal storage, which is sandboxed per app. Your app doesn't need to request permission to view these files, and other apps cannot access the files. As an added security measure, when the user uninstalls an app, the device deletes all files that the app saved within internal storage.
+           
+            - **Store data in external storage based on use case**. Use external storage for large, non-sensitive files that are specific to your app, as well as files that your app shares with other apps.
+            - **Check validity of data**. If your app uses data from external storage, make sure that the contents of the data haven't been corrupted or modified. Your app should also include logic to handle files that are no longer in a stable format.
+            - **Store only non-sensitive data in cache files**. To provide quicker access to non-sensitive app data, store it in the device's cache. For caches larger than 1 MB in size, use `getExternalCacheDir()`; otherwise, use `getCacheDir()`. Each method provides you with the `File` object that contains your app's cached data.
+            - **Use SharedPreferences in private mode**. When using `getSharedPreferences()` to create or access your app's `SharedPreferences` objects, use `MODE_PRIVATE`. That way, only your app can access the information within the shared preferences file.
+
+        - **Other**
+            - **Code Obfuscation**. Protect the source code by making it unintelligible for both humans and decompiler. All this, while preserving its entire operations during the compilation. The purpose of the obfuscation process is to give an impenetrable code. It promotes the confidentiality of all intellectual properties against reverse engineering.
+            
+            - **Data encryption**. Mobile app security involves securing all kinds of stored data on the mobile device. It includes the source code as well as the data transmitted between the application and the back-end server. The execution of certificate pinning helps affirm the backend Web service certificate for the application. High-level data encryption is one of the best android mobile app security practices. It protects the valuable data from hackers.
+            - **Regular Updation And Testing**. Hackers detect vulnerabilities in software and exploit, while developers repair the breach, which causes hackers to discover another weakness. Although Google cannot avoid the development of these vulnerabilities, it effectively updates the Android OS to counter the detected problems. However, these measures will not be useful if the software is not up-to-date. Penetration testing is another method for server-side checks.
+
+
 #### ANDROID JETPACK
 
 * **What is Android Jetpack and why to use this?** 
@@ -1682,149 +1723,70 @@ How to disallow serialization? We can declare the variable as transient.
 * **How ViewModel work internally?** - [Learn more here](https://blog.mindorks.com/android-viewmodels-under-the-hood)
 
 
-### Android Security Related
--   **How do you know if the device is rooted?**<br/>
-    - We can check if superUser apk is installed in the device or if it contains su file or xbin folder. Alternatively you can use RootBeer library available in GitHub.
+#### ARCHITECTURE
 
--   **What is Symmetric Encryption?**<br/>
-    - Symmetric encryption deals with creating a passphrase and encrypting the file with it. Then the server needs to send the key to the client so that the client can decrypt. Here the problem is sending that key to decrypt the file. Hackers can easily access that key and could misuse the data.
+* **S.O.L.I.D Principles in Android development**</br>
+   * [Answer](https://github.com/anitaa1990/Today-I-Learned/blob/master/android/solid_principle.md)</br>  
+  
 
--   **What is Asymmetric Encryption?**<br/>
-    - Using algorithms like RSA, the server generates 2 keys - public key and private key. The server then gives public key to clients. Client then encrypts the sensitive data with that public key and send it back to server.-Now as the server alone has the private key, only it can decrypt the data. This is the most efficient way of sending data across the client and server.
+ **Difference between MVC & MVP & MVVM?**</br>
+   * **MVC** is the Model-View-Controller architecture where model refers to the data model classes. The view refers to the xml files and the controller handles the business logic. The issue with this architecture is unit testing. The model can be easily tested since it is not tied to anything. The controller is tightly coupled with the android apis making it difficult to unit test. Modularity & flexibility is a problem since the view and the controller are tightly coupled. If we change the view, the controller logic should also be changed. Maintenance is also an issues.
+   
+   * **MVP architecture**: Model-View-Presenter architecture. The View includes the xml and the activity/fragment classes. So the activity would ideally implement a view interface making it easier for unit testing (since this will work without a view). 
+        [Sample Implementation](https://github.com/anitaa1990/Inshorts) 
+   * **MVVM**: Model-View-ViewModel Architecture. The Model comprises data, tools for data processing, business logic.  The View Model is responsible for wrapping the model data and preparing the data for the view. IT also provides a hook to pass events from the view to the model.  
 
-        Example of this Asymmetric encryption are HTTPS using SSL certificate, Bitcoin, etc.
+        [Sample Implementation](https://github.com/anitaa1990/Trailers)</br></br>
 
-    * **Some security tips**
-        - **User data**
-            - **Store private data within internal storage**. Store all private user data within the device's internal storage, which is sandboxed per app. Your app doesn't need to request permission to view these files, and other apps cannot access the files. As an added security measure, when the user uninstalls an app, the device deletes all files that the app saved within internal storage.
-           
-            - **Store data in external storage based on use case**. Use external storage for large, non-sensitive files that are specific to your app, as well as files that your app shares with other apps.
-            - **Check validity of data**. If your app uses data from external storage, make sure that the contents of the data haven't been corrupted or modified. Your app should also include logic to handle files that are no longer in a stable format.
-            - **Store only non-sensitive data in cache files**. To provide quicker access to non-sensitive app data, store it in the device's cache. For caches larger than 1 MB in size, use `getExternalCacheDir()`; otherwise, use `getCacheDir()`. Each method provides you with the `File` object that contains your app's cached data.
-            - **Use SharedPreferences in private mode**. When using `getSharedPreferences()` to create or access your app's `SharedPreferences` objects, use `MODE_PRIVATE`. That way, only your app can access the information within the shared preferences file.
+-   **What is the role of Presenter in MVP?**<br/>
+    : The Presenter is responsible to act as the middle man between View and Model. It retrieves data from the Model and returns it formatted to the View. But unlike the typical MVC, it also decides what happens when you interact with the View.
 
-        - **Other**
-            - **Code Obfuscation**. Protect the source code by making it unintelligible for both humans and decompiler. All this, while preserving its entire operations during the compilation. The purpose of the obfuscation process is to give an impenetrable code. It promotes the confidentiality of all intellectual properties against reverse engineering.
-            
-            - **Data encryption**. Mobile app security involves securing all kinds of stored data on the mobile device. It includes the source code as well as the data transmitted between the application and the back-end server. The execution of certificate pinning helps affirm the backend Web service certificate for the application. High-level data encryption is one of the best android mobile app security practices. It protects the valuable data from hackers.
-            - **Regular Updation And Testing**. Hackers detect vulnerabilities in software and exploit, while developers repair the breach, which causes hackers to discover another weakness. Although Google cannot avoid the development of these vulnerabilities, it effectively updates the Android OS to counter the detected problems. However, these measures will not be useful if the software is not up-to-date. Penetration testing is another method for server-side checks.
+-   **What is the advantage of MVVM over MVP?**<br/>
+    : In MVP, Presenter is responsible for view data updates as well as data operations where as in MVVM, ViewModel does not hold any reference to View. It is the View's responsibility to pick the changes from ViewModel. This helps in writing more maintainable test cases since ViewModel does not depend upon View.
 
-#### Others
+* **Describe the architecture of your last app.**
 
-* **Arraymap/SparseArray vs HashMap in Android?**</br>
-   * [Article 1 on the subject](https://android.jlelse.eu/app-optimization-with-arraymap-sparsearray-in-android-c0b7de22541a)
-   * [Article 2 on the subject](https://medium.com/@mohom.r/optimising-android-app-performance-with-arraymap-9296f4a1f9eb) </br>
+* **Describe MVP.** - [Learn more here](https://mindorks.com/course/android-mvp-introduction)
 
-* **Why Bundle class is used for data passing and why cannot we use simple Map data structure?** - [Learn more here](https://developer.android.com/guide/components/activities/parcelables-and-bundles)
+* **Describe MVVM.** - [Learn more here](https://blog.mindorks.com/mvvm-architecture-android-tutorial-for-beginners-step-by-step-guide) and [here](https://www.youtube.com/watch?v=HJMZNF-tG-4)
 
-* **How do you troubleshoot a crashing application?** - [Learn more here](https://developer.android.com/topic/performance/vitals/crash)
+* **MVC vs MVP vs MVVM architecture.** - [Learn more here](https://blog.mindorks.com/mvc-mvp-mvvm-architecture-in-android)
 
-* **Explain Android notification system?** 
-    - A notification is a message that Android displays outside your app's UI to provide the user with reminders, communication from other people, or other timely information from your app. Users can tap the notification to open your app or take an action directly from the notification.
+* **What is presenter?** - [Learn more here](https://mindorks.com/course/android-mvp-introduction)
 
-        Notifications appear to users in different locations and formats, such as an icon in the status bar, a more detailed entry in the notification drawer, as a badge on the app's icon, and on paired wearables automatically. Beginning with Android 5.0, notifications can appear on the lock screen.
+* **What is model?** - [Learn more here](https://mindorks.com/course/android-mvp-introduction)
 
-        Starting in Android 8.0 (API level 26), all notifications must be assigned to a channel or it will not appear. By categorizing notifications into channels, users can disable specific notification channels for your app (instead of disabling all your notifications), and users can control the visual and auditory options for each channel—all from the Android system settings.
+* **Describe MVC.** - [Learn more here](https://blog.mindorks.com/mvc-mvp-mvvm-architecture-in-android)
+
+* **Describe MVI** - [Le
+arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Beginners)
+
+* **Describe the repository pattern** - [Learn more here](https://blog.mindorks.com/android-mvp-architecture-extension-with-interactors-and-repositories-bd4b51972339)
+
+* **What is controller?** - [Learn more here](https://blog.mindorks.com/mvc-mvp-mvvm-architecture-in-android)
+
+* **Tell something about clean code** - [Learn more here](https://blog.mindorks.com/every-programmer-should-read-this-book-6755dedec78d)
+
+* **What is a singleton class in Android?**</br>
+    - A singleton class is a class which can create only an object that can be shared all other classes.
+
+   ```java
+   private static volatile RESTService instance;
+    protected RESTService(Context context) {
+        super(context);
+    }
     
-    [Learn more here](https://blog.mindorks.com/how-to-increase-push-notification-delivery-rate-in-android)
-
-
-* **FlatBuffers vs JSON.**  
-    - FlatBuffers are an efficient cross platform serialization library for C++, C#, C, Go, Java, JavaScript, PHP, and Python. They were originally created at Google for game development, and other performance-critical applications.
-    
-        For storing data in DB or in filesystems such as S3, JSON should be the obvious choice. This is because it allows you to query these systems without writing additional code using already available tools. For squeezing more data, you can always use GZIP or LZ4 compression which is supported out of the box in most of the systems these days.
-
-        However for inter-communications between various REST services or streaming systems (e.g. Kafka) , you should prefer protocol buffers or flat buffers. This is because of the significant difference between the serialization/deserialization performance of these two vs JSON which I’ll show later. Also, the memory footprint is much smaller in flatbuffers.
-
-        Flatbuffers should only be used for cases where the object is large and you normally need to extract only one or two entities out of it. This is because the code for making a flatbuffer object is much more than that needed for protobuf and JSON. Even converting from/to JSON is not supported in flatbuffers which is essential for logging in many cases.
-
-        [Learn more here](https://blog.mindorks.com/why-consider-flatbuffer-over-json-2e4aa8d4ed07)
-
-* **`HashMap`, `ArrayMap` and `SparseArray`** - [Learn more here](https://blog.mindorks.com/android-app-optimization-using-arraymap-and-sparsearray-f2b4e2e3dc47)
-
-
-* **What are Annotations?** - 
-    Annotations are Metadata. And Metadata is a set of data that gives information about other data.
-    
-    - **Nullness annotations**
-
-        - `@Nullable` and `@NonNull` annotations are used to check the nullness of a given variable, parameter, or even the return value.
-
-        - `@Nullable` : It indicates a variable, parameter, or return value that can a null.
-
-        - `@NonNUll` : It indicates a variable, parameter, or return value that cannot be null.
-
-        Example: 
-        ```java
-        @NonNull
-        public View getView(@Nullable String s1, @NonNull String s2) {
-         // s1 can be null
-         // s2 should not be null
-         // it must return non null view
-        }
-        ```
-    - **Resource annotations**
-
-        As we know that Android references to resources, such as drawable and string resources, are passed as integers so we must validate the resource types. Code that expects a parameter to reference a specific type of resource, for example Drawables, can be passed the expected reference type of int, but actually reference a different type of resource, such as an R.string resource. 
-        
-        ```java
-        public void setText(@StringRes int resId) {
-          // resId must be string resources
-          // resId should not be a normal int
-        }
-        ```
-    - **Thread annotations**
-        Thread annotations check if a method is called from a specific type of thread from which it is intended to be called.Supported annotations are
-            - `@MainThread`
-            - `@UiThread`
-            - `@WorkerThread`
-            - `@BinderThread`
-            - `@AnyThread`
-        ```java
-            @WorkerThread
-            public void doSomething(){
-              // this method must be called from the worker thread
+    public static RESTService getInstance(Context context) {
+    if (instance == null) {
+       synchronized (RESTService.class) {
+          if (instance == null) instance = new RESTService(context);
             }
-        ```
-            
-    - **Value constraint annotations**
+        }
+        return instance;
+    }
+    ```
 
-        Sometimes, we have to put some constraints on the parameters, so use the `@IntRange`, `@FloatRange`, and `@Size` annotations to validate the values of passed parameters.
-
-        These are useful when the caller of the method are likely to pass the wrong value(out of the specified range).
-
-        Here, in the below example, the `@IntRange` annotation ensures that an integer value which will be passed must be in a range of 0 to 255.
-
-        ```java
-        public void setAlpha(@IntRange(from=0,to=255) int alpha) {}
-        ```
-
-    - **Permission annotations**
-
-        Use the `@RequiresPermission` annotation to validate the permissions of the caller of a method.The following example annotates the `setWallpaper()` method to ensure that the caller of the method has the `permission.SET_WALLPAPERS` permission:
-        ```java
-        @RequiresPermission(Manifest.permission.SET_WALLPAPER)
-        public abstract void setWallpaper(Bitmap bitmap) throws IOException;
-        ```
-
-        [Learn more here](https://blog.mindorks.com/creating-custom-annotations-in-android-a855c5b43ed9), or [here](https://blog.mindorks.com/improve-your-android-coding-through-annotations-26b3273c137a), or [from video](https://www.youtube.com/watch?v=LEb9if2HHSw)
-
-
-* **How to create custom Annotation?** - [Learn more here](https://blog.mindorks.com/creating-custom-annotations-in-android-a855c5b43ed9) and [here](https://www.youtube.com/watch?v=LEb9if2HHSw)
-
-* **How to handle multi-touch in android?** - [Learn more here](https://developer.android.com/training/gestures/multi)
-
-* **How to implement XML namespaces?** - [Learn more here](https://developer.android.com/reference/javax/xml/namespace/NamespaceContext)
-
-* **What is the support library? Why was it introduced?** - [Learn more here](https://developer.android.com/topic/libraries/support-library)
-
-* **What is Android Data Binding?** - [Learn more here](https://developer.android.com/topic/libraries/data-binding/index.html)
-
-* **How to check if Software keyboard is visible or not?** - [Learn more here](https://blog.mindorks.com/how-to-check-the-visibility-of-software-keyboard-in-android)
-
-* **How to take screenshot in Android programmatically?** - [Learn more here](https://blog.mindorks.com/how-to-programmatically-take-a-screenshot-on-android)
-
-### Android Libraries
+#### ANDROID LIBRARIES
 
 * Have you use an HTTP Library, which, why, did you like it?
 * Describe how REST APIs work.
@@ -1911,72 +1873,9 @@ How to disallow serialization? We can declare the variable as transient.
 
 * **What is Flow in Kotlin?** - [Learn more here](https://blog.mindorks.com/what-is-flow-in-kotlin-and-how-to-use-it-in-android-project)
 
-### ARCHITECTURE
-
-* **S.O.L.I.D Principles in Android development**</br>
-   * [Answer](https://github.com/anitaa1990/Today-I-Learned/blob/master/android/solid_principle.md)</br>  
-  
-
- **Difference between MVC & MVP & MVVM?**</br>
-   * **MVC** is the Model-View-Controller architecture where model refers to the data model classes. The view refers to the xml files and the controller handles the business logic. The issue with this architecture is unit testing. The model can be easily tested since it is not tied to anything. The controller is tightly coupled with the android apis making it difficult to unit test. Modularity & flexibility is a problem since the view and the controller are tightly coupled. If we change the view, the controller logic should also be changed. Maintenance is also an issues.
-   
-   * **MVP architecture**: Model-View-Presenter architecture. The View includes the xml and the activity/fragment classes. So the activity would ideally implement a view interface making it easier for unit testing (since this will work without a view). 
-        [Sample Implementation](https://github.com/anitaa1990/Inshorts) 
-   * **MVVM**: Model-View-ViewModel Architecture. The Model comprises data, tools for data processing, business logic.  The View Model is responsible for wrapping the model data and preparing the data for the view. IT also provides a hook to pass events from the view to the model.  
-
-        [Sample Implementation](https://github.com/anitaa1990/Trailers)</br></br>
-
--   **What is the role of Presenter in MVP?**<br/>
-    : The Presenter is responsible to act as the middle man between View and Model. It retrieves data from the Model and returns it formatted to the View. But unlike the typical MVC, it also decides what happens when you interact with the View.
-
--   **What is the advantage of MVVM over MVP?**<br/>
-    : In MVP, Presenter is responsible for view data updates as well as data operations where as in MVVM, ViewModel does not hold any reference to View. It is the View's responsibility to pick the changes from ViewModel. This helps in writing more maintainable test cases since ViewModel does not depend upon View.
-
-* **Describe the architecture of your last app.**
-
-* **Describe MVP.** - [Learn more here](https://mindorks.com/course/android-mvp-introduction)
-
-* **Describe MVVM.** - [Learn more here](https://blog.mindorks.com/mvvm-architecture-android-tutorial-for-beginners-step-by-step-guide) and [here](https://www.youtube.com/watch?v=HJMZNF-tG-4)
-
-* **MVC vs MVP vs MVVM architecture.** - [Learn more here](https://blog.mindorks.com/mvc-mvp-mvvm-architecture-in-android)
-
-* **What is presenter?** - [Learn more here](https://mindorks.com/course/android-mvp-introduction)
-
-* **What is model?** - [Learn more here](https://mindorks.com/course/android-mvp-introduction)
-
-* **Describe MVC.** - [Learn more here](https://blog.mindorks.com/mvc-mvp-mvvm-architecture-in-android)
-
-* **Describe MVI** - [Le
-arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Beginners)
-
-* **Describe the repository pattern** - [Learn more here](https://blog.mindorks.com/android-mvp-architecture-extension-with-interactors-and-repositories-bd4b51972339)
-
-* **What is controller?** - [Learn more here](https://blog.mindorks.com/mvc-mvp-mvvm-architecture-in-android)
-
-* **Tell something about clean code** - [Learn more here](https://blog.mindorks.com/every-programmer-should-read-this-book-6755dedec78d)
-
-* **What is a singleton class in Android?**</br>
-    - A singleton class is a class which can create only an object that can be shared all other classes.
-
-   ```java
-   private static volatile RESTService instance;
-    protected RESTService(Context context) {
-        super(context);
-    }
-    
-    public static RESTService getInstance(Context context) {
-    if (instance == null) {
-       synchronized (RESTService.class) {
-          if (instance == null) instance = new RESTService(context);
-            }
-        }
-        return instance;
-    }
-    ```
 
 
-
-### Android Tools And Technologies
+#### ANDROID TOOLS
 
 * **Why does Android use SQLite?**
 * **What libraries have you used for interacting with databases and why did you choose them?**
@@ -2326,7 +2225,7 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
     However, String b = new String(“abc”) always creates a new String object.
 
 
-### ANDROID TESTING
+#### ANDROID TESTING
 
 * **What kind of tests can you write to test your Android application?**
     - Your app should include the three categories of tests: small, medium, and large:
@@ -2841,7 +2740,7 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
 
 
 
-### Android Design Problem
+#### ANDROID DESIGN PROBLEMS
 
 * **Design Uber App.** - [Learn more here](https://github.com/MindorksOpenSource/ridesharing-uber-lyft-app)
 
