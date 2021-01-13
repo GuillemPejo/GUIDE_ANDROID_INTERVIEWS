@@ -626,6 +626,17 @@ savedInstanceState.Also it won't affect the performance even if there are large 
 * **What are the best practices for using text in Android?** - [Learn more here](https://blog.mindorks.com/best-practices-for-using-text-in-android)
 
 * **Explain about Density Independence Pixel** - [Learn more here](https://blog.mindorks.com/understanding-density-independent-pixel-sp-dp-dip-in-android)
+
+* **How to check if Software keyboard is visible or not?** 
+    - With the help of viewTreeObserver, we can find if there is some change in the viewGroup in a particular activity or not. After that, we can find the height of the current screen and then the height of the keyboard and by using this height we can determine if the keyboard is visible or not.
+
+    [Learn more here](https://blog.mindorks.com/how-to-check-the-visibility-of-software-keyboard-in-android)
+
+* **How to take screenshot in Android programmatically?** - [Learn more here](https://blog.mindorks.com/how-to-programmatically-take-a-screenshot-on-android)
+
+* **How to handle multi-touch in android?** - [Learn more here](https://developer.android.com/training/gestures/multi)
+
+* **How to implement XML namespaces?** - [Learn more here](https://developer.android.com/reference/javax/xml/namespace/NamespaceContext)
   
 
 #### DIALOGS AND TOAST
@@ -709,6 +720,19 @@ savedInstanceState.Also it won't affect the performance even if there are large 
       * Start by making sure your Android application has the necessary read access permissions. Then, get access to the ContentResolver object by calling getContentResolver() on the Context object, and retrieving the data by constructing a query using ContentResolver.query().</br>
     
       * The ContentResolver.query() method returns a Cursor, so you can retrieve data from each column using Cursor methods.</br> 
+
+* **What are contract classes?** 
+    - A contract class is a public final class that contains constant definitions for the URIs, column names, MIME types, and other meta-data about the ContentProvider. It can also contain static helper methods to manipulate the URIs.
+
+        Why is it used?
+
+            - The Contract Class establishes a contract between the content provider and other applications. It ensures that your content provider can be accessed correctly even if there are changes to the actual values of URIs, column names etc.
+            
+            - Since it provides mnemonic names for its constants, developers are less likely to use incorrect values for column names or URIs.
+            
+            - It's easy to make the Javadoc documentation available to the clients that want to use your content provider.
+
+    [Learn more here](https://stackoverflow.com/a/36265603/497132)      
 
 
 #### INTENTS AND BROADCASTING
@@ -1144,6 +1168,16 @@ How to disallow serialization? We can declare the variable as transient.
 
 #### TASKS AND INTER-PROCESS COMMUNICATION
 
+* **What is IPC?**
+    - IPC is inter-process communication. It describes the mechanisms used by different types of android components to communicate with one another:
+
+        - **Intents** are messages which components can send and receive. It is a universal mechanism of passing data between processes. With help of the intents one can start services or activities, invoke broadcast receivers and so on.
+
+        - **Bundles** are entities of data that is passed through. It is similar to the serialization of an object, but much faster on android. Bundle can be read from intent via the getExtras() method.
+
+        - **Binders** are the entities which allow activities and services to obtain a reference to another service. It allows not simply sending messages to services but directly invoking methods on them.
+
+
 * **Is it possible to run an Android app in multiple processes? How?** 
     - You can specify android:process=":remote" in your manifest to have an activity/service run in a seperate process.
 
@@ -1200,6 +1234,8 @@ How to disallow serialization? We can declare the variable as transient.
     -   Memory leaks happen when you hold on to an object long after its purpose has been served. Every object has got its own lifetime, after which it needs to say goodbye and leave the memory. But if some other object(s) is holding onto this object (directly or indirectly), then the garbage collector will not be able to collect it.
 
 * **How do you find memory leaks in Android applications?** - [Learn more here](https://blog.mindorks.com/practical-guide-to-solve-out-of-memory-error-in-android-application) and [here](https://mindorks.com/blog/detecting-and-fixing-memory-leaks-in-android)
+
+* **Why Bundle class is used for data passing and why cannot we use simple Map data structure?** - [Learn more here](https://developer.android.com/guide/components/activities/parcelables-and-bundles)
 
 #### DISPLAYING LIST OF CONTENT
 
@@ -1335,6 +1371,54 @@ How to disallow serialization? We can declare the variable as transient.
     - `apply()` is asynchronous and it won't return any boolean response. If you have an apply() outstanding and you are performing commit(), then the commit() will be blocked until the apply() is not completed.
 
 * **How to encrypt data in Android?** - [Learn more here](https://blog.mindorks.com/how-to-encrypt-data-safely-on-device-and-use-the-androidkeystore)
+
+* **Why does Android use SQLite?**
+
+* **What libraries have you used for interacting with databases and why did you choose them?**
+
+* **How do you use the BaseColumns interface to describe your data schema?** [[info]](https://stackoverflow.com/a/7900591/497132)
+
+* **What is Realm?**
+    - Realm is a database, which isn’t SQLite-based (it brings its own core)
+    - it’s generally called an “object database”: your objects are mapped directly, and many-relations are mapped directly as a list, instead of with JOINs across multiple tables
+    - Realm not only handles storing your data, but it also keeps queried data up to date, and calls any registered change listeners when your data has been modified, allowing you to keep the UI up to date with minimal effort
+    - Most importantly, due to lazy evaluation of RealmResults’ elements, you don’t need to implement pagination logic — just get a RealmResults, throw it in a RealmRecyclerViewAdapter, and it’s good to go — in that case, even the listener that keeps the RecyclerView updated is managed automatically.
+
+* **Why would I use Realm instead of SQLite/DbFlow/Requery/SQLDelight/Room?**
+    - Because Realm requires less knowledge of how relational databases are supposed to be designed, and how to manage your relations.
+
+        Even with configuration-based helpers like in Room, relation management can be tricky compared to links in Realm. 
+
+
+* **Room vs SQLite** 
+    - SQLite is an in-process library that implements a self-contained, serverless, zero-configuration, transactional SQL database engine. 
+
+        SQLite is an embedded SQL database engine. Unlike most other SQL databases, SQLite does not have a separate server process. SQLite reads and writes directly to ordinary disk files. A complete SQL database with multiple tables, indices, triggers, and views, is contained in a single disk file. The database file format is cross-platform - you can freely copy a database between 32-bit and 64-bit systems or between big-endian and little-endian architectures
+
+        The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access while harnessing the full power of SQLite.
+
+        The library helps you create a cache of your app's data on a device that's running your app. This cache, which serves as your app's single source of truth, allows users to view a consistent copy of key information within your app, regardless of whether users have an internet connection.
+
+        Room is an ORM, Object Relational Mapping library. In other words, Room will map our database objects to Java objects. Room provides an abstraction layer over SQLite to allow fluent database access while harnessing the full power of SQLite.
+
+        Difference between SQLite and Room persistence library:
+        - In the case of SQLite, There is no compile-time verification of raw SQLite queries. But in Room, there is SQL validation at compile time.
+        - You need to use lots of boilerplate code to convert between SQL queries and Java data objects. But, Room maps our database objects to Java Object without boilerplate code.
+        - As your schema changes, you need to update the affected SQL queries manually. Room solves this problem.
+        - Room is built to work with LiveData and RxJava for data observation, while SQLite does not.
+
+* **FlatBuffers vs JSON.**  
+    - FlatBuffers are an efficient cross platform serialization library for C++, C#, C, Go, Java, JavaScript, PHP, and Python. They were originally created at Google for game development, and other performance-critical applications.
+    
+        For storing data in DB or in filesystems such as S3, JSON should be the obvious choice. This is because it allows you to query these systems without writing additional code using already available tools. For squeezing more data, you can always use GZIP or LZ4 compression which is supported out of the box in most of the systems these days.
+
+        However for inter-communications between various REST services or streaming systems (e.g. Kafka) , you should prefer protocol buffers or flat buffers. This is because of the significant difference between the serialization/deserialization performance of these two vs JSON which I’ll show later. Also, the memory footprint is much smaller in flatbuffers.
+
+        Flatbuffers should only be used for cases where the object is large and you normally need to extract only one or two entities out of it. This is because the code for making a flatbuffer object is much more than that needed for protobuf and JSON. Even converting from/to JSON is not supported in flatbuffers which is essential for logging in many cases.
+
+        [Learn more here](https://blog.mindorks.com/why-consider-flatbuffer-over-json-2e4aa8d4ed07)
+
+
 
 #### PERMISIONS
 
@@ -1594,6 +1678,14 @@ How to disallow serialization? We can declare the variable as transient.
             - **Data encryption**. Mobile app security involves securing all kinds of stored data on the mobile device. It includes the source code as well as the data transmitted between the application and the back-end server. The execution of certificate pinning helps affirm the backend Web service certificate for the application. High-level data encryption is one of the best android mobile app security practices. It protects the valuable data from hackers.
             - **Regular Updation And Testing**. Hackers detect vulnerabilities in software and exploit, while developers repair the breach, which causes hackers to discover another weakness. Although Google cannot avoid the development of these vulnerabilities, it effectively updates the Android OS to counter the detected problems. However, these measures will not be useful if the software is not up-to-date. Penetration testing is another method for server-side checks.
 
+* **Are SQL Injection attacks valid in Android? How would you prevent them?**
+    - Are SQL Injection attacks valid in Android? How would you prevent them?
+        If you are using data and retrieving it from components or network components that at the end perform an SQL query, SQL injections are an issue. Besides using validation in input fields or libraries to avoid SQL injections, another possible solution is to use parameterized queries with ContentProviders, which virtually remove the risk of suffering an SQL Injection.
+
+* **How to save password safely in Android?**<br/>
+    - Using Android Keystore. 
+
+    [Learn more here](https://medium.com/@josiassena/using-the-android-keystore-system-to-store-sensitive-information-3a56175a454b)
 
 #### ANDROID JETPACK
 
@@ -1739,10 +1831,10 @@ How to disallow serialization? We can declare the variable as transient.
         [Sample Implementation](https://github.com/anitaa1990/Trailers)</br></br>
 
 -   **What is the role of Presenter in MVP?**<br/>
-    : The Presenter is responsible to act as the middle man between View and Model. It retrieves data from the Model and returns it formatted to the View. But unlike the typical MVC, it also decides what happens when you interact with the View.
+    - The Presenter is responsible to act as the middle man between View and Model. It retrieves data from the Model and returns it formatted to the View. But unlike the typical MVC, it also decides what happens when you interact with the View.
 
 -   **What is the advantage of MVVM over MVP?**<br/>
-    : In MVP, Presenter is responsible for view data updates as well as data operations where as in MVVM, ViewModel does not hold any reference to View. It is the View's responsibility to pick the changes from ViewModel. This helps in writing more maintainable test cases since ViewModel does not depend upon View.
+    - In MVP, Presenter is responsible for view data updates as well as data operations where as in MVVM, ViewModel does not hold any reference to View. It is the View's responsibility to pick the changes from ViewModel. This helps in writing more maintainable test cases since ViewModel does not depend upon View.
 
 * **Describe the architecture of your last app.**
 
@@ -1804,7 +1896,6 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
 -   **Advantage of Volley over Retrofit?**<br/>
     - Android Volley has a very elaborate and flexible cache mechanism. When a request is made through Volley, first the cache is checked for Response. If it is found, then it is fetched and parsed, else, it will hit Network to fetch the data. Retrofit does not support cache by default.
 
-* **How will you handle error in RxJava?** - [Learn more here](https://blog.mindorks.com/error-handling-in-rxjava)
 
 -   **What is the advantage of using Retrofit over AsyncTask?**<br/>
     - Retrofit reduces boiler plate code by internally using GSON library which helps parsing the json file automatically.
@@ -1861,6 +1952,36 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
         - **Modern**: Coil is Kotlin-first and uses modern libraries including Coroutines, OkHttp, Okio, and AndroidX Lifecycles.
 
 
+* **Dependency injection libraries**
+
+    - [Dagger 2](https://github.com/google/dagger) - A fast dependency injector for Java and Android. Dagger is a compile-time framework for dependency injection. It uses no reflection or runtime bytecode generation, does all its analysis at compile-time, and generates plain Java source code.
+
+        One of the primary advantages of Dagger 2 over most other dependency injection frameworks is that its strictly generated implementation (no reflection) means that it can be used in Android applications.
+
+    - [Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - Hilt is a dependency injection library for Android that reduces the boilerplate of doing manual dependency injection in your project. 
+
+        Hilt provides a standard way to use DI in your application by providing containers for every Android class in your project and managing their lifecycles automatically. Hilt is built on top of the popular DI library Dagger to benefit from the compile-time correctness, runtime performance, scalability, and Android Studio support that Dagger provides.
+
+    - [Koin](https://github.com/InsertKoinIO/koin) - A pragmatic lightweight dependency injection framework for Kotlin developers. Written in pure Kotlin, using functional resolution only: no proxy, no code generation, no reflection. Koin is a DSL, a lightweight container and a pragmatic API.
+
+    - [Kodein](https://github.com/Kodein-Framework/Kodein-DI) - is a very simple and yet very useful dependency retrieval container. it is very easy to use and configure.
+
+    Kodein-DI allows you to:
+
+    - Lazily instantiate your dependencies when needed
+    - Stop caring about dependency initialization order
+    - Easily bind classes or interfaces to their instance or provider
+    - Easily debug your dependency bindings and recursions
+
+    Kodein-DI is a good choice because:
+
+    - It proposes a very simple and readable declarative DSL
+    - It is not subject to type erasure (as Java is)
+    - It integrates nicely with Android
+    - It proposes a very kotlin-esque idiomatic API
+    - It is fast and optimized (makes extensive use of inline)
+    - It can be used in plain Java
+
 
 * **What is dependency injection?**
     - Dependency Injection is a design pattern to implement inversion of control, and to resolve dependencies. Dependency Injection (DI) eliminates boilerplate code (for example, by removing listener) and provides a much cleaner and more effective code.
@@ -1877,81 +1998,15 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
 
 #### ANDROID TOOLS
 
-* **Why does Android use SQLite?**
-* **What libraries have you used for interacting with databases and why did you choose them?**
-* **What are contract classes?** [[info]](https://stackoverflow.com/a/36265603/497132)
-* **How do you use the BaseColumns interface to describe your data schema?** [[info]](https://stackoverflow.com/a/7900591/497132)
-
-* **What is Realm?**
-    - Realm is a database, which isn’t SQLite-based (it brings its own core)
-    - it’s generally called an “object database”: your objects are mapped directly, and many-relations are mapped directly as a list, instead of with JOINs across multiple tables
-    - Realm not only handles storing your data, but it also keeps queried data up to date, and calls any registered change listeners when your data has been modified, allowing you to keep the UI up to date with minimal effort
-    - Most importantly, due to lazy evaluation of RealmResults’ elements, you don’t need to implement pagination logic — just get a RealmResults, throw it in a RealmRecyclerViewAdapter, and it’s good to go — in that case, even the listener that keeps the RecyclerView updated is managed automatically.
-
-* **Why would I use Realm instead of SQLite/DbFlow/Requery/SQLDelight/Room?**
-    - Because Realm requires less knowledge of how relational databases are supposed to be designed, and how to manage your relations.
-
-        Even with configuration-based helpers like in Room, relation management can be tricky compared to links in Realm. 
-
-
 * **What is ADB?** 
     - ADB is short for Android Debug Bridge. It allows developers the power to execute remote shell commands. Its basic function is to allow and control communication towards and from the emulator port. 
     
     [Learn more here](https://developer.android.com/studio/command-line/adb)
 
-*   **What is AAPT?**<br/>
+* **What is AAPT?** 
     - AAPT2 (Android Asset Packaging Tool) is a build tool that Android Studio and Android Gradle Plugin use to compile and package your app’s resources. AAPT2 parses, indexes, and compiles the resources into a binary format that its optimized for the Android platform.
 
-* **What is an Application Not Responding (ANR) error, and how can you prevent them from occurring in an app?**</br>
-   - An ANR dialog appears when your UI has been unresponsive for more than 5 seconds, usually because you’ve blocked the main thread. To avoid encountering ANR errors, you should move as much work off the main thread as possible.
-
-        The ANR dialog is displayed to the user based on two possible conditions. One is when there is no response to an input event within 5 seconds, and the other is when a broadcast receiver is not done executing within 10 seconds.
-
-    [Learn more here](https://developer.android.com/topic/performance/vitals/anr.html)
-
-* **ANR vs Crash**
-   - An ANR will occur if you are running a process on the UI thread which takes a long time, usually around 5 seconds. During this time the GUI (Graphical User Interface) will lock up which will result in anything the user presses will not be actioned. After the 5 seconds approx has occurred, if the thread still hasn't recovered then an ANR dialogue box is shown informing the user that the application is not responding and will give the user the choice to either wait, in the hope that the app will eventually recover, or to force close the app. 
-    A crash is when an exception within the app has been thrown which has not been handled. For example, if you try to set the text of an `EditText` component, but the `EditText` is null and there is no try catch statement to catch the exception that your app will crash and will be force closed. The user will not see what caused the crash, they will be shown a dialogue telling that the app has force closed unexpectedly and will give them the option to send a bug report. In this example if you were to look in the bug report you would see the error caused by `java.lang.NullPointerException`. 
-
-* **What is StrictMode?**
-    - StrictMode is a developer tool which detects things you might be doing by accident and brings them to your attention so you can fix them.
-
-        StrictMode is most commonly used to catch accidental disk or network access on the application's main thread, where UI operations are received and animations take place. Keeping disk and network operations off the main thread makes for much smoother, more responsive applications. By keeping your application's main thread responsive, you also prevent ANR dialogs from being shown to users. 
     
-    [Learn more here](https://blog.mindorks.com/use-strictmode-to-find-things-you-did-by-accident-in-android-development-4cf0e7c8d997)
-
--   **How to save password safely in Android?**<br/>
-    - Using Android Keystore. 
-
-    [Learn more here](https://medium.com/@josiassena/using-the-android-keystore-system-to-store-sensitive-information-3a56175a454b)
-
-* **Build Type, Product Flavor, Build Variant**
-    * **Build Type:** Build Types controls how to build and package your app, for example whether or not ProGuard is run, how the resulting application package is signed and whether debug symbols are to be included. By default, the build system defines two build types: `debug` and `release`.
-    ![](./assets/build_type.png "Build Type")
-    * **Product Flavor:** Product Flavor configuration defines a customized version of the application build. It can be used to specify custom features, minimum and target API levels, device and API requirements like layout, drawable and custom code. This can help create different label apps as well. Flavours can vary in adding different features or customizing exisitng features, different icons and resources, different styles and strings etc.
-    ![](./assets/product_flavor.png "Product Flavor")
-    * **Build Variant:** The combination of **Build Type** and **Product Flavor** is known as **Build Variant**. For example, for above build types (debug and release) and product flavours (demo and full versions), build variants can be: `demoDebug`, `demoRelease`, `fullDebug`, `fullRelease`.
-
-        [Learn more here](https://developer.android.com/studio/build/build-variants)
-
-
-* **Room vs SQLite** 
-    - SQLite is an in-process library that implements a self-contained, serverless, zero-configuration, transactional SQL database engine. 
-
-        SQLite is an embedded SQL database engine. Unlike most other SQL databases, SQLite does not have a separate server process. SQLite reads and writes directly to ordinary disk files. A complete SQL database with multiple tables, indices, triggers, and views, is contained in a single disk file. The database file format is cross-platform - you can freely copy a database between 32-bit and 64-bit systems or between big-endian and little-endian architectures
-
-        The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access while harnessing the full power of SQLite.
-
-        The library helps you create a cache of your app's data on a device that's running your app. This cache, which serves as your app's single source of truth, allows users to view a consistent copy of key information within your app, regardless of whether users have an internet connection.
-
-        Room is an ORM, Object Relational Mapping library. In other words, Room will map our database objects to Java objects. Room provides an abstraction layer over SQLite to allow fluent database access while harnessing the full power of SQLite.
-
-        Difference between SQLite and Room persistence library:
-        - In the case of SQLite, There is no compile-time verification of raw SQLite queries. But in Room, there is SQL validation at compile time.
-        - You need to use lots of boilerplate code to convert between SQL queries and Java data objects. But, Room maps our database objects to Java Object without boilerplate code.
-        - As your schema changes, you need to update the affected SQL queries manually. Room solves this problem.
-        - Room is built to work with LiveData and RxJava for data observation, while SQLite does not.
-
 * **What is DDMS and what can you do with it?** 
     - DDMS is the Dalvik Debug Monitor Server that ships with Android. It provides a wide array of debugging features including:
 
@@ -1967,32 +2022,88 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
     [Learn more here](https://developer.android.com/studio/profile/monitor)
 
 
-* **What is Lint? What is it used for?** - [Learn more here](https://blog.mindorks.com/what-is-lint-what-is-it-used-for)
+* **What is an Application Not Responding (ANR) error, and how can you prevent them from occurring in an app?**</br>
+   - An ANR dialog appears when your UI has been unresponsive for more than 5 seconds, usually because you’ve blocked the main thread. To avoid encountering ANR errors, you should move as much work off the main thread as possible.
 
-* **Git.** - [Learn more here](https://www.youtube.com/watch?v=D4h8Dbrjt4M&list=PL6nth5sRD25itbyNVUULAebzL-VLrLfkK)
+        The ANR dialog is displayed to the user based on two possible conditions. One is when there is no response to an input event within 5 seconds, and the other is when a broadcast receiver is not done executing within 10 seconds.
 
-* **Android Development Useful Tools.** - [Learn more here](https://blog.mindorks.com/android-development-useful-tools-fd73283e82e3)
+    [Learn more here](https://developer.android.com/topic/performance/vitals/anr.html) or [here](https://developer.android.com/topic/performance/vitals/crash)
 
-* **Firebase.** - [Learn more here](https://firebase.google.com/)
+* **ANR vs Crash**
+   - An ANR will occur if you are running a process on the UI thread which takes a long time, usually around 5 seconds. During this time the GUI (Graphical User Interface) will lock up which will result in anything the user presses will not be actioned. After the 5 seconds approx has occurred, if the thread still hasn't recovered then an ANR dialogue box is shown informing the user that the application is not responding and will give the user the choice to either wait, in the hope that the app will eventually recover, or to force close the app. 
+    A crash is when an exception within the app has been thrown which has not been handled. For example, if you try to set the text of an `EditText` component, but the `EditText` is null and there is no try catch statement to catch the exception that your app will crash and will be force closed. The user will not see what caused the crash, they will be shown a dialogue telling that the app has force closed unexpectedly and will give them the option to send a bug report. In this example if you were to look in the bug report you would see the error caused by `java.lang.NullPointerException`. 
 
-* **How to measure method execution time in Android?** - [Learn more here](https://blog.mindorks.com/measure-method-execution-time-in-android-debug-build)
+* **What is StrictMode?**
+    - StrictMode is a developer tool which detects things you might be doing by accident and brings them to your attention so you can fix them.
 
-* **Are SQL Injection attacks valid in Android? How would you prevent them?**
-    - Are SQL Injection attacks valid in Android? How would you prevent them?
-        If you are using data and retrieving it from components or network components that at the end perform an SQL query, SQL injections are an issue. Besides using validation in input fields or libraries to avoid SQL injections, another possible solution is to use parameterized queries with ContentProviders, which virtually remove the risk of suffering an SQL Injection.
+        StrictMode is most commonly used to catch accidental disk or network access on the application's main thread, where UI operations are received and animations take place. Keeping disk and network operations off the main thread makes for much smoother, more responsive applications. By keeping your application's main thread responsive, you also prevent ANR dialogs from being shown to users. 
+    
+    [Learn more here](https://blog.mindorks.com/use-strictmode-to-find-things-you-did-by-accident-in-android-development-4cf0e7c8d997)
+
+* **Build Type, Product Flavor, Build Variant**
+    * **Build Type:** Build Types controls how to build and package your app, for example whether or not ProGuard is run, how the resulting application package is signed and whether debug symbols are to be included. By default, the build system defines two build types: `debug` and `release`.
+    ![](./assets/build_type.png "Build Type")
+    * **Product Flavor:** Product Flavor configuration defines a customized version of the application build. It can be used to specify custom features, minimum and target API levels, device and API requirements like layout, drawable and custom code. This can help create different label apps as well. Flavours can vary in adding different features or customizing exisitng features, different icons and resources, different styles and strings etc.
+    ![](./assets/product_flavor.png "Product Flavor")
+    * **Build Variant:** The combination of **Build Type** and **Product Flavor** is known as **Build Variant**. For example, for above build types (debug and release) and product flavours (demo and full versions), build variants can be: `demoDebug`, `demoRelease`, `fullDebug`, `fullRelease`.
+
+        [Learn more here](https://developer.android.com/studio/build/build-variants)
+
+* **How to reduce build time of an Android app?**</br>
+   * Check out this awesome [article](https://medium.com/exploring-code/how-to-decrease-your-gradle-build-time-by-65-310b572b0c43) on it. 
+   * What I got from the article: A few commands we can add to the gradle.properties file:
+     * ```org.gradle.configureondemand=true``` - This command will tell gradle to only build the projects that it really needs to build.
+     * Use Daemon - ```org.gradle.daemon=true``` - Daemon keeps the instance of the gradle up and running in the background even after your build finishes. This will remove the time required to initialize the gradle and decrease your build timing significantly.
+     * ```org.gradle.parallel=true``` - Allow gradle to build your project in parallel. If you have multiple modules in you project, then by enabling this, gradle can run build operations for independent modules parallelly.
+     * Increase Heap Size - ```org.gradle.jvmargs=-Xmx3072m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8``` - Since android studio 2.0, gradle uses dex in the process to decrease the build timings for the project. Generally, while building the applications, multiple dx processes runs on different VM instances. But starting from the Android Studio 2.0, all these dx processes runs in the single VM and that VM is also shared with the gradle. This decreases the build time significantly as all the dex process runs on the same VM instances. But this requires larger memory to accommodate all the dex processes and gradle. That means you need to increase the heap size required by the gradle daemon. By default, the heap size for the daemon is about 1GB. 
+  * Ensure that dynamic dependency is not used. i.e. do not use 
+  </br>```implementation 'com.android.support:appcompat-v7:27.0.+'```. </br>
+  This command means gradle will go online and check for the latest version every time it builds the app.</br> 
+  Instead use fixed versions i.e. ```'com.android.support:appcompat-v7:27.0.2'```    
+   </br>
+
+* **What is Gradle?** 
+    - By definition, Gradle is an open-source build automation tool focused on flexibility and performance
+
+        So, simply putting, it is an automation tool that generates the application build. Gradle is the official build tool for Android.
+
+        Whenever we try to run the developed code into an emulator or an actual device via USB, we can see the process of “Gradle Build Running” in our IDEs.
+
+        This is when Gradle helps in compiling the Java and Kotlin code into an APK.
+
+        Every time, we start a new Android Project, we can see two different build.gradle files present. One at the project level and another at the app level.
+
+        A module is a collection of source files and build settings that allow you to divide your project into discrete units of functionality. Your project can have one or many modules and one module may use another module as a dependency. Each module can be independently built, tested, and debugged.
+
+        Since modules are based on functionality, each module will have its dependencies or third-party libraries and hence each module will have it’s own Gradle file.
+
+    [Learn more here](https://blog.mindorks.com/gradle-for-android-developers-getting-the-most-of-it)
 
 
-* **Can you access your database of SQLite Database for debugging?** - [Learn more here](https://blog.mindorks.com/how-to-access-sqlite-database-in-android-for-debugging)
+* **How can you speed up the Gradle build?** - [Learn more here](https://blog.mindorks.com/speed-up-gradle-build-for-android-to-save-your-time)
 
-* **What are things that we need to take care while using Proguard?** - [Learn more here](https://blog.mindorks.com/things-to-care-while-using-proguard-in-android-application)
+* **What is a BuildType in Gradle? And what can you use it for?** 
+    - Build types define properties that Gradle uses when building and packaging your Android app.
+    - A build type defines how a module is built, for example whether ProGuard is run.
+    - A product flavor defines what is built, such as which resources are included in the build.
+    - Gradle creates a build variant for every possible combination of your project’s product flavors and build types.
 
-* **What is Multidex in Android?** - [Learn more here](https://blog.mindorks.com/understanding-multidex-in-android)
+* **Explain the build process in Android:** 
+    - First step involves compiling the resources folder (/res) using the aapt (android asset packaging tool) tool. These are compiled to a single class file called R.java. This is a class that just contains constants.
+    - Second step involves the java source code being compiled to .class files by javac, and then the class files are converted to Dalvik bytecode by the "dx" tool, which is included in the sdk 'tools'. The output is classes.dex.
+    - The final step involves the android apkbuilder which takes all the input and builds the apk (android packaging key) file.
 
-* **How to use Android Studio Memory Profiler?** - [Learn more here](https://www.youtube.com/watch?v=FxDa2td6Ej8)
+    ![](./assets/gradle-build-process.png "Gradle Build")
 
-* **How to use Firebase realtime database in your app?** - [Learn more here](https://blog.mindorks.com/firebase-realtime-database-android-tutorial)
 
-* **What is Gradle?** - [Learn more here](https://blog.mindorks.com/gradle-for-android-developers-getting-the-most-of-it)
+* **What is Lint? What is it used for?** 
+    - Lint is like a full-fledged stack analysis framework
+
+        Lint is a code scanning tool provided by the Android Studio to identify, suggest and correct the wrong or the risky code present in the project.
+        
+        We all have been using the Lint since we started using the Android Studio because by default Android studio provides the support for Lint in our every project. The problems detected in your code by the Lint will be reported to you with some suggestions and a warning level. You can use the suggestion to correct your code. The best part of Lint is that you can use Lint as per your need. If you want to see a particular type of error in your project then the Lint will only show you that type of error. Lint is customizable in nature. By default Android Studio runs the inspection process whenever you build your project but apart from this, you can inspect your code with the help of Lint manually or from the command line.
+    
+    [Learn more here](https://blog.mindorks.com/what-is-lint-what-is-it-used-for)
 
 * **What is ProGuard?** 
     - Proguard is free Java class file shrinker, optimizer, obfuscator, and preverifier. It detects and removes unused classes, fields, methods, and attributes. It optimizes bytecode and removes unused instructions. It renames the remaining classes, fields, and methods using short meaningless names.
@@ -2005,6 +2116,8 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
         - **Optimization**: Inspects and rewrites your code to further reduce the size of your app’s DEX files. For example, if R8 detects that the `else {}` branch for a given `if/else` statement is never taken, R8 removes the code for the `else {}` branch.
 
         When building the release version of your app, by default, R8 automatically performs the compile-time tasks described above for you. However, you can disable certain tasks or customize R8’s behavior through ProGuard rules files. In fact, R8 works with all of your existing ProGuard rules files, so updating the Android Gradle plugin to use R8 should not require you to change your existing rules.
+
+    [Learn things to care while using Proguard in Android application](https://blog.mindorks.com/things-to-care-while-using-proguard-in-android-application)
 
 * **Proguard vs R8**
     - Let's now compare both R8 and Proguard both and see how it fares,
@@ -2019,6 +2132,63 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
         **R8**
             ![](./assets/r8.jpeg "Build Type")
 
+* **What is Multidex in Android?** 
+    - In Android, the compilers convert your source code into DEX files. This DEX file contains the compiled code used to run the app. But there is a limitation with the DEX file. The DEX file limits the total number of methods that can be referenced within a single DEX file to 64K i.e. 65,536 methods. So, you can't use more than 64K methods in a particular DEX file. These 64K methods include Android framework methods, library methods, and methods in our code also. This limit of 64K is referred to as the "64K reference limit".
+
+        So, if our app exceeds 65,536 methods, we will encounter a build error that indicates our app has reached the limit of the Android build architecture. 
+
+        So, here comes the role of Multidex support in our Android Project. Next time if you want to use more than 64K methods in your project then you can use the Multidex to achieve this.
+
+    [Learn more here](https://blog.mindorks.com/understanding-multidex-in-android)
+
+* **Most Useful Android Development Tools.** 
+    - **Android Debug Database:** is a powerful library for debugging databases and shared preferences in Android applications.
+
+        It’s a very simple tool for viewing databases and shared preferences directly in your browser.
+  
+    - **Stetho:** is a debug bridge for Android applications created by Facebook. It integrates with the Chrome desktop browser’s Developer Tools.
+
+        With Stetho, you can easily inspect your application — most notably, its network traffic. It also allows you to easily inspect and edit SQLite databases and the shared preferences in your app.
+    
+    - **APK Analyzer:** Android Studio APK Analyzer is very useful. I highly recommend taking advantage of it.
+
+        With APK Analyzer you can check the size of files in the APK, such as the DEX and Android resource files and that can help you in APK size reduction; uou can check what is going inside the manifest file before every release; and you can compare two APK side by side. You can compare it to check the size difference before every release.
+    
+    - **LeakCanary:** LeakCanary is a memory leak detection library for Android and Java.
+
+    -**Android Asset Studio:** is a one-stop-shop for all your project asset needs. Android Asset Studio provides you with multiple options. From generating icons to styling your action bar, this tool greatly simplifies development.
+
+    - **ProGuard:** ProGuard (or DexGuard) is normally used on Android projects to shrink and obfuscate the packaged code. This reduces your method count.
+
+    -**Material Design Icons:** Material Design Icons does just that — helps you customize your Material Design icons.
+
+    [Learn more here](https://blog.mindorks.com/android-development-useful-tools-fd73283e82e3)
+
+* **Explain Android notification system?** 
+    - A notification is a message that Android displays outside your app's UI to provide the user with reminders, communication from other people, or other timely information from your app. Users can tap the notification to open your app or take an action directly from the notification.
+
+        Notifications appear to users in different locations and formats, such as an icon in the status bar, a more detailed entry in the notification drawer, as a badge on the app's icon, and on paired wearables automatically. Beginning with Android 5.0, notifications can appear on the lock screen.
+
+        Starting in Android 8.0 (API level 26), all notifications must be assigned to a channel or it will not appear. By categorizing notifications into channels, users can disable specific notification channels for your app (instead of disabling all your notifications), and users can control the visual and auditory options for each channel—all from the Android system settings.
+    
+    [Learn more here](https://blog.mindorks.com/how-to-increase-push-notification-delivery-rate-in-android)
+
+* **How to send SMS in android? Explain with example.**
+    - SMS messaging is one of the basic and important applications on a mobile phone. Now days every mobile phone has SMS messaging capabilities, and nearly all users of any age know how to send and receive such messages. Mobile phones come with a built-in SMS application that enables you to send and receive SMS messages. If you want to send the SMS programmatically then follow the following steps.
+
+        SmsManager class is responsible for sending SMS from one emulator to another or device.
+
+        You cannot directly instantiate this class; instead, you call the getDefault() static method to obtain an SmsManager object. You then send the SMS message using the sendTextMessage() method:
+    `
+    SmsManagersms = SmsManager.getDefault();
+    sms.sendTextMessage("5556", null, "Hello from careerRide", null, null);
+    sendTextMessage() method takes five argument.
+    `
+    - destinationAddress — Phone number of the recipient.
+    - scAddress — Service center address; you can use null also.
+    - text — Content of the SMS message that you want to send.
+    - sentIntent — Pending intent to invoke when the message is sent.
+    - deliveryIntent — Pending intent to invoke when the message has been delivered.
 
 * **What is Android Slices?**
     - Slices are UI templates that can display rich, dynamic, and interactive content from your app from within the Google Search app and also in other places like the Google Assistant. Slices can help users perform tasks faster by enabling engagement outside of the fullscreen app experience. You can build Slices as enhancements to App Actions.
@@ -2073,6 +2243,75 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
 `
 
 
+* **What are Annotations?** - 
+    Annotations are Metadata. And Metadata is a set of data that gives information about other data.
+    
+    - **Nullness annotations**
+
+        - `@Nullable` and `@NonNull` annotations are used to check the nullness of a given variable, parameter, or even the return value.
+
+        - `@Nullable` : It indicates a variable, parameter, or return value that can a null.
+
+        - `@NonNUll` : It indicates a variable, parameter, or return value that cannot be null.
+
+        Example: 
+        ```java
+        @NonNull
+        public View getView(@Nullable String s1, @NonNull String s2) {
+         // s1 can be null
+         // s2 should not be null
+         // it must return non null view
+        }
+        ```
+    - **Resource annotations**
+
+        As we know that Android references to resources, such as drawable and string resources, are passed as integers so we must validate the resource types. Code that expects a parameter to reference a specific type of resource, for example Drawables, can be passed the expected reference type of int, but actually reference a different type of resource, such as an R.string resource. 
+        
+        ```java
+        public void setText(@StringRes int resId) {
+          // resId must be string resources
+          // resId should not be a normal int
+        }
+        ```
+    - **Thread annotations**
+        Thread annotations check if a method is called from a specific type of thread from which it is intended to be called.Supported annotations are
+            - `@MainThread`
+            - `@UiThread`
+            - `@WorkerThread`
+            - `@BinderThread`
+            - `@AnyThread`
+        ```java
+            @WorkerThread
+            public void doSomething(){
+              // this method must be called from the worker thread
+            }
+        ```
+            
+    - **Value constraint annotations**
+
+        Sometimes, we have to put some constraints on the parameters, so use the `@IntRange`, `@FloatRange`, and `@Size` annotations to validate the values of passed parameters.
+
+        These are useful when the caller of the method are likely to pass the wrong value(out of the specified range).
+
+        Here, in the below example, the `@IntRange` annotation ensures that an integer value which will be passed must be in a range of 0 to 255.
+
+        ```java
+        public void setAlpha(@IntRange(from=0,to=255) int alpha) {}
+        ```
+
+    - **Permission annotations**
+
+        Use the `@RequiresPermission` annotation to validate the permissions of the caller of a method.The following example annotates the `setWallpaper()` method to ensure that the caller of the method has the `permission.SET_WALLPAPERS` permission:
+        ```java
+        @RequiresPermission(Manifest.permission.SET_WALLPAPER)
+        public abstract void setWallpaper(Bitmap bitmap) throws IOException;
+        ```
+
+        [Learn more here](https://blog.mindorks.com/creating-custom-annotations-in-android-a855c5b43ed9), or [here](https://blog.mindorks.com/improve-your-android-coding-through-annotations-26b3273c137a), or [from video](https://www.youtube.com/watch?v=LEb9if2HHSw)
+
+* **How to create custom Annotation?** - [Learn more here](https://blog.mindorks.com/creating-custom-annotations-in-android-a855c5b43ed9) and [here](https://www.youtube.com/watch?v=LEb9if2HHSw)
+
+
 * **Tips for APK Size Reduction.** 
    * Enable proguard in your project by adding following lines to your release build type.
    * Enable shrinkResources and minifyEnabled
@@ -2080,74 +2319,6 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
    * Convert all the images to the webp or vector drawables.
 
     [Article on the subject](https://medium.com/exploring-code/how-you-can-decrease-application-size-by-60-in-only-5-minutes-47eff3e7874e) or [Learn more here](https://blog.mindorks.com/how-to-reduce-apk-size-in-android-2f3713d2d662) and [here](https://blog.mindorks.com/using-r8-to-reduce-apk-size-in-android)
-
-* **How to reduce build time of an Android app?**</br>
-   * Check out this awesome [article](https://medium.com/exploring-code/how-to-decrease-your-gradle-build-time-by-65-310b572b0c43) on it. 
-   * What I got from the article: A few commands we can add to the gradle.properties file:
-     * ```org.gradle.configureondemand=true``` - This command will tell gradle to only build the projects that it really needs to build.
-     * Use Daemon - ```org.gradle.daemon=true``` - Daemon keeps the instance of the gradle up and running in the background even after your build finishes. This will remove the time required to initialize the gradle and decrease your build timing significantly.
-     * ```org.gradle.parallel=true``` - Allow gradle to build your project in parallel. If you have multiple modules in you project, then by enabling this, gradle can run build operations for independent modules parallelly.
-     * Increase Heap Size - ```org.gradle.jvmargs=-Xmx3072m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8``` - Since android studio 2.0, gradle uses dex in the process to decrease the build timings for the project. Generally, while building the applications, multiple dx processes runs on different VM instances. But starting from the Android Studio 2.0, all these dx processes runs in the single VM and that VM is also shared with the gradle. This decreases the build time significantly as all the dex process runs on the same VM instances. But this requires larger memory to accommodate all the dex processes and gradle. That means you need to increase the heap size required by the gradle daemon. By default, the heap size for the daemon is about 1GB. 
-  * Ensure that dynamic dependency is not used. i.e. do not use 
-  </br>```implementation 'com.android.support:appcompat-v7:27.0.+'```. </br>
-  This command means gradle will go online and check for the latest version every time it builds the app.</br> 
-  Instead use fixed versions i.e. ```'com.android.support:appcompat-v7:27.0.2'```    
-   </br>
-
-* **How can you speed up the Gradle build?** - [Learn more here](https://blog.mindorks.com/speed-up-gradle-build-for-android-to-save-your-time)
-
-* **What is a BuildType in Gradle? And what can you use it for?** 
-    - Build types define properties that Gradle uses when building and packaging your Android app.
-    - A build type defines how a module is built, for example whether ProGuard is run.
-    - A product flavor defines what is built, such as which resources are included in the build.
-    - Gradle creates a build variant for every possible combination of your project’s product flavors and build types.
-
-* **How can you speed up the Gradle build?** - [Learn more here](https://blog.mindorks.com/speed-up-gradle-build-for-android-to-save-your-time)
-
-* **Explain the build process in Android:** 
-    - First step involves compiling the resources folder (/res) using the aapt (android asset packaging tool) tool. These are compiled to a single class file called R.java. This is a class that just contains constants.
-    - Second step involves the java source code being compiled to .class files by javac, and then the class files are converted to Dalvik bytecode by the "dx" tool, which is included in the sdk 'tools'. The output is classes.dex.
-    - The final step involves the android apkbuilder which takes all the input and builds the apk (android packaging key) file.
-
-* **About multiple apk for android application.** - [Learn more here](https://mindorks.com/blog/how-to-create-multiple-apk-files-for-android-application)
-
-* **What is proguard used for?** - [Learn more here](https://blog.mindorks.com/applying-proguard-in-an-android-application)
-
-* **What is obfuscation? What is it used for? What about minification?** - [Learn more here](https://www.youtube.com/watch?v=yduedsaxfDw)
-
-* **How to change some parameters in an app without app update?** - [Learn more here](https://blog.mindorks.com/getting-started-with-firebase-remote-config-in-android)
-
-
-* **Dependency injection libraries**
-
-    - [Dagger 2](https://github.com/google/dagger) - A fast dependency injector for Java and Android. Dagger is a compile-time framework for dependency injection. It uses no reflection or runtime bytecode generation, does all its analysis at compile-time, and generates plain Java source code.
-
-        One of the primary advantages of Dagger 2 over most other dependency injection frameworks is that its strictly generated implementation (no reflection) means that it can be used in Android applications.
-
-    - [Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - Hilt is a dependency injection library for Android that reduces the boilerplate of doing manual dependency injection in your project. 
-
-        Hilt provides a standard way to use DI in your application by providing containers for every Android class in your project and managing their lifecycles automatically. Hilt is built on top of the popular DI library Dagger to benefit from the compile-time correctness, runtime performance, scalability, and Android Studio support that Dagger provides.
-
-    - [Koin](https://github.com/InsertKoinIO/koin) - A pragmatic lightweight dependency injection framework for Kotlin developers. Written in pure Kotlin, using functional resolution only: no proxy, no code generation, no reflection. Koin is a DSL, a lightweight container and a pragmatic API.
-
-    - [Kodein](https://github.com/Kodein-Framework/Kodein-DI) - is a very simple and yet very useful dependency retrieval container. it is very easy to use and configure.
-
-    Kodein-DI allows you to:
-
-    - Lazily instantiate your dependencies when needed
-    - Stop caring about dependency initialization order
-    - Easily bind classes or interfaces to their instance or provider
-    - Easily debug your dependency bindings and recursions
-
-    Kodein-DI is a good choice because:
-
-    - It proposes a very simple and readable declarative DSL
-    - It is not subject to type erasure (as Java is)
-    - It integrates nicely with Android
-    - It proposes a very kotlin-esque idiomatic API
-    - It is fast and optimized (makes extensive use of inline)
-    - It can be used in plain Java
-
 
 * **What is installLocation tag in AndroidManifest?**
     - `installLocation` is the tag in AndroidManifest that configure default install location for the app. The following keyword strings are accepted:
@@ -2197,32 +2368,23 @@ arn more here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Be
         * Once we get the index of hash, we know that key is at 2\*index position in `mArray` and value is at 2\*index+1 position;
         * Here the time complexity increases from `O(1)` to `O(logN)`, but it is memory efficient. Whenever we play on a dataset of around 100, there will no problem of time complexity, it will be non-noticeable. As we have the advantage of memory efficient application.
 
-* **How to send SMS in android? Explain with example.**
-    - SMS messaging is one of the basic and important applications on a mobile phone. Now days every mobile phone has SMS messaging capabilities, and nearly all users of any age know how to send and receive such messages. Mobile phones come with a built-in SMS application that enables you to send and receive SMS messages. If you want to send the SMS programmatically then follow the following steps.
-
-        SmsManager class is responsible for sending SMS from one emulator to another or device.
-
-        You cannot directly instantiate this class; instead, you call the getDefault() static method to obtain an SmsManager object. You then send the SMS message using the sendTextMessage() method:
-    `
-    SmsManagersms = SmsManager.getDefault();
-    sms.sendTextMessage("5556", null, "Hello from careerRide", null, null);
-    sendTextMessage() method takes five argument.
-    `
-    - destinationAddress — Phone number of the recipient.
-    - scAddress — Service center address; you can use null also.
-    - text — Content of the SMS message that you want to send.
-    - sentIntent — Pending intent to invoke when the message is sent.
-    - deliveryIntent — Pending intent to invoke when the message has been delivered.
-
+* **Arraymap/SparseArray vs HashMap in Android?** -
+   * [Article 1 on the subject](https://android.jlelse.eu/app-optimization-with-arraymap-sparsearray-in-android-c0b7de22541a)
+   * [Article 2 on the subject](https://medium.com/@mohom.r/optimising-android-app-performance-with-arraymap-9296f4a1f9eb) or [Learn more here](https://blog.mindorks.com/android-app-optimization-using-arraymap-and-sparsearray-f2b4e2e3dc47)
 
 * **What is the difference between an interface and an abstract class?**
     - An interface is absolutely abstracted, and cannot be implemented. It defines the behavior that an object will need to perform, without providing any details about it. An abstract class cannot be instantiated, but it can partially or totally define behavior and internal structure for an object. Interfaces are always implemented, and objects always do extend from abstract classes.
-
 
 -   **String a = “abc”;  String b = new String(“abc”); Will a == b ??**<br/>
     - It depends. Here with the first statement, i.e, String a = “abc”, JVM will search for a string with “abc” in String constant pool(SCP) and if its not there it will create a new Object.
     If we wrote second statement similarly, i.e., String b = “abc”, then b will point to same string from SCP.
     However, String b = new String(“abc”) always creates a new String object.
+
+* **How to measure method execution time in Android?** - [Learn more here](https://blog.mindorks.com/measure-method-execution-time-in-android-debug-build)
+
+* **About multiple apk for android application.** - [Learn more here](https://mindorks.com/blog/how-to-create-multiple-apk-files-for-android-application)
+
+* **How to change some parameters in an app without app update? (FEATURE FLAG)** - [Learn more here](https://blog.mindorks.com/getting-started-with-firebase-remote-config-in-android)
 
 
 #### ANDROID TESTING
