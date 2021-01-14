@@ -2775,7 +2775,7 @@ How to disallow serialization? We can declare the variable as transient.
 
     The most important one is that we can no longer use `@Test` annotation for specifying expectations.
     The *expected* parameter in JUnit 4:
-    ```
+    ```java
     @Test(expected = Exception.class)
     public void shouldRaiseAnException() throws Exception {
         // ...
@@ -2783,7 +2783,7 @@ How to disallow serialization? We can declare the variable as transient.
     ```
 
     Now, we can use a method *assertThrows*:
-    ```
+    ```java
     public void shouldRaiseAnException() throws Exception {
         Assertions.assertThrows(Exception.class, () -> {
             //...
