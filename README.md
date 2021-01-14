@@ -764,11 +764,11 @@ on the state of the button (pressed, selected, etc.) using XML**
 
         Why is it used?
 
-            - The Contract Class establishes a contract between the content provider and other applications. It ensures that your content provider can be accessed correctly even if there are changes to the actual values of URIs, column names etc.
+        - The Contract Class establishes a contract between the content provider and other applications. It ensures that your content provider can be accessed correctly even if there are changes to the actual values of URIs, column names etc.
             
-            - Since it provides mnemonic names for its constants, developers are less likely to use incorrect values for column names or URIs.
+        - Since it provides mnemonic names for its constants, developers are less likely to use incorrect values for column names or URIs.
             
-            - It's easy to make the Javadoc documentation available to the clients that want to use your content provider.
+        - It's easy to make the Javadoc documentation available to the clients that want to use your content provider.
 
     [Learn more here](https://stackoverflow.com/a/36265603/497132)      
 
@@ -2093,7 +2093,7 @@ How to disallow serialization? We can declare the variable as transient.
     ![](./assets/product_flavor.png "Product Flavor")
     * **Build Variant:** The combination of **Build Type** and **Product Flavor** is known as **Build Variant**. For example, for above build types (debug and release) and product flavours (demo and full versions), build variants can be: `demoDebug`, `demoRelease`, `fullDebug`, `fullRelease`.
 
-        [Learn more here](https://developer.android.com/studio/build/build-variants)
+        [Learn more here](https://developer.android.com/studio/build/build-variants) or [here](https://levelup.gitconnected.com/simple-guide-to-android-product-flavors-674106455038)
 
 * **How to reduce build time of an Android app?**</br>
    * Check out this awesome [article](https://medium.com/exploring-code/how-to-decrease-your-gradle-build-time-by-65-310b572b0c43) on it. 
