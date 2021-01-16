@@ -1003,6 +1003,8 @@ on the state of the button (pressed, selected, etc.) using XML**
 -   **What is the method that differentiates it to make Service run in background?**<br/>
     - onHandleIntent() is the method that helps the IntentService to run a particular code block declared inside it, in worker/background thread.
 
+    ![](assets/run_in_background.png "Run in background")
+
 -   **How to Stop an IntentService?**<br/>
     - An IntentService automatically stops itself after its job is done. We do not need to explicitly call any methods to stop an IntentService unlike Service which requires stopSelf() or StopService(intent:Intent).
 
