@@ -1413,6 +1413,19 @@ How to disallow serialization? We can declare the variable as transient.
 
 * **How to encrypt data in Android?** - [Learn more here](https://blog.mindorks.com/how-to-encrypt-data-safely-on-device-and-use-the-androidkeystore)
 
+* **What is Room?**
+    - Room is an ORM, Object Relational Mapping library. In other words, Room will map our database objects to Java objects. Room provides an abstraction layer over SQLite to allow fluent database access while harnessing the full power of SQLite.
+
+        Difference between SQLite and Room persistence library:
+
+            - In case of SQLite, There is no compile time verification of raw SQLite queries. But in Room there is SQL validation at compile time.
+        
+            - As your schema changes, you need to update the affected SQL queries manually. Room solves this problem.
+            
+            - You need to use lots of boilerplate code to convert between SQL queries and Java data objects. But, Room maps our database objects to Java Object without boilerplate code.
+            
+            - Room is built to work with LiveData and RxJava for data observation, while SQLite does not.
+
 * **Why does Android use SQLite?**
 
 * **What libraries have you used for interacting with databases and why did you choose them?**
