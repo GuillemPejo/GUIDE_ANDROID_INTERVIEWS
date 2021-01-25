@@ -341,10 +341,6 @@ savedInstanceState.Also it won't affect the performance even if there are large 
 
         To have a sharing of data between Fragments, either you can use a shared ViewModel that is shared between all the Fragments or you can make an Interface and then use this interface to communicate between fragments.
 
-        The ViewModel process is very simple and you can learn how to communicate between Fragments using ViewModel by reading our Shared ViewModel blog at MindOrks.
-
-        But you should know every possible way of doing so. In this blog, we will be learning about the Interface way of Fragment communication.
-
         So, basically we will be having one Activity and in that activity, we will be having two Fragments. Our aim is to send the data from one Fragment to the other with the help if Interface.
 
         The idea is very simple. We can summarize the whole step into the below points:
